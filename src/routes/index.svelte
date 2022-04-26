@@ -11,5 +11,6 @@ onMount(() => {
 </script>
 <div class="p-10">
     <h1>Hello World</h1>
-    <h5>{message}</h5>
+    <h5>SubTitle</h5>
+    <p>{message}</p>
 </div>

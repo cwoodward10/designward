@@ -1,43 +1,68 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* import fonts */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Heebo:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
+/* set custom vars */
 :root {
-  --primary-light: #a6f9d6;
-  --primary: #5be2a9;
-  --primary-dark: #53ce9a;
-  --secondary: #1e2145;
-  --white: #fff;
-  --grey: #e6e6ff;
-  --grey-dark: #6d7098;
-  --red: #ff6b6b;
+  --color-primary-light: #7E8EBD;
+  --color-primary: #475682;
+  --color-primary-dark: #2D3754;
+  --color-secondary: #78EAF7;
+  --color-secondary-dark: #0CC0D4;
+  --color-offwhite: #FFFFFC;
+  --color-white: #fff;
+  --color-black: #121D29;
+  --color-text-on-primary: #F4FCFF;
+  --color-text-on-secondary: #121D29;
+  --color-link-unvisited: #02A4FF;
+  --color-link-visited: #41708B;
+  --color-error: #AE003A;
+  --color-accent-yellow: #FFDE88;
+  --color-accent-pink-light: #FCAEE9;
+  --color-accent-pink-dark: #FF4785;
+  --color-accent-green: #47FF91;
 }
 
-@layer components {
-  /* --------------- Button Component Styles --------------- */
-  .btn-standard {
-    @apply p-2 border border-solid border-gray-700 bg-white rounded text-center drop-shadow-md
-  }
+p, h1, h2, h3, h4, h5, h6 {
+  color: var(--color-black);
+}
+p, a {
+  font-size: 14px;
+  font-family: 'Montserrat', 'ui-serif';
+  font-weight: 350;
+}
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Heebo', 'ui-sans-serif';
+}
+h1 {
+  font-size: 32px;
+  font-weight: medium;
+}
+h2 {
+  font-size: 24px;
+  font-weight: medium;
+}
+h3 {
+  font-size: 20px;
+  font-weight: medium;
+}
+h4 {
+  font-size: 16px;
+  font-weight: bold;
+}
+h5 {
+  font-size: 14px;
+  font-weight: bold;
+}
+h6 {
+  font-size: 12px;
+  font-weight: bold;
+}
 
-  .btn-standard:disabled {
-    @apply border-gray-400 text-gray-400
-  }
-  /* --------------- Input Component Styles --------------- */
-  .form-label {
-    @apply text-sm font-light text-gray-700;
-  }
-  .form-input-text {
-    @apply p-1 border border-solid border-gray-800 bg-gray-100 rounded;
-    @apply focus:ring-2 focus:ring-offset-fuchsia-500 focus:ring-offset-1;
-  }
-  .form-input-text-disabled {
-    @apply p-1 border border-solid border-gray-500 bg-gray-300 rounded;
-    @apply focus:ring-2 focus:ring-offset-fuchsia-500 focus:ring-offset-1;
-  }
-  .form-input-checkbox {
-    @apply focus:ring-2 focus:ring-fuchsia-500 focus:ring-offset-1;
-  }
-  .form-input-error {
-    @apply font-light text-xs text-red-600
-  }
+a:link {
+  color: var(--color-link-unvisited);
+}
+
+a:visted {
+  color: var(--color-link-visited);
 }
