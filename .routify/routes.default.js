@@ -1,16 +1,17 @@
+import * as _default from '../src/routes/_module.svelte'
 import * as _default_index_svelte from '../src/routes/index.svelte'
 
 export default {
   "meta": {},
   "id": "_default",
-  "module": undefined,
+  "module": () => _default,
   "rootName": "default",
   "file": {
-    "path": "src/routes",
-    "dir": "src",
-    "base": "routes",
-    "ext": "",
-    "name": "routes"
+    "path": "src/routes/_module.svelte",
+    "dir": "src/routes",
+    "base": "_module.svelte",
+    "ext": ".svelte",
+    "name": "_module"
   },
   "routifyDir": import.meta.url,
   "children": [

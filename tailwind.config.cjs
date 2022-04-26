@@ -11,15 +11,21 @@ module.exports = {
     extend: {
       colors: {
         // component colors
-        primary: 'var(--color-primary)',
-        'primary-light': 'var(--color-primary-light)',
-        'primary-dark': 'var(--color-primary-dark)',
-        secondary: 'var(--color-secondary)',
-        'secondary-dark': 'var(--color-secondary-dark)',
-        'accent-pink-light': 'var(--color-accent-pink-light)',
-        'accent-pink-dark': 'var(--color-accent-pink-dark)',
-        'accent-green': 'var(--color-accent-green)',
-        'accent-yellow': 'var(--color-accent-yellow)',
+        primary: {
+          main: 'var(--color-primary)',
+          light: 'var(--color-primary-light)',
+          dark: 'var(--color-primary-dark)',
+        },
+        secondary: {
+          main : 'var(--color-secondary)',
+          dark: 'var(--color-secondary-dark)',
+        },
+        accent: {
+          'pink-light': 'var(--color-accent-pink-light)',
+          'pink-dark': 'var(--color-accent-pink-dark)',
+          green: 'var(--color-accent-green)',
+          yellow: 'var(--color-accent-yellow)',
+        },
         error: 'var(--color-error)',
         white: 'var(--color-white)',
         offwhite: 'var(--color-offwhite)',

@@ -4,6 +4,7 @@ import * as path from 'path';
 // @ts-ignore - I think this is safe to ignore. it builds. types are just missing
 import routify from '@roxi/routify/vite-plugin';
 import { mdsvex } from 'mdsvex';
+import sveltePreprocess from 'svelte-preprocess';
 
 const production = process.env.NODE_ENV === 'production'
 
@@ -14,12 +15,12 @@ export default defineConfig({
       devHelper: !production,
     }),
     svelte({
-        emitCss: false,
-        compilerOptions: {
-            dev: !production,
-        },
-        extensions: ['.md', '.svelte'],
-        preprocess: [mdsvex({ extension: 'md' })],
+      emitCss: false,
+      compilerOptions: {
+          dev: !production,
+      },
+      extensions: ['.md', '.svelte'],
+      preprocess: [mdsvex({ extension: 'md' }), sveltePreprocess({ typescript: true })],
     }),
   ],
   resolve: {
