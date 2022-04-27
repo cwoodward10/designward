@@ -1,4 +1,7 @@
 <script lang="ts">
+import { SetCurrentPath } from "$store/RoutingStore";
+
+
     export let context: FragmentContext;
 </script>
 
@@ -15,10 +18,10 @@
         </h5>
         <div class="flex space-x-2 mt-2">
             <button class="btn-standard border-none bg-secondary-main">
-                <h5 on:click="{() => history.pushState(null, "", "/Blogs")}">Explore Blogs</h5>
+                <h5 on:click="{() => SetCurrentPath("/Blogs")}">Explore Blogs</h5>
             </button>
             <button class="btn-standard border-none bg-secondary-dark">
-                <h5 on:click="{() => history.pushState(null, "", "/About")}">About Me</h5> 
+                <h5 on:click="{() => SetCurrentPath("/About")}">About Me</h5> 
             </button>
         </div>
     </article>
