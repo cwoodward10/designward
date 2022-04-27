@@ -1,4 +1,4 @@
-<footer class="absolute bottom-0 right-0 left-0 h-8 bg-offwhite drop-shadow-sm flex justify-between px-3">
+<footer class="fixed max-w-full bottom-0 right-0 left-0 h-8 bg-offwhite drop-shadow-sm flex justify-between px-3">
     <span class="absolute top-0 right-3 left-3 border-t border-solid border-gray-200"/>
     <article class="my-auto">
         <a class="my-auto flex space-x-1" href="https://github.com/cwoodward10/designward" alt="DesignWard" target="#">
