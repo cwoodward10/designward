@@ -33,6 +33,12 @@ module.exports = {
         // text colors
         'texton-primary': 'var(--color-text-on-primary)',
         'texton-secondary': 'var(--color-text-on-secondary)',
+      },
+      dropShadow: {
+        'playful-primary': [
+            '1.75px 1.75px var(--color-primary)',
+            '4px 4px var(--color-primary)'
+        ]
       }
     },
   },

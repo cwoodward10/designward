@@ -11,7 +11,9 @@ onMount(() => {
 </script>
 
 <main id="main-container" class="mx-auto mt-4 mb-auto max-w-lg">
-    <h1>Hello World</h1>
-    <h5>SubTitle</h5>
+    <div class="card-playful-primary">
+        <h1>Hello World</h1>
+        <h5>SubTitle</h5>
+    </div>
     <p>{message}</p>
 </main>
