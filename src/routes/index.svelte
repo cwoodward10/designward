@@ -1,4 +1,5 @@
 <script lang="ts">
+import Button from "$lib/Button.svelte";
 import { SetCurrentPath } from "$store/RoutingStore";
 
 
@@ -7,7 +8,7 @@ import { SetCurrentPath } from "$store/RoutingStore";
 
 <main id="main-container" class="mx-auto h-screen w-full flex flex-shrink overflow-hidden flex-grow">
     <article class="m-auto card-playful-primary-filled flex flex-col max-w-lg">
-        <h1>Welcome to Design Ward</h1>
+        <h1 class="mb-4">Welcome to Design Ward</h1>
         <h5>
             Design Ward is a place for me to explore various 
             design related topics in ways that are interesting but may 
@@ -16,13 +17,19 @@ import { SetCurrentPath } from "$store/RoutingStore";
             representation. Other times, it may come down to pursing 
             social conversations that are uncomfortable in a business-centric environment.
         </h5>
-        <div class="flex space-x-2 mt-2">
-            <button class="btn-standard border-none bg-secondary-main">
-                <h5 on:click="{() => SetCurrentPath("/Blogs")}">Explore Blogs</h5>
-            </button>
-            <button class="btn-standard border-none bg-secondary-dark">
-                <h5 on:click="{() => SetCurrentPath("/About")}">About Me</h5> 
-            </button>
+        <div class="flex space-x-2 mt-6">
+            <Button 
+                color="{'var(--color-secondary)'}"
+                on:click="{() => SetCurrentPath("/Blogs")}"
+            >
+                <h5>Explore Blogs</h5>
+            </Button>
+            <Button 
+                color="{'var(--color-secondary-dark)'}"
+                on:click="{() => SetCurrentPath("/About")}"
+            >
+                <h5>About Me</h5> 
+            </Button>
         </div>
     </article>
 </main>
