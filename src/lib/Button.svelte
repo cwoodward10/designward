@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { createEventDispatcher, tick } from 'svelte';
 	
-    export let color = '#00cccc';
+    export let color = 'cyan';
     export let secondaryColor = 'white';
     export let textColor = 'black';
     export let thickness = 2;
@@ -10,7 +10,9 @@
     export let width = -1;
     export let circle = false;
 
+    const rippleTime = 600;
     $: cssVarStyles = `
+        --btn-ripple-time:${rippleTime}ms;
         --btn-color:${color};
         --btn-color-secondary:${secondaryColor};
         --btn-color-text:${textColor};
@@ -38,19 +40,18 @@
 		const diameter = Math.max(button.clientWidth, button.clientHeight);
 		const radius = diameter / 2;
 
-        console.log(event);
-
 		rippleWidth = `${diameter}px`;
 		rippleHeight= `${diameter}px`;
         let rect = button.getBoundingClientRect();
 		rippleLeft = `${event.clientX - rect.left - radius}px`;
 		rippleTop = `${event.clientY - rect.top - radius}px`;
-        await tick();
 	}
 
     async function handleClick(event: MouseEvent) {
         await createRipple(event);
-        clickDispatch('click');
+        setTimeout(() => {
+            clickDispatch('click');
+        }, rippleTime / 2);
     }
 </script>
 
@@ -108,7 +109,7 @@
         opacity: 50%;
 		border-radius: 50%;
 		transform: scale(0);
-		animation: ripple 600ms linear;
+		animation: ripple var(--btn-ripple-time) linear;
         filter: brightness(150%);
 	}
 

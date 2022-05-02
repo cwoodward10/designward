@@ -8,8 +8,6 @@ export const Tabs = [
     { id: 3, displayName: "About", path: "/About"},
 ] as TabItem[];
 
-export const CurrentPath = writable("/");
-export function SetCurrentPath(path: string) {
-    CurrentPath.set(path);
+export function GoToPath(path: string) {
     history.pushState({}, "", path);
 }

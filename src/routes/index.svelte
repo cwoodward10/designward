@@ -1,6 +1,6 @@
 <script lang="ts">
 import Button from "$lib/Button.svelte";
-import { SetCurrentPath } from "$store/RoutingStore";
+import { GoToPath } from "$store/RoutingStore";
 
 
     export let context: FragmentContext;
@@ -20,13 +20,13 @@ import { SetCurrentPath } from "$store/RoutingStore";
         <div class="flex space-x-2 mt-6">
             <Button 
                 color="{'var(--color-secondary)'}"
-                on:click="{() => SetCurrentPath("/Blogs")}"
+                on:click="{() => GoToPath("/Blogs")}"
             >
                 <h5>Explore Blogs</h5>
             </Button>
             <Button 
                 color="{'var(--color-secondary-dark)'}"
-                on:click="{() => SetCurrentPath("/About")}"
+                on:click="{() => GoToPath("/About")}"
             >
                 <h5>About Me</h5> 
             </Button>
