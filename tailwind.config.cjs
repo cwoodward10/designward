@@ -34,6 +34,9 @@ module.exports = {
         'texton-primary': 'var(--color-text-on-primary)',
         'texton-secondary': 'var(--color-text-on-secondary)',
       },
+      height: {
+        '108': '432px',
+      },
       dropShadow: {
         'playful-primary-3d': [
             '1.75px 1.75px var(--color-primary)',

@@ -32,8 +32,8 @@ function goToUrl(url: string) {
 </script>
 
 <main id="main-container" class="mt-8 mx-auto w-full flex justify-center overflow-auto flex-grow">
-    <div class="mx-auto mb-10 flex flex-col space-y-2">
-        <article class="card-playful-primary-filled flex flex-col flex-shrink-0 max-w-xl">
+    <div class="mx-auto mb-10 flex flex-col space-y-4">
+        <article class="card-playful-primary-filled flex flex-col flex-shrink-0 max-w-2xl">
             <h1 class="mb-2 text-texton-primary">Architectural Projects</h1>
             <h6 class="mb-4 text-accent-yellow">Please be aware: This site is under construction.</h6>
             <p class="text-texton-primary">
@@ -44,21 +44,23 @@ function goToUrl(url: string) {
                 to work on while there. 
             </p>
         </article>
-        <BlogPostNavCard src="https://images.squarespace-cdn.com/content/v1/5ba9c8ba92441b1edbb4467a/1636751844382-BAVVSU290J0I7XEXO532/IMG_3259.JPG?format=200w" 
+        <div class="flex flex-col space-y-4 mx-auto">
+            <BlogPostNavCard src="https://images.squarespace-cdn.com/content/v1/5ba9c8ba92441b1edbb4467a/1636751844382-BAVVSU290J0I7XEXO532/IMG_3259.JPG?format=200w" 
                         alt="F3 Marina" 
                         text={marinaText}
                         on:click={() => goToUrl('https://www.rinka.com/f3-marina-1')} />
-        <BlogPostNavCard src="https://images.squarespace-cdn.com/content/v1/5ba9c8ba92441b1edbb4467a/1608069782916-Y6KCCN1Q1PLEIQZ52S3Q/06_THE+YARDS+%2802%29.jpg?format=200w" 
-            alt="The Yards" 
-            text={yardsText}
-            on:click={() => goToUrl('https://www.rinka.com/yards')} />
-        <BlogPostNavCard src="https://images.squarespace-cdn.com/content/v1/5ba9c8ba92441b1edbb4467a/1578436413168-HR9NF3L2ZMAG0VC3NDWQ/LAX-AERIAL+SW.jpg?format=200w" 
-            alt="River North" 
-            text={riverNorthText}
-            on:click={() => goToUrl('https://www.rinka.com/riverside-north')} />
-        <BlogPostNavCard src="https://images.squarespace-cdn.com/content/v1/5ba9c8ba92441b1edbb4467a/1539192535150-FN7VJ47DSVVML4PZ54K0/Belair-2.jpg?format=200w" 
-            alt="Belair Cantina" 
-            text={belairText}
-            on:click={() => goToUrl('https://www.rinka.com/belair')} />
+            <BlogPostNavCard src="https://images.squarespace-cdn.com/content/v1/5ba9c8ba92441b1edbb4467a/1608069782916-Y6KCCN1Q1PLEIQZ52S3Q/06_THE+YARDS+%2802%29.jpg?format=200w" 
+                alt="The Yards" 
+                text={yardsText}
+                on:click={() => goToUrl('https://www.rinka.com/yards')} />
+            <BlogPostNavCard src="https://images.squarespace-cdn.com/content/v1/5ba9c8ba92441b1edbb4467a/1578436413168-HR9NF3L2ZMAG0VC3NDWQ/LAX-AERIAL+SW.jpg?format=200w" 
+                alt="River North" 
+                text={riverNorthText}
+                on:click={() => goToUrl('https://www.rinka.com/riverside-north')} />
+            <BlogPostNavCard src="https://images.squarespace-cdn.com/content/v1/5ba9c8ba92441b1edbb4467a/1539192535150-FN7VJ47DSVVML4PZ54K0/Belair-2.jpg?format=200w" 
+                alt="Belair Cantina" 
+                text={belairText}
+                on:click={() => goToUrl('https://www.rinka.com/belair')} />
+        </div>
     </div>
 </main>

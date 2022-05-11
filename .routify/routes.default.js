@@ -5,6 +5,7 @@ import * as _default_index_svelte from '../src/routes/index.svelte'
 import * as _default_Blogs_index_svelte from '../src/routes/Blogs/index.svelte'
 import * as _default_Work_Architecture_svelte from '../src/routes/Work/Architecture.svelte'
 import * as _default_Work_Helix_svelte from '../src/routes/Work/Helix.svelte'
+import * as _default_Work_Svelte_svelte from '../src/routes/Work/Svelte.svelte'
 import * as _default_Work_index_svelte from '../src/routes/Work/index.svelte'
 
 export default {
@@ -116,6 +117,20 @@ export default {
             "base": "Helix.svelte",
             "ext": ".svelte",
             "name": "Helix"
+          },
+          "children": []
+        },
+        {
+          "meta": {},
+          "id": "_default_Work_Svelte_svelte",
+          "name": "Svelte",
+          "module": () => _default_Work_Svelte_svelte,
+          "file": {
+            "path": "src/routes/Work/Svelte.svelte",
+            "dir": "src/routes/Work",
+            "base": "Svelte.svelte",
+            "ext": ".svelte",
+            "name": "Svelte"
           },
           "children": []
         },

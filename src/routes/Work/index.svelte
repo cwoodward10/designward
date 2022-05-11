@@ -26,7 +26,7 @@ export let context: FragmentContext;
             </div>
         </WorkNavCard>
         <WorkNavCard color="var(--color-accent-yellow)"
-                    on:click="{() => window.open('https://codepen.io/cwoodward10/', '_blank')}">
+                    on:click="{() => GoToPath('/Work/Svelte')}">
             <div class="flex flex-col m-auto">
                 <h3 class="text-texton-secondary text-center">S is for</h3>
                 <img src={svelteLogo} alt="Svelte Logo" class="mx-auto w-3/5 text-white grayscale"/>
