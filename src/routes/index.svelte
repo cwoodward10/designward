@@ -7,22 +7,21 @@ import { GoToPath } from "$store/RoutingStore";
 </script>
 
 <main id="main-container" class="mx-auto h-screen w-full flex flex-shrink overflow-hidden flex-grow">
-    <article class="m-auto card-playful-primary-filled flex flex-col max-w-lg">
+    <article class="m-auto mt-36 card-playful-primary-filled flex flex-col max-w-lg">
         <h1 class="mb-4">Welcome to Design Ward</h1>
         <h5>
-            Design Ward is a place for me to explore various 
-            design related topics in ways that are interesting but may 
-            not necessarily be viable professionally. Sometimes this 
-            may be as simple as exploring new technology or forms of 
-            representation. Other times, it may come down to pursing 
-            social conversations that are uncomfortable in a business-centric environment.
+            Design Ward is currently a place for me to display my work. 
+            You can find that under the Work tab. I would eventually like to 
+            include my writing - as well as do much more writing - here. 
+            One step at a time though I suppose. For now, check out my work 
+            and enjoy this simple web app that I built using Svelte and Tailwind.
         </h5>
         <div class="flex space-x-2 mt-6">
             <Button 
                 color="{'var(--color-secondary)'}"
-                on:click="{() => GoToPath("/Blogs")}"
+                on:click="{() => GoToPath("/Work")}"
             >
-                <h5>Explore Blogs</h5>
+                <h5>Explore Work</h5>
             </Button>
             <Button 
                 color="{'var(--color-secondary-dark)'}"

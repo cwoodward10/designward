@@ -3,6 +3,7 @@ import * as _default_About_svelte from '../src/routes/About.svelte'
 import * as _default_PlanWard_svelte from '../src/routes/PlanWard.svelte'
 import * as _default_index_svelte from '../src/routes/index.svelte'
 import * as _default_Blogs_index_svelte from '../src/routes/Blogs/index.svelte'
+import * as _default_Work_index_svelte from '../src/routes/Work/index.svelte'
 
 export default {
   "meta": {},
@@ -74,6 +75,35 @@ export default {
         "name": "PlanWard"
       },
       "children": []
+    },
+    {
+      "meta": {},
+      "id": "_default_Work",
+      "name": "Work",
+      "module": false,
+      "file": {
+        "path": "src/routes/Work",
+        "dir": "src/routes",
+        "base": "Work",
+        "ext": "",
+        "name": "Work"
+      },
+      "children": [
+        {
+          "meta": {},
+          "id": "_default_Work_index_svelte",
+          "name": "index",
+          "module": () => _default_Work_index_svelte,
+          "file": {
+            "path": "src/routes/Work/index.svelte",
+            "dir": "src/routes/Work",
+            "base": "index.svelte",
+            "ext": ".svelte",
+            "name": "index"
+          },
+          "children": []
+        }
+      ]
     },
     {
       "meta": {},

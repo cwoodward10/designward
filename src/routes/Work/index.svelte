@@ -8,7 +8,7 @@ import UnderConstruction from "$lib/special/UnderConstruction.svelte";
     <UnderConstruction>
         <article class="m-auto flex flex-col text-white font-title font-bold">
             <h4>
-                The Blogs page is currently under construction...
+                The Work page is currently under construction...
             </h4>
             <h4>
                 but in the future there will be blogs!

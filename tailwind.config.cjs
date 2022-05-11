@@ -38,7 +38,10 @@ module.exports = {
         'playful-primary': [
             '1.75px 1.75px var(--color-primary)',
             '4px 4px var(--color-primary)'
-        ]
+        ],
+        'playful-primary-deep': [
+          '8px 8px var(--color-primary)'
+      ]
       }
     },
   },
