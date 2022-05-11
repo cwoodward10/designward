@@ -1,0 +1,33 @@
+<script lang="ts">
+    import { createEventDispatcher } from "svelte";
+    import { GlobeIcon } from "@rgossiaux/svelte-heroicons/outline";
+
+    export let color: string;
+    $: cssVarStyles = `
+        --card-color:${color};
+    `;
+
+    let clickDispatch = createEventDispatcher();
+    function handleClick(event: MouseEvent) {
+        clickDispatch('click')
+    }
+</script>
+
+<article id="main"
+        class="flex max-w-full w-44 h-44 lg:w-52 lg:h-52 rounded-md hover:drop-shadow-playful-primary-deep cursor-pointer transition-all"
+        style="{cssVarStyles}"
+        on:click="{handleClick}"> 
+    <slot>
+        <div class="flex flex-col m-auto">
+            <h3 class="text-texton-primary text-center">H is for</h3>
+            <GlobeIcon class="mx-auto w-3/5 text-white"/>
+            <h3 class="text-texton-primary text-center">Hello World</h3>
+        </div>
+    </slot>
+</article>
+
+<style>
+    #main {
+        background-color: var(--card-color);
+    }
+</style>

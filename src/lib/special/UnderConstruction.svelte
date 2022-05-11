@@ -14,6 +14,6 @@
                 <h5>Come back soon to see the progress!</h5>
             </slot>
         </div>
-        <div class="absolute top-0 bottom-0 right-0 left-0 skew-x-6 bg-accent-pink-dark drop-shadow-playful-primary"/>
+        <div class="absolute top-0 bottom-0 right-0 left-0 skew-x-6 bg-accent-pink-dark drop-shadow-playful-primary-3d"/>
     </section>
 </article>

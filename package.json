@@ -23,6 +23,7 @@
     "vite": "^2.9.5"
   },
   "dependencies": {
+    "@rgossiaux/svelte-heroicons": "^0.1.2",
     "@roxi/routify": "^3.0.0-next.1",
     "mdsvex": "^0.10.5"
   }

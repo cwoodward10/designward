@@ -3,6 +3,8 @@ import * as _default_About_svelte from '../src/routes/About.svelte'
 import * as _default_PlanWard_svelte from '../src/routes/PlanWard.svelte'
 import * as _default_index_svelte from '../src/routes/index.svelte'
 import * as _default_Blogs_index_svelte from '../src/routes/Blogs/index.svelte'
+import * as _default_Work_Architecture_svelte from '../src/routes/Work/Architecture.svelte'
+import * as _default_Work_Helix_svelte from '../src/routes/Work/Helix.svelte'
 import * as _default_Work_index_svelte from '../src/routes/Work/index.svelte'
 
 export default {
@@ -89,6 +91,34 @@ export default {
         "name": "Work"
       },
       "children": [
+        {
+          "meta": {},
+          "id": "_default_Work_Architecture_svelte",
+          "name": "Architecture",
+          "module": () => _default_Work_Architecture_svelte,
+          "file": {
+            "path": "src/routes/Work/Architecture.svelte",
+            "dir": "src/routes/Work",
+            "base": "Architecture.svelte",
+            "ext": ".svelte",
+            "name": "Architecture"
+          },
+          "children": []
+        },
+        {
+          "meta": {},
+          "id": "_default_Work_Helix_svelte",
+          "name": "Helix",
+          "module": () => _default_Work_Helix_svelte,
+          "file": {
+            "path": "src/routes/Work/Helix.svelte",
+            "dir": "src/routes/Work",
+            "base": "Helix.svelte",
+            "ext": ".svelte",
+            "name": "Helix"
+          },
+          "children": []
+        },
         {
           "meta": {},
           "id": "_default_Work_index_svelte",

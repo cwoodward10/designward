@@ -37,7 +37,7 @@ function handleTabChange(event: any) {
 }
 </script>
 
-<header class="fixed top-0 right-0 left-0 h-14 bg-white drop-shadow flex justify-between px-3">
+<header class="relative sticky z-50 top-0 right-0 left-0 h-14 bg-white drop-shadow flex justify-between px-3">
     <article id="logo" class="mt-auto mb-2">
         <h2 class="cursor-pointer font-medium" on:click="{()=> GoToPath("/")}">Design Ward</h2>
     </article>

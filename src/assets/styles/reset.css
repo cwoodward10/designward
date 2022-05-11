@@ -26,6 +26,7 @@ main, article, aside, figure, footer, header, nav, section, details, summary {di
    http://css-tricks.com/inheriting-box-sizing-probably-slightly-better-best-practice/ */
 html {
 	box-sizing: border-box;
+	overflow: hidden;
 }
 
 *,
@@ -51,7 +52,6 @@ embed {max-width: 100%;}
 }
 */
 
-/* force a vertical scrollbar to prevent a jumpy page */
 html {overflow-y: auto;}
 
 /* we use a lot of ULs that aren't bulleted.

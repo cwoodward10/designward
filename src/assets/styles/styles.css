@@ -63,10 +63,19 @@ h6 {
   font-weight: 600;
 }
 
-a:link {
-  color: var(--color-link-unvisited);
+a:hover {
+  text-decoration: underline;
 }
-
-a:visted {
+a {
+  color: var(--color-link-unvisited);
+  font-weight: 450;
+}
+a:visited {
   color: var(--color-link-visited);
+}
+a.a-white {
+  color: var(--color-white);
+}
+a:visited.a-white {
+  color: var(--color-white);
 }

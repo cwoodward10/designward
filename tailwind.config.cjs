@@ -35,13 +35,32 @@ module.exports = {
         'texton-secondary': 'var(--color-text-on-secondary)',
       },
       dropShadow: {
-        'playful-primary': [
+        'playful-primary-3d': [
             '1.75px 1.75px var(--color-primary)',
             '4px 4px var(--color-primary)'
         ],
+        'playful-primary-short': [
+          '4px 4px var(--color-primary)'
+        ],
         'playful-primary-deep': [
           '8px 8px var(--color-primary)'
-      ]
+        ],
+        'playful-primary-extra-deep': [
+          '12px 12px var(--color-primary)'
+        ],
+        'playful-secondary-3d': [
+          '1.75px 1.75px var(--color-secondary)',
+          '4px 4px var(--color-secondary)'
+        ],
+        'playful-secondary-short': [
+          '4px 4px var(--color-secondary)'
+        ],
+        'playful-secondary-deep': [
+          '8px 8px var(--color-secondary)'
+        ],
+        'playful-secondary-extra-deep': [
+          '12px 12px var(--color-secondary)'
+        ],
       }
     },
   },
