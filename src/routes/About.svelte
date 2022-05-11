@@ -1,4 +1,5 @@
 <script lang="ts">
+    import headshot from '$assets/images/headshot_md2.jpg';
     export let context: FragmentContext;
 
     const aboutMeText: string = `
@@ -22,7 +23,7 @@
         <section class="relative">
             <img id="headshot"
                 class="w-full rounded-sm drop-shadow-playful-primary-deep"
-                src='./src/assets/images/headshot_md2.jpg' 
+                src={headshot}
                 alt="Chris Headshot" />
             <div class="absolute top-6 -left-4 z-10 py-1 px-2 ">
                 <a class="relative font-title font-bold z-20 text-white"

@@ -30,5 +30,5 @@ export default defineConfig({
       $assets: path.resolve('./src/assets'),
       $store: path.resolve('./src/store')
     }
-  }
+  },
 })
