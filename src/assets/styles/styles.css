@@ -12,7 +12,7 @@
   --color-offwhite: #FFFFFC;
   --color-white: #fff;
   --color-black: #121D29;
-  --color-text-on-primary: #F4FCFF;
+  --color-text-on-primary: #ebfaff;
   --color-text-on-secondary: #121D29;
   --color-link-unvisited: #02A4FF;
   --color-link-visited: #41708B;
@@ -40,27 +40,27 @@ h1, h2, h3, h4, h5, h6 {
 }
 h1 {
   font-size: 32px;
-  font-weight: medium;
+  font-weight: 500;
 }
 h2 {
   font-size: 24px;
-  font-weight: medium;
+  font-weight: 500;
 }
 h3 {
   font-size: 20px;
-  font-weight: medium;
+  font-weight: 500;
 }
 h4 {
   font-size: 16px;
-  font-weight: medium;
+  font-weight: 500;
 }
 h5 {
   font-size: 14px;
-  font-weight: medium;
+  font-weight: 500;
 }
 h6 {
   font-size: 12px;
-  font-weight: bold;
+  font-weight: 600;
 }
 
 a:link {
