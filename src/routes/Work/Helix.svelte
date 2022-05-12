@@ -34,9 +34,13 @@ const wireframeText = `
 </script>
 
 <main id="main-container" class="mt-8 mx-auto w-full flex justify-center overflow-hidden flex-grow">
-    <div id="helix-main" class="flex flex-col space-y-4 max-w-4xl pb-20">
-        <header class="flex flex-col mx-auto">
-            <h1>Helix - EvolveLAB's Sketchup to Revit Tool</h1>
+    <div id="helix-main" class="flex flex-col space-y-4 w-11/12 md:max-w-4xl pb-20">
+        <header class="flex flex-col px-10">
+            <div class="flex flex-row">
+                <h1 class="whitespace-nowrap">
+                    Helix - by EvolveLAB
+                </h1>
+            </div>
             <h5>Built to be a better SketchUp to Revit Integration</h5>
         </header>
         <div class="flex pb-10 relative rounded-md transition hover:drop-shadow-playful-primary-deep">

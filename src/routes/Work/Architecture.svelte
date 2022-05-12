@@ -32,7 +32,7 @@ function goToUrl(url: string) {
 </script>
 
 <main id="main-container" class="mt-8 mx-auto w-full flex justify-center overflow-auto flex-grow">
-    <div class="mx-auto mb-10 flex flex-col space-y-4">
+    <div class="mx-auto mb-10 px-10 md:px-0 flex flex-col space-y-4">
         <article class="card-playful-primary-filled flex flex-col flex-shrink-0 max-w-2xl">
             <h1 class="mb-2 text-texton-primary">Architectural Projects</h1>
             <h6 class="mb-4 text-accent-yellow">Please be aware: This site is under construction.</h6>

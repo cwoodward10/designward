@@ -14,7 +14,7 @@
 </script>
 
 <article id="main"
-        class="flex max-w-full w-44 h-44 lg:w-52 lg:h-52 rounded-md hover:drop-shadow-playful-primary-deep cursor-pointer transition-all"
+        class="flex max-w-full w-60 h-60 md:w-52 md:h-52 rounded-md hover:drop-shadow-playful-primary-deep cursor-pointer transition-all"
         style="{cssVarStyles}"
         on:click="{handleClick}"> 
     <slot>

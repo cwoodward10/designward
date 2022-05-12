@@ -7,8 +7,10 @@ import svelteLogo from '$assets/logos/svelte.png';
 export let context: FragmentContext;
 </script>
 
-<main id="main-container" class="mt-8 mx-auto pb-10 w-full flex flex-col justify-center overflow-hidden flex-grow">
-    <div id="work-items" class="mx-auto flex flex-col md:flex-row md:flex-wrap space-y-8 md:space-y-0 md:space-x-8 lg:space-x-10">
+<main id="main-container" 
+    class="mt-8 mx-auto pb-10 w-full flex flex-col justify-center overflow-hidden flex-grow">
+    <div id="work-items" 
+        class="mx-auto px-8 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-8 lg:gap-10">
         <WorkNavCard color="var(--color-secondary)"
                     on:click="{() => GoToPath('/Work/Helix')}">
             <div class="flex flex-col m-auto">
@@ -54,7 +56,7 @@ export let context: FragmentContext;
             </div>
         </WorkNavCard>
     </div>
-    <footer class="flex flex-col mx-auto mt-6">
+    <footer class="flex flex-col mx-auto mt-6 px-8">
         <h6 class="text-primary-main text-xs">*I'm including Squarespace as a reference as this site is still under construction</h6>
         <h6 class="text-primary-main text-xs">check back later as I continue migrating over from there.</h6>
     </footer>
