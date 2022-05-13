@@ -15,7 +15,7 @@ $: {
 	
 const changeTabDispatch = createEventDispatcher();
 function handleClick(event) {	
-		changeTabDispatch('ChangeTab', event.detail);
+	changeTabDispatch('ChangeTab', event.detail);
 }
 </script>
 
