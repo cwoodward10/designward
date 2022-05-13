@@ -55,6 +55,9 @@ const wireframeText = `
                 <h2 >About Helix</h2>
                 <h5 class="mb-2">my role: Front End Tech Lead and C# Developer</h5>
                 <p class="whitespace-normal overflow-hidden">{aboutText}</p>
+                <a class="whitespace-normal mt-2" 
+                    href="https://www.evolvelab.io/software/helix" 
+                    alt="Helix">Check out Helix</a>
             </section>
             <section class="w-full flex relative rounded-md transition hover:drop-shadow-playful-secondary-short">
                 <img id="splash"
