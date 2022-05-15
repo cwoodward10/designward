@@ -7,12 +7,7 @@ import {
 import { isActive } from "@roxi/routify";
 import { onDestroy, onMount } from "svelte";
 import HamburgerMenu from "$lib/menus/HamburgerMenu.svelte";
-
-// ensure that tabs are synced up on mount
-onMount(() => {
-    let tryFindTabIndex = Tabs.sort((t1, t2) => t1.id - t2.id).findIndex(tab => $isActive(tab.path));
-    const currentPath = tryFindTabIndex === -1 ? "/" : Tabs[tryFindTabIndex].path;
-})
+import type { Router } from "@roxi/routify/typings/lib/runtime/Router/Router";
 
 // ensure that the tab changes with the current path
 let currentTabId = 0;
@@ -28,12 +23,14 @@ onDestroy(() => {
     unsubscribeIsActive;
 })
 
+export let router: Router = null;
+
 // handle output from the TabMenu
 function handleTabChange(event: any) {
     const tabId = event.detail;
     const tab = Tabs.find(t => t.id === tabId);
     if (tab) {
-        GoToPath(tab.path);
+        GoToPath(router, tab.path);
     }
 }
 
@@ -46,7 +43,7 @@ $: showHamburger = innerWidth < 500;
 
 <header class="sticky z-50 top-0 right-0 left-0 h-14 bg-white drop-shadow flex justify-between px-3">
     <article id="logo" class="mt-auto mb-2">
-        <h2 class="cursor-pointer font-medium" on:click="{()=> GoToPath("/")}">Design Ward</h2>
+        <h2 class="cursor-pointer font-medium" on:click="{()=> GoToPath(router, "/")}">Design Ward</h2>
     </article>
     {#if showHamburger} 
     <div class="flex my-auto">

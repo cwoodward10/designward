@@ -1,3 +1,5 @@
+import type { Router } from "@roxi/routify/typings/lib/runtime/Router/Router";
+
 type TabItem = { id: number, displayName: string, path: string };
 export const Tabs = [
     { id: 0, displayName: "Home", path: "/"},
@@ -6,6 +8,6 @@ export const Tabs = [
     { id: 3, displayName: "About", path: "/About"},
 ] as TabItem[];
 
-export function GoToPath(path: string) {
-    history.pushState({}, "", path);
+export function GoToPath(router: Router, path: string) {
+    router.url.push(path);
 }

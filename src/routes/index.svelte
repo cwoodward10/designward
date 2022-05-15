@@ -2,8 +2,8 @@
 import Button from "$lib/Button.svelte";
 import { GoToPath } from "$store/RoutingStore";
 
+export let context: FragmentContext;
 
-    export let context: FragmentContext;
 </script>
 
 <main id="main-container" class="mx-auto pb-10 px-8 w-full flex flex-shrink overflow-hidden flex-grow">
@@ -20,13 +20,13 @@ import { GoToPath } from "$store/RoutingStore";
         <div class="flex space-x-2 mt-6">
             <Button 
                 color="{'var(--color-secondary)'}"
-                on:click="{() => GoToPath("/Work")}"
+                on:click="{() => GoToPath(context.route.router, "/Work")}"
             >
                 <h5>Explore Work</h5>
             </Button>
             <Button 
                 color="{'var(--color-secondary-dark)'}"
-                on:click="{() => GoToPath("/About")}"
+                on:click="{() => GoToPath(context.route.router, "/About")}"
             >
                 <h5>About Me</h5> 
             </Button>
