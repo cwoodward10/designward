@@ -1,5 +1,4 @@
 <script lang="ts">
-import UnderConstruction from "$lib/special/UnderConstruction.svelte";
 export let context: FragmentContext;
 
 const mappingGifUrl = "https://i.imgur.com/dzSQvAv.gif";

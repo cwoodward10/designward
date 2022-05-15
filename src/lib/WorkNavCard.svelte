@@ -1,5 +1,6 @@
 <script lang="ts">
     import { createEventDispatcher } from "svelte";
+    import { fade, fly } from 'svelte/transition';
     import { GlobeIcon } from "@rgossiaux/svelte-heroicons/outline";
 
     export let color: string;
@@ -16,6 +17,7 @@
 <article id="main"
         class="flex max-w-full w-60 h-60 md:w-52 md:h-52 rounded-md hover:drop-shadow-playful-primary-deep cursor-pointer transition-all"
         style="{cssVarStyles}"
+        in:fly="{{ y: 200, duration: 200 }}"
         on:click="{handleClick}"> 
     <slot>
         <div class="flex flex-col m-auto">
