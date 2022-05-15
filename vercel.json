@@ -1,6 +1,6 @@
 {
     "rewrites": [
-        { "source": "/hello*", "destination": "https://www.google.com" },
+        { "source": "/hello", "destination": "https://www.google.com" },
         { "source": "/:path*", "destination": "/index.html" }
     ]
 }
