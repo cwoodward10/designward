@@ -3,4 +3,4 @@
   import routes from '../.routify/routes.default.js'
 </script>
 
-<Router config={{useHash: true}} {routes} />
+<Router {routes} />
