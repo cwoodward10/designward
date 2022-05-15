@@ -5,6 +5,7 @@ import { HomeIcon, CubeTransparentIcon, DesktopComputerIcon, CubeIcon } from "@r
 import svelteLogo from '$assets/logos/svelte.png';
 
 export let context: FragmentContext;
+let router = context.route.router;
 </script>
 
 <main id="main-container" 
@@ -12,7 +13,7 @@ export let context: FragmentContext;
     <div id="work-items" 
         class="mx-auto px-8 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-8 lg:gap-10">
         <WorkNavCard color="var(--color-secondary)"
-                    on:click="{() => GoToPath('/Work/Helix')}">
+                    on:click="{() => GoToPath(router, '/Work/Helix')}">
             <div class="flex flex-col m-auto">
                 <h3 class="text-texton-primary text-center">H is for</h3>
                 <img src="https://static.wixstatic.com/media/6a22c4_bad0cf046e824f229b942b512fb99c50~mv2.png/v1/fill/w_668,h_668,al_c/Helix%20Main%20Image_340.png"
@@ -30,7 +31,7 @@ export let context: FragmentContext;
             </div>
         </WorkNavCard>
         <WorkNavCard color="var(--color-accent-yellow)"
-                    on:click="{() => GoToPath('/Work/Svelte')}">
+                    on:click="{() => GoToPath(router, '/Work/Svelte')}">
             <div class="flex flex-col m-auto">
                 <h3 class="text-texton-secondary text-center">S is for</h3>
                 <img src={svelteLogo} alt="Svelte Logo" class="mx-auto w-3/5 text-white grayscale"/>
@@ -38,7 +39,7 @@ export let context: FragmentContext;
             </div>
         </WorkNavCard>
         <WorkNavCard color="var(--color-primary-light)"
-                        on:click="{() => GoToPath('/Work/Architecture')}">
+                        on:click="{() => GoToPath(router, '/Work/Architecture')}">
             <div class="flex flex-col m-auto">
                 <h3 class="text-texton-primary text-center">A is for</h3>
                 <HomeIcon class="mx-auto w-3/5 text-white"/>
@@ -49,7 +50,7 @@ export let context: FragmentContext;
                         on:click="{() => window.open('https://www.cmwoodward.com/work', '_blank')}">
             <div class="flex flex-col m-auto">
                 <h3 class="text-texton-primary text-center">S is also for</h3>
-                <img src="https://cdn.icon-icons.com/icons2/2845/PNG/512/squarespace_logo_icon_181252.png" 
+                <img src="https://cdn.freebiesupply.com/logos/large/2x/squarespace-logo-png-transparent.png" 
                     alt="squarespace logo" 
                     class="mx-auto w-3/5 text-white invert"/>
                 <h3 class="text-texton-primary text-center">SquareSpace</h3>
