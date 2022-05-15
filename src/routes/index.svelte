@@ -26,9 +26,8 @@ import { GoToPath } from "$store/RoutingStore";
             </Button>
             <Button 
                 color="{'var(--color-secondary-dark)'}"
-                on:click="{() => GoToPath("/About")}"
             >
-                <h5>About Me</h5> 
+                <a href="/About">About Me</a> 
             </Button>
         </div>
     </article>
