@@ -1,18 +1,9 @@
-import * as _default from '../src/routes/_module.svelte'
-import * as _default_About_svelte from '../src/routes/About.svelte'
-import * as _default_PlanWard_svelte from '../src/routes/PlanWard.svelte'
-import * as _default_index_svelte from '../src/routes/index.svelte'
-import * as _default_Blogs_index_svelte from '../src/routes/Blogs/index.svelte'
-import * as _default_Work_Architecture_svelte from '../src/routes/Work/Architecture.svelte'
-import * as _default_Work_Helix_svelte from '../src/routes/Work/Helix.svelte'
-import * as _default_Work_Svelte_svelte from '../src/routes/Work/Svelte.svelte'
-import * as _default_Work_index_svelte from '../src/routes/Work/index.svelte'
+
 
 export default {
   "meta": {},
   "id": "_default",
-  "module": () => _default,
-  "rootName": "default",
+  "module": () => import('../src/routes/_module.svelte'),
   "file": {
     "path": "src/routes/_module.svelte",
     "dir": "src/routes",
@@ -20,13 +11,14 @@ export default {
     "ext": ".svelte",
     "name": "_module"
   },
+  "rootName": "default",
   "routifyDir": import.meta.url,
   "children": [
     {
       "meta": {},
       "id": "_default_About_svelte",
       "name": "About",
-      "module": () => _default_About_svelte,
+      "module": () => import('../src/routes/About.svelte'),
       "file": {
         "path": "src/routes/About.svelte",
         "dir": "src/routes",
@@ -53,7 +45,7 @@ export default {
           "meta": {},
           "id": "_default_Blogs_index_svelte",
           "name": "index",
-          "module": () => _default_Blogs_index_svelte,
+          "module": () => import('../src/routes/Blogs/index.svelte'),
           "file": {
             "path": "src/routes/Blogs/index.svelte",
             "dir": "src/routes/Blogs",
@@ -69,7 +61,7 @@ export default {
       "meta": {},
       "id": "_default_PlanWard_svelte",
       "name": "PlanWard",
-      "module": () => _default_PlanWard_svelte,
+      "module": () => import('../src/routes/PlanWard.svelte'),
       "file": {
         "path": "src/routes/PlanWard.svelte",
         "dir": "src/routes",
@@ -96,7 +88,7 @@ export default {
           "meta": {},
           "id": "_default_Work_Architecture_svelte",
           "name": "Architecture",
-          "module": () => _default_Work_Architecture_svelte,
+          "module": () => import('../src/routes/Work/Architecture.svelte'),
           "file": {
             "path": "src/routes/Work/Architecture.svelte",
             "dir": "src/routes/Work",
@@ -110,7 +102,7 @@ export default {
           "meta": {},
           "id": "_default_Work_Helix_svelte",
           "name": "Helix",
-          "module": () => _default_Work_Helix_svelte,
+          "module": () => import('../src/routes/Work/Helix.svelte'),
           "file": {
             "path": "src/routes/Work/Helix.svelte",
             "dir": "src/routes/Work",
@@ -124,7 +116,7 @@ export default {
           "meta": {},
           "id": "_default_Work_Svelte_svelte",
           "name": "Svelte",
-          "module": () => _default_Work_Svelte_svelte,
+          "module": () => import('../src/routes/Work/Svelte.svelte'),
           "file": {
             "path": "src/routes/Work/Svelte.svelte",
             "dir": "src/routes/Work",
@@ -138,7 +130,7 @@ export default {
           "meta": {},
           "id": "_default_Work_index_svelte",
           "name": "index",
-          "module": () => _default_Work_index_svelte,
+          "module": () => import('../src/routes/Work/index.svelte'),
           "file": {
             "path": "src/routes/Work/index.svelte",
             "dir": "src/routes/Work",
@@ -154,7 +146,7 @@ export default {
       "meta": {},
       "id": "_default_index_svelte",
       "name": "index",
-      "module": () => _default_index_svelte,
+      "module": () => import('../src/routes/index.svelte'),
       "file": {
         "path": "src/routes/index.svelte",
         "dir": "src/routes",
