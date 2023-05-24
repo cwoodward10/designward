@@ -19,7 +19,7 @@ function handleClick(event) {
 }
 </script>
 
-<menu class="relative grid" style:grid-template-columns="repeat({tabNames.length}, 1fr)">
+<menu class="tab-menu relative grid" style:grid-template-columns="repeat({tabNames.length}, 1fr)">
     {#each tabNames as tabName, index}
     <TabItem
         tabIndex="{index}"
@@ -28,7 +28,7 @@ function handleClick(event) {
         />
     {/each}
     <span 
-        class="absolute bottom-0 h-0.5 bg-primary-main" 
+        class="absolute bottom-0 h-0.5 bg-secondary" 
         style:width="{1/tabNames.length * 100}%"
         style:transform="translateX({$currentTabIndicatorPosition}%)"
     />

@@ -1,5 +1,5 @@
-import { Routify, Router } from '@roxi/routify'
+import { Router, createRouter } from '@roxi/routify'
 import routes from './routes.default.js'
 
-export const router = new Routify({routes})
-export { Router, routes, router }
+export const router = createRouter({routes})
+export { Router, routes }

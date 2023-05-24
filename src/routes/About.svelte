@@ -16,7 +16,7 @@
     let hoverLinkedin = false;
 </script>
 
-<main id="main-container" class="mt-8 mx-auto w-full flex flex-shrink overflow-hidden flex-grow">
+<div class="mt-8 mx-auto w-full flex flex-shrink overflow-hidden flex-grow">
     <article class="flex flex-col-reverse md:max-w-lg lg:max-w-4xl lg:flex-row px-12 pb-12 gap-4 mx-auto mt-10 overflow-auto">
         <section class="w-full">
             <h2>About DesignWard</h2>
@@ -33,7 +33,6 @@
                 on:mouseleave="{() => hoverResume = false}">
                 <a class="relative font-title font-bold z-20 a-white"
                     href="https://drive.google.com/file/d/1HIaUHD3A-ue70gr06r0RzDOgDeXzKTNW/view?usp=sharing"
-                    alt="resume"
                     target="#">
                     Checkout my Resume!
                 </a>
@@ -45,7 +44,6 @@
                 on:mouseleave="{() => hoverLinkedin = false}">
                 <a class="relative font-title font-bold z-20 a-white"
                     href="https://www.linkedin.com/in/chris-woodward-8789b532/"
-                    alt="resume"
                     target="#">
                     Or my LinkedIn!
                 </a>
@@ -54,8 +52,4 @@
             </div>
         </section>
     </article>
-</main>
-
-<style>
-
-</style>
+</div>

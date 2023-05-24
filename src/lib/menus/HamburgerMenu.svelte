@@ -30,7 +30,8 @@ function handleMenuClick(index: number) {
     class="relative flex flex-col justify-between" 
     style="{cssVarStyles}" 
     use:handleClickOutsideElement
-    on:click="{() => showMenu = !showMenu}"
+    on:click={() => showMenu = !showMenu}
+    on:keypress={() => showMenu = !showMenu}
     on:outclick="{handleClickOut}">
     <div id="one" class="menu-bar" class:open={showMenu} />
     <div id="two" class="menu-bar" class:open={showMenu} />
@@ -38,10 +39,13 @@ function handleMenuClick(index: number) {
     <!-- pop up menu -->
     {#if showMenu}
     <menu id="menu" 
-         class="z-50 absolute top-full right-2 w-36 overflow-hidden rounded-sm border-2 border-solid border-primary-dark drop-shadow-playful-secondary-short bg-white divide-y divide-solid divide-primary-dark">
+         class="z-50 absolute top-full right-2 w-36 mt-2 overflow-hidden rounded-sm border-2 border-solid border-primary-dark drop-shadow-playful-secondary-short bg-white divide-y divide-solid divide-primary-dark">
         {#each menuItems as menuItem, index}
-        <h5 class="w-full py-2 text-center text-primary-dark hover:bg-secondary-main"
-            on:click="{() => handleMenuClick(index)}">
+        <h5 
+            class="w-full py-2 text-center text-primary-dark hover:bg-secondary-main"
+            on:click={() => handleMenuClick(index)}
+            on:keypress={() => handleMenuClick(index)}
+        >
             { menuItem }
         </h5>
         {/each}

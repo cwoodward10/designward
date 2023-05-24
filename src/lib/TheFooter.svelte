@@ -1,24 +1,45 @@
 <script lang="ts">
     import svelteLogo from '$assets/logos/svelte.png';
     import tailwindLogo from '$assets/logos/tailwind.png';
-    import githubLogo from '$assets/logos/GitHub-Mark-32px.png';
+    import routifyLogo from '$assets/logos/r3-logo.svg';
 </script>
 
-<footer class="fixed max-w-full bottom-0 right-0 left-0 h-8 bg-offwhite drop-shadow-sm flex justify-between px-3">
-    <span class="absolute top-0 right-3 left-3 border-t border-solid border-gray-200"/>
-    <article class="my-auto">
-        <a class="my-auto flex space-x-1" href="https://github.com/cwoodward10/designward" alt="DesignWard" target="#">
-            <img class="flex h-3 w-auto my-auto" src={githubLogo} alt="Github Logo"/>
-            <p class="flex text-xs my-auto">see the code</p>
-        </a>
-    </article>
-    <article class="my-auto flex space-x-1">
-        <p class="text-xs">Built with:</p>
-        <a class="h-3 my-auto" href="https://svelte.dev/"  alt="Svelte" target="#">
-            <img class="h-3 w-auto" src={svelteLogo} alt="Svelte Logo"/>
-        </a>
-        <a class="h-3 my-auto" href="https://tailwindcss.com/" alt="Tailwind" target="#">
-            <img class="h-3 w-auto" src={tailwindLogo} alt="Tailwind CSS Logo"/>
-        </a>
-    </article>
+<footer class="bg-primary w-full flex flex-shrink-0 justify-center p-6">
+    <div class="w-full max-w-page flex justify-between">
+        <section class="flex flex-col gap-1.5">
+            <h5 class="text-text-white">About this site:</h5>
+            <div class="flex gap-1">
+                <a class="my-auto" href="https://svelte.dev/" target="#">
+                    <img class="h-6 w-auto" src={svelteLogo} alt="Svelte Logo"/>
+                </a>
+                <a class="my-auto" href="https://tailwindcss.com/" target="#">
+                    <img class="h-6 w-auto" src={tailwindLogo} alt="Tailwind CSS Logo"/>
+                </a>
+                <a class="my-auto" href="https://v3.routify.dev/" target="#">
+                    <img class="h-6 w-auto" src={routifyLogo} alt="Routify 3 Logo"/>
+                </a>
+            </div>
+            <a class="my-auto flex a-white" href="https://github.com/cwoodward10/designward" target="#">
+                See the repo
+            </a>
+        </section>
+    
+        <section class="flex flex-col gap-px m-0">
+            <h5 class="text-text-white">Quick links:</h5>
+            <a 
+                class="a-white" 
+                href="https://www.linkedin.com/in/chris-woodward-8789b532/" 
+                target="#"
+            >
+                LinkedIn
+            </a>
+            <a 
+                class="a-white" 
+                href="https://drive.google.com/file/d/1FMfZ0RHwd1AGZXMIAXn4cPiG5mS5fMAR/view?usp=sharing" 
+                target="#"
+            >
+                Resume
+            </a>
+        </section>
+    </div>
 </footer>

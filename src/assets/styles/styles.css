@@ -1,81 +1,47 @@
 /* import fonts */
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Heebo:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Sofia+Sans:wght@1;200;300;400;500;600;700;800&display=swap');
 
 /* set custom color vars */
 :root {
-  --color-primary-light: #7E8EBD;
-  --color-primary: #475682;
-  --color-primary-dark: #2D3754;
-  --color-secondary: #78EAF7;
-  --color-secondary-dark: #0CC0D4;
+  --color-primary: #2D3754;
+  --color-secondary: #31CDDD;
   --color-offwhite: #FFFFFC;
-  --color-white: #fff;
+  --color-white: #F9F9F9;
   --color-black: #121D29;
-  --color-text-on-primary: #ebfaff;
-  --color-text-on-secondary: #121D29;
-  --color-link-unvisited: #02A4FF;
+  --color-text-white: #F4FCFF;
   --color-link-visited: #41708B;
   --color-error: #AE003A;
   --color-accent-yellow: #FFDE88;
-  --color-accent-pink-light: #FCAEE9;
-  --color-accent-pink-dark: #FF4785;
+  --color-accent-pink-light: #FF4785;
+  --color-accent-pink-dark: #FF003C;
   --color-accent-green: #47FF91;
+  --color-accent-blue: #02A4FF;
+}
+#app {
+  min-height: 100vh;
 }
 
-body {
-  background-color: var(--color-offwhite);
+/* Works on Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: --var(--color-primary) var(--color-offwhite);
 }
 
-p, h1, h2, h3, h4, h5, h6 {
-  color: var(--color-black);
-}
-p, a {
-  font-size: 14px;
-  font-family: 'Montserrat', 'ui-serif';
-  font-weight: 350;
-}
-h1, h2, h3, h4, h5, h6 {
-  font-family: 'Heebo', 'ui-sans-serif';
-}
-h1 {
-  font-size: 32px;
-  font-weight: 500;
-}
-h2 {
-  font-size: 24px;
-  font-weight: 500;
-}
-h3 {
-  font-size: 20px;
-  font-weight: 500;
-}
-h4 {
-  font-size: 16px;
-  font-weight: 500;
-}
-h5 {
-  font-size: 14px;
-  font-weight: 500;
-}
-h6 {
-  font-size: 12px;
-  font-weight: 600;
+/* Works on Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 0.75rem;
 }
 
-a:hover {
-  text-decoration: underline;
+*::-webkit-scrollbar-track {
+  width: 0.25rem;
+  background: var(--color-offwhite);
+  border: 0.25rem solid transparent;
 }
-a {
-  color: var(--color-link-unvisited);
-  font-weight: 450;
-}
-a:visited {
-  color: var(--color-link-visited);
-}
-a.a-white {
-  color: var(--color-white);
-}
-a:visited.a-white {
-  color: var(--color-white);
+
+*::-webkit-scrollbar-thumb {
+  background-color: var(--color-primary);
+  border-radius: 20px;
+  border-left: 0.125rem solid var(--color-offwhite);
+  border-right: 0.25rem solid var(--color-offwhite);
 }
