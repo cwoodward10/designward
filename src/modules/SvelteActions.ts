@@ -5,8 +5,8 @@
  * @param node node to perform action on
  * @returns a destroy function to call on svelte component destroy
  */
-export function handleClickOutsideElement(node: Node) {
-	const handleClick = (event: Event) => {
+export function handleClickOutsideElement(node: Node | HTMLElement) {
+	const handleClick = (event: MouseEvent) => {
 		if (event.target instanceof Node &&
             !node.contains(event.target)) {
 			node.dispatchEvent(new CustomEvent("outclick"));

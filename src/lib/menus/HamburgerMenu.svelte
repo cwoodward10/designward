@@ -32,7 +32,7 @@ function handleMenuClick(index: number) {
     use:handleClickOutsideElement
     on:click={() => showMenu = !showMenu}
     on:keypress={() => showMenu = !showMenu}
-    on:outclick="{handleClickOut}">
+    on:outclick={handleClickOut}>
     <div id="one" class="menu-bar" class:open={showMenu} />
     <div id="two" class="menu-bar" class:open={showMenu} />
     <div id="three" class="menu-bar" class:open={showMenu} />
