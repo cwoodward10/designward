@@ -87,7 +87,7 @@
 >
     <div class="mx-auto pb-8 max-w-page w-full flex flex-col sm:flex-row justify-between md:items-center gap-4 border-b border-primary border-solid">
         <a class="no-underline" href="/">
-            <h1 class="text-6xl sm:text-[4.25rem] md:text-hero leading-none">{currentTabName}</h1>
+            <h1 class="text-6xl sm:text-[4.25rem] md:text-hero text-primary leading-none">{currentTabName}</h1>
         </a>
         <div class="flex flex-col gap-2">
             <p class="max-w-[300px] line-clamp-2 text-left sm:text-right">{currentTabDescription}</p>
