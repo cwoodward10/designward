@@ -39,12 +39,12 @@
 <div class="mx-auto pb-10 max-w-page w-full flex flex-col items-center sm:divide-y divide-black divide-solid">
     <!-- Hero Image -->
     <article class="relative w-full pt-12 mb-12">
-        <div class="w-full bg-gray-200 h-[512px]">
+        <div class="w-full bg-gray-200 aspect-video">
             
         </div>
         <div class="max-w-md sm:absolute sm:bottom-6 sm:left-6 sm:bg-white pt-4 sm:p-4 flex flex-col gap-1 sm:drop-shadow-lg">
             <h3>Works in progress</h3>
-            <p>DesignWard is living document, changing in composition as my interests and career choices change what I do on a daily basis. The older work in here in architectural in nature whil the newer work is all UI/UX Engineering.</p>
+            <p>DesignWard is living document, changing in composition as my interests and career choices change what I do on a daily basis. The older work in here is architectural in nature whil the newer work is all UI/UX Engineering.</p>
             <a href='/Work'>See the work</a>
         </div>
     </article>
@@ -58,7 +58,7 @@
                 <div class="flex flex-col">
                     <h4 class="text-text-white sm:text-black">{competency.title}</h4>
                     <p class="text-text-white sm:text-black">{competency.text}</p>
-                    <a class="a-white sm:text-black" href={competency.ctal}>See the work</a>
+                    <a class="a-white sm:a-black" href={competency.ctal}>See the work</a>
                 </div>
             </div>
             {/each}
