@@ -37,8 +37,9 @@
     --step-4: clamp(2.3328rem, 2.0827rem + 1.2504vi, 3.0518rem);
     --step-5: clamp(2.7994rem, 2.4462rem + 1.7658vi, 3.8147rem);
 
-    --shadow-header: drop-shadow(2px 0px 4px rgb(0 0 0 / 10%));
-    --shadow-image: drop-shadow(3px 3px 8px rgb(0 0 0 / 15%));
+    --shadow-color: color-mix(in srgb, var(--color-primary) 30%, white 15%);
+    --shadow-header: drop-shadow(2px 0px 8px var(--shadow-color));
+    --shadow-image: drop-shadow(3px 3px 8px var(--shadow-color));
 }
 html {
     font-family: var(--font-body);
