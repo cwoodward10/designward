@@ -131,11 +131,30 @@ import Headshot from '@assets/images/headshot2.jpg';
 		}
 
 		&.digital-garden {
+			position: relative;
+
+			padding-bottom: 0;
+			margin-bottom: var(--section-padding);
+
+			&::after {
+				position: absolute;
+				--offset: 4px;
+				top: var(--offset);
+				right: var(--offset);
+				left: var(--offset);
+				bottom: var(--offset);
+
+				border-radius: 10px;
+
+				content: "";
+				display: flex;
+				border-image: url('../assets/images/Ground-Hatch-Border-Image-40.png')  40 40 / 1rem 1rem / 0 round space;
+			}
 			.content {
 				position: relative;
 
 				border: var(--color-primary) 4px solid;
-				border-radius: 20px;
+				border-radius: 10px;
 				padding: clamp(20px, calc(1vw * 5), 100px);
 
 				&::before, &::after {

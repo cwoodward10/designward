@@ -142,7 +142,7 @@ a.white, a.visited {
         }
     }
 }
-a:not(.arrow) {
+a:not(.arrow):not(:has(img,svg)) {
     position: relative;
 
     &::after {
