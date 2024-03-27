@@ -1,45 +1,77 @@
-<script lang="ts">
-    import svelteLogo from '$assets/logos/svelte.png';
-    import tailwindLogo from '$assets/logos/tailwind.png';
-    import routifyLogo from '$assets/logos/r3-logo.svg';
-</script>
+---
+    import Image from 'astro/components/Image.astro';
 
-<footer class="bg-primary w-full flex flex-shrink-0 justify-center p-6">
-    <div class="w-full max-w-page flex justify-between">
-        <section class="flex flex-col gap-1.5">
-            <h5 class="text-text-white">About this site:</h5>
-            <div class="flex gap-1">
-                <a class="my-auto" href="https://svelte.dev/" target="#">
-                    <img class="h-6 w-auto" src={svelteLogo} alt="Svelte Logo"/>
-                </a>
-                <a class="my-auto" href="https://tailwindcss.com/" target="#">
-                    <img class="h-6 w-auto" src={tailwindLogo} alt="Tailwind CSS Logo"/>
-                </a>
-                <a class="my-auto" href="https://v3.routify.dev/" target="#">
-                    <img class="h-6 w-auto" src={routifyLogo} alt="Routify 3 Logo"/>
-                </a>
-            </div>
-            <a class="my-auto flex a-white" href="https://github.com/cwoodward10/designward" target="#">
-                See the repo
+    import svelteLogo from '@assets/images/logos/svelte.png'
+    import astroLogo from '@assets/images/logos/astro-mark-48.png'
+---
+
+<footer class="main-footer">
+    <section class="logos-container">
+        <p class="x-small">About the stack:</p>
+        <div class="logos">
+            <a href="https://astro.build//" target="#">
+                <Image height={24} src={astroLogo} alt="Astro Framework logo">
             </a>
-        </section>
-    
-        <section class="flex flex-col gap-px m-0">
-            <h5 class="text-text-white">Quick links:</h5>
-            <a 
-                class="a-white" 
-                href="https://www.linkedin.com/in/chris-woodward-8789b532/" 
-                target="#"
-            >
-                LinkedIn
+            <a href="https://svelte.dev/" target="#">
+                <Image height={24} src={svelteLogo} alt="Svelte Framework logo">
             </a>
-            <a 
-                class="a-white" 
-                href="https://drive.google.com/file/d/1FMfZ0RHwd1AGZXMIAXn4cPiG5mS5fMAR/view?usp=sharing" 
-                target="#"
-            >
-                Resume
-            </a>
-        </section>
-    </div>
+        </div>
+        <a class="white x-small" href="https://github.com/cwoodward10/designward" target="#">
+            See the repo
+        </a>
+    </section>
+
+    <section class="links-container">
+        <p class="x-small">Quick links:</p>
+        <a 
+            class="white x-small"
+            href="https://www.linkedin.com/in/chris-woodward-8789b532/" 
+            target="#"
+        >
+            LinkedIn
+        </a>
+        <a 
+            class="white x-small"
+            href="https://drive.google.com/file/d/1FMfZ0RHwd1AGZXMIAXn4cPiG5mS5fMAR/view?usp=sharing" 
+            target="#"
+        >
+            Resume
+        </a>
+    </section>
 </footer>
+
+<style>
+    .main-footer {
+        width: 100%;
+        padding: var(--padding-edge);
+
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+
+        color: var(--color-text-white);
+
+        background-color: var(--color-primary);
+
+        .logos-container, .links-container {
+            display: flex;
+            flex-direction: column;
+            gap: 0.2rem;
+        }
+        .links-container {
+            align-items: flex-end;
+        }
+
+        .logos {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        p.x-small {
+            font-size: 16px;
+        }
+        a.x-small {
+            font-size: 12px;
+        }
+    }
+</style>

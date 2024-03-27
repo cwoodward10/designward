@@ -4,6 +4,8 @@ import '../assets/styles/utility.css';
 import '../assets/styles/global.css';
 
 import Head from '@components/base/infra/Head.astro';
+import TheFooter from '@components/layout/TheFooter.astro';
+
 import TheHeader from '@components/layout/TheHeader.svelte';
 
 interface Props {
@@ -20,6 +22,7 @@ const currentPath = Astro.url.pathname;
 	<body>
 		<TheHeader client:load {currentPath} />
 		<slot />
+		<TheFooter />
 	</body>
 </html>
 

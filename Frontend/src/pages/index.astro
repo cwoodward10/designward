@@ -1,5 +1,8 @@
 ---
+import { Image } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
+
+import Headshot from '@assets/images/headshot2.jpg';
 ---
 
 <Layout title="Welcome to DesignWard.">
@@ -34,7 +37,14 @@ import Layout from '../layouts/Layout.astro';
 		<!-- About me section -->
 		<section class="about">
 			<div class="content">
-				<div class="image"></div>
+				<div class="image">
+					<Image 
+						widths={[300, 500]} 
+						sizes={`(max-width: 360px) 300px, 500px`}
+						src={Headshot} 
+						alt="Chris Woodward" 
+					/>
+				</div>
 				<div class="text-content">
 					<h2>About me</h2>
 					<p>
@@ -56,19 +66,20 @@ import Layout from '../layouts/Layout.astro';
 <style lang="scss">
 	@import '../assets/styles/sass/breakpoints.scss';
 
-	main {
+	:global(:root) {
+		--padding-edge: 1rem;
 		--section-padding: 160px;
-
+		@media screen and (min-width: $breakpoint-md) {
+			--padding-edge: 2rem;
+			--section-padding: 200px;
+		}
+	}
+	main {
 		margin: auto;
 		padding: var(--padding-edge);
 
 		width: 1200px;
 		max-width: calc(100% - 2*var(--padding-edge));
-	}
-	@media screen and (min-width: $breakpoint-md) {
-		main {
-			--section-padding: 200px;
-		}
 	}
 
 	section {
@@ -152,19 +163,23 @@ import Layout from '../layouts/Layout.astro';
 		&.about {
 			.content {
 				display: flex;
-				flex-direction: row;
+				flex-direction: column;
 				gap: 30px;
 
-				@media screen and (min-width: $breakpoint-md) {
-					display: grid;
-					grid-template-columns: 5fr 8fr;
-					gap: 30px;
-				}
-
 				.image {
-					aspect-ratio: 5 / 6;
-					width: 100%;
-					background-color: gray;
+					aspect-ratio: 1 / 1;
+					width: fit-content;
+					max-width: 100%;
+
+					overflow: hidden;
+					border-radius: 4px;
+
+					filter: var(--shadow-image);
+
+					img {
+						height: auto;
+						width: auto;
+					}
 				}
 
 				.text-content {
@@ -174,6 +189,16 @@ import Layout from '../layouts/Layout.astro';
 						display: inline-flex;
 						text-wrap: pretty;
 						margin-bottom: 1rem;
+					}
+				}
+
+				@media screen and (min-width: $breakpoint-md) {
+					flex-direction: row;
+
+					.image {
+						padding-top: 0.75rem;
+						width: 100%;
+						max-width: 500px;
 					}
 				}
 			}

@@ -6,8 +6,6 @@
     font-display: swap;
 }
 :root {
-    --padding-edge: 1rem;
-
     --color-offwhite: #F9F9F9;
     --color-background: #FFFFFC;
     --color-primary: #2D3754;
@@ -39,7 +37,8 @@
     --step-4: clamp(2.3328rem, 2.0827rem + 1.2504vi, 3.0518rem);
     --step-5: clamp(2.7994rem, 2.4462rem + 1.7658vi, 3.8147rem);
 
-    --standard-shadow: drop-shadow(2px 0px 4px rgb(0 0 0 / 10%));
+    --shadow-header: drop-shadow(2px 0px 4px rgb(0 0 0 / 10%));
+    --shadow-image: drop-shadow(3px 3px 8px rgb(0 0 0 / 15%));
 }
 html {
     font-family: var(--font-body);
@@ -108,11 +107,15 @@ h4 {
 p {
     font-size: var(--step-0);
 }
-p.small {
+p.small, a.small {
     font-size: var(--step--1);
 }
-p.x-small {
+p.x-small a.x-small {
     font-size: var(--step--2);
+}
+a.white, a.visited {
+    color: var(--color-text-white);
+    text-decoration: underline;
 }
 
 .arrow {

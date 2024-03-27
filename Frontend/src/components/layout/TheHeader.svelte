@@ -2,7 +2,7 @@
     import AnimatedLogo from "@components/brand/LogoAnimated.svelte";
     import HamburgerMenu from "@components/base/menus/hamburger/HamburgerMenu.svelte";
 
-    const HEIGHT_HERO = 750;
+    const HEIGHT_HERO = 500;
 
     export let currentPath: string;
     const ROUTES: {name: string, route: string}[] = [
@@ -71,10 +71,11 @@
         background-color: var(--color-background);
         padding: 0.5rem var(--padding-edge);
 
-        filter: var(--standard-shadow);
+        filter: var(--shadow-header);
+
+        transition: transform 300ms ease-in;
     }
     #top-header.hide {
-        transition: transform 300ms ease-in;
         transform: translateY(-100%);
     }
 
