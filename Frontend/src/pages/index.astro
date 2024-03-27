@@ -65,6 +65,11 @@ import Layout from '../layouts/Layout.astro';
 		width: 1200px;
 		max-width: calc(100% - 2*var(--padding-edge));
 	}
+	@media screen and (min-width: $breakpoint-md) {
+		main {
+			--section-padding: 200px;
+		}
+	}
 
 	section {
 		padding-bottom: var(--section-padding);
