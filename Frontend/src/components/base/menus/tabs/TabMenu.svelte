@@ -1,7 +1,8 @@
 <script lang="ts">
 import {tweened} from 'svelte/motion'
-import TabItem from "./TabItem.svelte";
 import { createEventDispatcher } from 'svelte';
+
+import TabItem from "./TabItem.svelte";
 
 export let tabNames: string[];
 export let currentTab = 0;

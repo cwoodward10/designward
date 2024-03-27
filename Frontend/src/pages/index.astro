@@ -1,46 +1,194 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Card from '../components/Card.astro';
 ---
 
-<Layout title="Welcome to Astro.">
+<Layout title="Welcome to DesignWard.">
 	<main>
-		<h1>Welcome to <span class="text-gradient">Astro</span></h1>
-		<p class="instructions">
-			To get started, open the directory <code>src/pages</code> in your project.<br />
-			<strong>Code Challenge:</strong> Tweak the "Welcome to Astro" message above.
-		</p>
-		<ul role="list" class="link-card-grid">
-			<Card
-				href="https://docs.astro.build/"
-				title="Documentation"
-				body="Learn how Astro works and explore the official API docs."
-			/>
-			<Card
-				href="https://astro.build/integrations/"
-				title="Integrations"
-				body="Supercharge your project with new frameworks and libraries."
-			/>
-			<Card
-				href="https://astro.build/themes/"
-				title="Themes"
-				body="Explore a galaxy of community-built starter themes."
-			/>
-			<Card
-				href="https://astro.build/chat/"
-				title="Community"
-				body="Come say hi to our amazing Discord community. ❤️"
-			/>
-		</ul>
+		<!-- Hero section -->
+		<section class="hero">
+			<h1 class="hero">
+				<span class="nowrap">Welcome to </span>
+				<span class="nowrap">[<span class="logo-text" style="color: var(--color-accent-primary)">DesignWard</span>]</span>
+			</h1>
+			<p>
+				Hi I’m Chris - a Chicago-based Designer and Engineer. DesignWard is my portfolio page and (hopefully, eventually) a thriving Digital Garden. Have a look around!
+			</p>
+		</section>
+		<!-- Featured work section -->
+		<section>
+			<div class="intro">
+				<h2>Featured work</h2>
+				<p style="max-width: 780px">If you’re here for my work, you can think of it loosely separated into the below categories. While not comprehensive, these will give you a framework to understand my journey towards Creative Technology.</p>
+			</div>
+			<div class="carousel-container">
+
+			</div>
+		</section>
+		<!-- Digital Garden section -->
+		<section class="digital-garden">
+			<div class="content">
+				<h2>Wander the Digital Garden</h2>
+				<p>More than just a literal amalgamation of “Design” and my last name - “Woodward” - DesignWard represents an aspiration. “Ward”, as a suffix, suggests directionality in relation to the root element it is attached to. In this way “Design” + “Ward” represents an aspiration towards design in everything that I do. While a large portion of my job is engineering, I am still a designer at heart and aspire to bring that humanity, craft, and delight into everything that I produce.</p>
+			</div>
+		</section>
+		<!-- About me section -->
+		<section class="about">
+			<div class="content">
+				<div class="image"></div>
+				<div class="text-content">
+					<h2>About me</h2>
+					<p>
+						<span>
+							Hello again, I’m Chris. I’m currently living in Chicago and working as a Design Technologist at Square. I create web-based experiences, productivity tools, and the occasional custom marketing email. While engineering is my main responsibility, I am also often asked to take on design tasks - both big and small. 
+						</span>
+						<span>
+							My background is in Architectural Design where I spend three years working professionally at RINKA+ in Milwaukee. While there, I spent long hours grinding on design work and learning to manage design teams and design processes. 
+						</span>
+						<span>
+							Between my experience at Square, RINKA+, and as a lead designer and frontend-engineer at EvolveLAB, I’ve learned to take on any design and engineering tasks asked of me.</p>
+						</span>
+				</div>
+			</div>
+		</section>
 	</main>
 </Layout>
 
-<style>
+<style lang="scss">
+	@import '../assets/styles/sass/breakpoints.scss';
+
 	main {
+		--section-padding: 160px;
+
 		margin: auto;
 		padding: var(--padding-edge);
 
 		width: 1200px;
 		max-width: calc(100% - 2*var(--padding-edge));
+	}
+
+	section {
+		padding-bottom: var(--section-padding);
+
+		opacity: 0;
+		animation-name: fade-in;
+		animation-duration: 500ms;
+		animation-delay: 200ms;
+		animation-timing-function: ease-in;
+		animation-fill-mode: forwards;
+		animation-iteration-count: 1;
+
+		h2 {
+			margin-bottom: 1rem;
+		}
+
+		&.hero {
+			padding: var(--section-padding) 0;
+
+			h1.hero {
+				margin-bottom: 20px;
+
+				span.logo-text {
+					display: inline-flex;
+					overflow: hidden;
+					width: fit-content;
+					max-width: 0;
+
+					animation-name: open-text;
+					animation-duration: 300ms;
+					animation-delay: 500ms;
+					animation-timing-function: ease-in;
+					animation-fill-mode: forwards;
+					animation-iteration-count: 1;
+				}
+			}
+
+			p {	
+				display: inline-flex;
+				max-width: 1000px;
+
+				font-size: var(--step-0);
+				font-weight: 400;
+				line-height: 135%;
+
+				text-wrap: pretty;
+			}
+		}
+
+		&.digital-garden {
+			.content {
+				position: relative;
+
+				border: var(--color-primary) 4px solid;
+				border-radius: 20px;
+				padding: clamp(20px, calc(1vw * 5), 100px);
+
+				&::before, &::after {
+					content: "";
+					background-image: url('../assets/images/Plants.svg');
+					background-size: contain;
+	
+					width: clamp(80px, calc(25vw), 160px);
+					aspect-ratio: 2 / 1;
+
+					position: absolute;
+				}
+				&::before {
+					bottom: 100%;
+					right: 24px;
+				}
+				&::after {
+					top: 100%;
+					left: 24px;
+					rotate: 180deg;
+				}
+			}
+		}
+
+		&.about {
+			.content {
+				display: flex;
+				flex-direction: row;
+				gap: 30px;
+
+				@media screen and (min-width: $breakpoint-md) {
+					display: grid;
+					grid-template-columns: 5fr 8fr;
+					gap: 30px;
+				}
+
+				.image {
+					aspect-ratio: 5 / 6;
+					width: 100%;
+					background-color: gray;
+				}
+
+				.text-content {
+					width: 100%;
+
+					p span {
+						display: inline-flex;
+						text-wrap: pretty;
+						margin-bottom: 1rem;
+					}
+				}
+			}
+		}
+	}
+
+	@keyframes fade-in {
+		from {
+			opacity: 0;
+		}
+		to {
+			opacity: 1;
+		}
+	}
+	@keyframes open-text {
+		from {
+			max-width: 0;
+		}
+		to {
+			max-width: 7.5em;
+		}
 	}
 </style>

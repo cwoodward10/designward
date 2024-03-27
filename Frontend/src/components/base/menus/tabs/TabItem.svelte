@@ -13,7 +13,7 @@
     const clickDispatch = createEventDispatcher(); 
 </script>
 
-<div
+<li
     class="relative inline-flex flex-grow-0 flex-shrink-0 overflow-hidden"
     on:mouseenter={() => hovered = true}
     on:mouseleave={() => hovered = false}
@@ -23,13 +23,13 @@
         class:px-3={style === 'tabs'}
         on:click={() => clickDispatch('clicked', tabIndex)}
     >
-        <h6 
+        <p 
             class="m-auto text-center mt-auto mb-2 pb-0 z-50 md:text-lg"
             class:text-text-white={style === 'pill' && selected}
             class:mb-auto={style === 'pill'}
         >
             { tabName }
-        </h6>
+        </p>
         {#if hovered}
         <span 
             class="absolute top-0 bottom-0 left-0 right-0 bg-secondary opacity-10 z-10"
@@ -37,4 +37,4 @@
         />
         {/if}
     </button>
-</div>
+</li>
