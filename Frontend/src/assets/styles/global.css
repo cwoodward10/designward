@@ -9,11 +9,9 @@
     --color-offwhite: #F9F9F9;
     --color-background: #FFFFFC;
     --color-primary: #2D3754;
-    --color-secondary: #31CDDD;
+    --color-secondary: #6D7EB0;
     --color-accent-primary: #FF4785;
-    --color-accent-red: #FF003C;
-    --color-accent-yellow: #FFDE88;
-    --color-accent-green: #47FF91;
+    --color-accent-alt: #49A078;
     --color-error: #AE003A;
 
     --color-text: #121D29;
@@ -28,14 +26,14 @@
     font-size: 16px;
     line-height: 130%;
     /* font steps per Utopia.fyi */
-    --step--2: clamp(0.7813rem, 0.7747rem + 0.0326vi, 0.8rem);
-    --step--1: clamp(0.9375rem, 0.9158rem + 0.1087vi, 1rem);
-    --step-0: clamp(1.125rem, 1.0815rem + 0.2174vi, 1.25rem);
-    --step-1: clamp(1.35rem, 1.2761rem + 0.3696vi, 1.5625rem);
-    --step-2: clamp(1.62rem, 1.5041rem + 0.5793vi, 1.9531rem);
-    --step-3: clamp(1.944rem, 1.771rem + 0.8651vi, 2.4414rem);
-    --step-4: clamp(2.3328rem, 2.0827rem + 1.2504vi, 3.0518rem);
-    --step-5: clamp(2.7994rem, 2.4462rem + 1.7658vi, 3.8147rem);
+    --step--2: clamp(0.6944rem, 0.6856rem + 0.0444vi, 0.72rem);
+    --step--1: clamp(0.8333rem, 0.8101rem + 0.1159vi, 0.9rem);
+    --step-0: clamp(1rem, 0.9565rem + 0.2174vi, 1.125rem);
+    --step-1: clamp(1.2rem, 1.1283rem + 0.3587vi, 1.4063rem);
+    --step-2: clamp(1.44rem, 1.3295rem + 0.5527vi, 1.7578rem);
+    --step-3: clamp(1.728rem, 1.5648rem + 0.8161vi, 2.1973rem);
+    --step-4: clamp(2.0736rem, 1.8395rem + 1.1704vi, 2.7466rem);
+    --step-5: clamp(2.4883rem, 2.1597rem + 1.6433vi, 3.4332rem);
 
     --shadow-color: color-mix(in srgb, var(--color-primary) 30%, white 15%);
     --shadow-header: drop-shadow(2px 0px 8px var(--shadow-color));

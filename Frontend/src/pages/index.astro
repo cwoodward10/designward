@@ -2,6 +2,8 @@
 import { Image } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
 
+import SwiperCarousel from '@components/base/SwiperCarousel.svelte';
+
 import Headshot from '@assets/images/headshot2.jpg';
 ---
 
@@ -14,17 +16,17 @@ import Headshot from '@assets/images/headshot2.jpg';
 				<span class="nowrap">[<span class="logo-text" style="color: var(--color-accent-primary)">DesignWard</span>]</span>
 			</h1>
 			<p>
-				Hi I’m Chris - a Chicago-based Designer and Engineer. DesignWard is my portfolio page and (hopefully, eventually) a thriving Digital Garden. Have a look around!
+				I’m Chris - a Chicago-based Designer and Engineer. DesignWard is my portfolio page and (hopefully, eventually) a thriving Digital Garden.
 			</p>
 		</section>
 		<!-- Featured work section -->
-		<section>
+		<section class="featured">
 			<div class="intro">
 				<h2>Featured work</h2>
 				<p style="max-width: 780px">If you’re here for my work, you can think of it loosely separated into the below categories. While not comprehensive, these will give you a framework to understand my journey towards Creative Technology.</p>
 			</div>
 			<div class="carousel-container">
-
+				<SwiperCarousel client:only />
 			</div>
 		</section>
 		<!-- Digital Garden section -->
@@ -39,8 +41,8 @@ import Headshot from '@assets/images/headshot2.jpg';
 			<div class="content">
 				<div class="image">
 					<Image 
-						widths={[300, 500]} 
-						sizes={`(max-width: 360px) 300px, 500px`}
+						widths={[240, 400]} 
+						sizes={`(max-width: 360px) 240px, 400px`}
 						src={Headshot} 
 						alt="Chris Woodward" 
 					/>
@@ -69,9 +71,10 @@ import Headshot from '@assets/images/headshot2.jpg';
 	:global(:root) {
 		--padding-edge: 1rem;
 		--section-padding: 160px;
+
 		@media screen and (min-width: $breakpoint-md) {
 			--padding-edge: 2rem;
-			--section-padding: 200px;
+			--section-padding: 240px;
 		}
 	}
 	main {
@@ -84,6 +87,10 @@ import Headshot from '@assets/images/headshot2.jpg';
 
 	section {
 		padding-bottom: var(--section-padding);
+
+		&:last-child {
+			padding-bottom: 120px;
+		}
 
 		opacity: 0;
 		animation-name: fade-in;
@@ -98,7 +105,7 @@ import Headshot from '@assets/images/headshot2.jpg';
 		}
 
 		&.hero {
-			padding: var(--section-padding) 0;
+			padding: 200px 0 240px 0;
 
 			h1.hero {
 				margin-bottom: 20px;
@@ -127,6 +134,17 @@ import Headshot from '@assets/images/headshot2.jpg';
 				line-height: 135%;
 
 				text-wrap: pretty;
+			}
+		}
+
+		&.featured {
+			display: flex;
+			flex-direction: column;
+			gap: 30px;
+
+			.carousel-container {
+				display: flex;
+				justify-content: center;
 			}
 		}
 
@@ -214,9 +232,9 @@ import Headshot from '@assets/images/headshot2.jpg';
 					flex-direction: row;
 
 					.image {
-						padding-top: 0.75rem;
+						padding-top: 0.5rem;
 						width: 100%;
-						max-width: 500px;
+						max-width: 400px;
 					}
 				}
 			}

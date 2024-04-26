@@ -52,7 +52,9 @@
         <nav class="link-menu-container">
             {#each ROUTES as route}
             <li class="nav-route">
-                <a href={route.route}>{route.name}</a>
+                <a href={route.route}>
+                    <span>{route.name}</span>
+                </a>
             </li>
             {/each}
         </nav>
@@ -107,35 +109,48 @@
             gap: 1.5rem;
         }
         .link-menu-container .nav-route {
+            --transition-timing: 300ms;
             position: relative;
-            transform-origin: 50% 100%;
-            transition: scale 200ms ease-in;
-
+            
             a {
+                padding: 0 2px;
                 color: var(--color-primary);
+                span {
+                    display: inline-flex;
+                    transform-origin: 50% 100%;
+                    transition: transform var(--transition-timing) ease;
+                }
+
                 &::after {
                     content: none;
                 }
             }
 
-            &::after {
+            &::before, &::after {
                 content: "";
                 position: absolute;
                 bottom: 0;
-                left: 0;
                 
                 height: 2px;
                 width: 0%;
                 background-color: var(--color-primary);
 
-                transition: width 200ms ease-in;
+                transition: width var(--transition-timing) ease;
+            }
+            &::before {
+                left: 0;
+            }
+            &::after {
+                right: 0;
             }
 
             &:hover {
-                scale: 1.05;
+                span {
+                    transform: scale(1.05) translateY(-0.05em);
+                }
 
-                &::after {
-                    width: 100%;
+                &::before, &::after {
+                    width: calc(50% + 1px);
                 }
             }
         }
