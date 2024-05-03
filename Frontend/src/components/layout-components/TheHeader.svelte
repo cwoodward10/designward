@@ -13,6 +13,10 @@
         {
             name: 'Garden',
             route: '/garden/'
+        },
+        {
+            name: 'About',
+            route: '/about/'
         }
     ]
 
@@ -33,7 +37,9 @@
 <header id="top-header" class:hide={!showSticky}>
     <div id="header-content" >
         <a class="logo-container" href="/">
-            <AnimatedLogo />
+            [
+            <span><span class="logo-full">Designward</span><span class="logo-initials">DW</span></span>
+            ]
         </a>
         <nav class="hamburger-container">
             <HamburgerMenu 
@@ -68,10 +74,7 @@
         z-index: 100;
         
         display: flex;
-        background-color: var(--color-background);
         padding: 0.5rem var(--padding-edge);
-
-        filter: var(--shadow-header);
 
         transition: transform 300ms ease-in;
     }
@@ -89,7 +92,62 @@
     }
 
     .logo-container {
+        display: flex;
+        align-items: center;
+        gap: 0.1em;
+
         height: 2rem;
+        color: var(--color-text);
+
+        font-size: 24px;
+        line-height: 100%;
+
+        min-width: 51px;
+
+        --transition-duration: 300ms;
+        
+        span {
+            display: flex;
+            font-size: 0.8em;
+            font-family: var(--font-fun);
+            font-weight: 600;
+            line-height: 100%;
+        }
+        &>span {
+            translate: 0 0.08em;
+        }
+
+        .logo-full, .logo-initials {
+            overflow: hidden;
+            color: var(--color-primary);
+
+            transition-property: max-width;
+            transition-duration: var(--transition-duration);
+            transition-timing-function: ease-in-out;
+        }
+        .logo-full {
+            transition-delay: 0ms;
+            max-width: 0;
+        }
+        .logo-initials {
+            transition-delay: calc(var(--transition-duration) * 1.2);
+            max-width: 32px;
+        }
+
+        &::after {
+            content: none;
+        }
+
+        &:hover {
+            .logo-initials {
+                max-width: 0;
+                transition-delay: 0ms;
+            }
+            .logo-full {
+                max-width: 100px;
+                transition-delay: calc(var(--transition-duration) * 1.2);
+            }
+        }
     }
 
     .link-menu-container {
@@ -108,11 +166,16 @@
         }
         .link-menu-container .nav-route {
             position: relative;
-            transform-origin: 50% 100%;
-            transition: scale 200ms ease-in;
-
+            padding: 0 0.2em;
             a {
-                color: var(--color-primary);
+                color: var(--color-offwhite);
+
+                display: flex;
+                transform-origin: 50% 100%;
+
+                transition-property: scale, translate;
+                transition-duration: var(--transition-duration-standard);
+                transition-timing-function: var(--transition-easing-standard);
                 &::after {
                     content: none;
                 }
@@ -122,19 +185,24 @@
                 content: "";
                 position: absolute;
                 bottom: 0;
-                left: 0;
+                right: 0;
                 
                 height: 2px;
                 width: 0%;
                 background-color: var(--color-primary);
 
+                transform-origin: 50% 100%;
                 transition: width 200ms ease-in;
             }
 
             &:hover {
-                scale: 1.05;
+                a {
+                    scale: 1.03;
+                    translate: 0 -1px;
+                }
 
                 &::after {
+                    left: 0;
                     width: 100%;
                 }
             }

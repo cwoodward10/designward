@@ -6,22 +6,8 @@
     font-display: swap;
 }
 :root {
-    --color-offwhite: #F9F9F9;
-    --color-background: #FFFFFC;
-    --color-primary: #2D3754;
-    --color-secondary: #31CDDD;
-    --color-accent-primary: #FF4785;
-    --color-accent-red: #FF003C;
-    --color-accent-yellow: #FFDE88;
-    --color-accent-green: #47FF91;
-    --color-error: #AE003A;
-
-    --color-text: #121D29;
-    --color-text-white: #F4FCFF;
-    --color-link: #02A4FF;
-    --color-link-visited: #41708B;
-
-    --font-title: "Gorton-Perfected VF", Arial, sans-serif;
+    --font-title: "Sofia Sans", sans-serif;
+    --font-fun: "Gorton-Perfected VF", Arial, sans-serif;
     --font-body: "Montserrat", sans-serif;
     --font-body-alt: "Montserrat Alternates", sans-serif;
 
@@ -30,149 +16,320 @@
     /* font steps per Utopia.fyi */
     --step--2: clamp(0.7813rem, 0.7747rem + 0.0326vi, 0.8rem);
     --step--1: clamp(0.9375rem, 0.9158rem + 0.1087vi, 1rem);
-    --step-0: clamp(1.125rem, 1.0815rem + 0.2174vi, 1.25rem);
+    --step-0: clamp(1.125rem, 1.0815rem + 0.2174vi, 1.2rem);
     --step-1: clamp(1.35rem, 1.2761rem + 0.3696vi, 1.5625rem);
     --step-2: clamp(1.62rem, 1.5041rem + 0.5793vi, 1.9531rem);
     --step-3: clamp(1.944rem, 1.771rem + 0.8651vi, 2.4414rem);
     --step-4: clamp(2.3328rem, 2.0827rem + 1.2504vi, 3.0518rem);
     --step-5: clamp(2.7994rem, 2.4462rem + 1.7658vi, 3.8147rem);
 
+    --transition-duration-standard: 250ms;
+    --transition-easing-standard: ease-in;
+
     --shadow-color: color-mix(in srgb, var(--color-primary) 30%, white 15%);
     --shadow-header: drop-shadow(2px 0px 8px var(--shadow-color));
     --shadow-image: drop-shadow(3px 3px 8px var(--shadow-color));
+
+    --padding-edge: 1rem;
+    --section-padding: 160px;
+    @media screen and (min-width: 1024px) {
+        --padding-edge: 2rem;
+        --section-padding: 200px;
+    }
+    
+    --initial-animation-delay: 100ms;
 }
 html {
+    --color-offwhite: #FFFFFC;
+    --color-offblack: #191D24;
+
+    --color-primary: #FF4785;
+    --color-secondary: #FCDE73;
+    --color-accent-primary: #01BAEF;
+    --color-error: #AE003A;
+    
+    --color-text: var(--color-offwhite);
+    --color-background: var(--color-offblack);
+    --color-background-dark: #101819;
+
+    --color-pink-white: color-mix(in srgb, var(--color-primary) 100%, white 20%);
+
+    --color-a-gradient: linear-gradient(
+        45deg,
+        var(--color-secondary) 25%,
+        var(--color-primary) 50%,
+        var(--color-secondary) 75%
+    );
+
+    --font-weight: 300;
+
+    &.light {
+        --color-primary: #FF4785;
+        --color-secondary: #01BAEF;
+        --color-accent-primary:  color-mix(in srgb, #01BAEF, var(--color-primary) 50%);;
+
+        --color-text: var(--color-offblack);
+        --color-background: var(--color-offwhite);
+
+        --font-weight: 400;
+    }
+
     font-family: var(--font-body);
-    font-weight: 400;
+    font-weight: var(--font-weight);
     color: var(--color-text);
 }
-@media screen and (min-width: 740px) {
-    html {
-        font-weight: 300;
-    }
-}
 
-code {
-    font-family:
-        Menlo,
-        Monaco,
-        Lucida Console,
-        Liberation Mono,
-        DejaVu Sans Mono,
-        Bitstream Vera Sans Mono,
-        Courier New,
-        monospace;
+@layer base {
     
-        background-color: color-mix(in srgb, var(--color-secondary) 15%, white);
-}
-a {
-    font-family: var(--font-body-alt);
-    font-size: var(--step-0);
-    font-weight: 500;
-    color: var(--color-link-visited);
-    text-decoration: none;
-
-    &:visited {
-        color: var(--color-link-visited);
+    code {
+        font-family:
+            Menlo,
+            Monaco,
+            Lucida Console,
+            Liberation Mono,
+            DejaVu Sans Mono,
+            Bitstream Vera Sans Mono,
+            Courier New,
+            monospace;
+        
+            background-color: color-mix(in srgb, var(--color-secondary) 15%, var(--color-offwhite));
     }
-}
+    a {
+        font-family: var(--font-body);
+        font-size: inherit;
+        font-weight: 500;
+        text-decoration: none;
+    
+        color: var(--color-secondary);
 
-h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-title);
-}
-h1.hero {
-    font-size: var(--step-5);
-    font-weight: 500; 
-}
-h1 {
-    font-size: var(--step-4);
-    font-weight: 500;
-    line-height: 140%
-}
-h2 {
-    font-size: var(--step-3);
-    font-weight: 500;
-    line-height: 140%
-}
-h3 {
-    font-size: var(--step-2);
-    font-weight: 500;
-    line-height: 135%
-}
-h4 {
-    font-size: var(--step-1);
-    font-weith: 500;
-    line-height: 135%
-}
+        white-space: nowrap;
+    
+        &:visited {
+            color: var(--color-secondary);
+        }
+    }
+    a:not(:has(img,svg)) {
+        --link-base-translation: 0 -0.1em;
 
-p {
-    font-size: var(--step-0);
-}
-p.small, a.small {
-    font-size: var(--step--1);
-}
-p.x-small a.x-small {
-    font-size: var(--step--2);
-}
-a.white, a.visited {
-    color: var(--color-text-white);
-    text-decoration: underline;
-}
+        display: inline-block;
 
-.arrow {
-    h1&, h2&, h3&, h4&, h5&, p&, a& {
+        width: fit-content;
+        position: relative;
+
+        font-weight: 500;
+        translate: var(--link-base-translation);
+
+        background: var(--color-a-gradient);
+        background-size: 300%;
+        -webkit-background-clip: text;
+        background-clip: text;
+
+        transition-property: color;
+        transition-duration: 500ms;
+        transition-timing-function: ease-in-out;
+    
+        &:hover {
+            color: transparent;
+            animation: move-bg 4s linear infinite;
+        }
+
+        &:after {
+            content: "";
+
+            position: absolute;
+            top: 100%;
+            left: 0;
+
+            height: 2px;
+            width: 100%;
+            background-color: var(--color-primary);
+        }
+    }
+    
+    h1, h2, h3, h4, h5, h6 {
+        font-family: var(--font-title);
+    }
+    h1.hero, .style-h1.hero {
+        font-size: var(--step-5);
+        font-weight: 500; 
+    }
+    h1, .style-h1 {
+        font-size: var(--step-4);
+        font-weight: 500;
+        line-height: 140%
+    }
+    h2, .style-h2 {
+        font-size: var(--step-3);
+        font-weight: 500;
+        line-height: 140%
+    }
+    h3, .style-h3 {
+        font-size: var(--step-2);
+        font-weight: 500;
+        line-height: 135%
+    }
+    h4, .style-h4 {
+        font-size: var(--step-1);
+        font-weight: 400;
+        line-height: 135%
+    }
+    
+    p {
+        font-size: var(--step-0);
+    }
+    p.small, a.small {
+        font-size: var(--step--1);
+    }
+    p.x-small a.x-small {
+        font-size: var(--step--2);
+    }
+    a.white, a.visited {
+        color: var(--color-text-white);
+    }
+    
+    a.arrow {
         display: inline-flex;
         align-items: center;
+
+        color: var(--color-secondary);
+        background: none;
+
+        animation: none;
         
+        &::before {
+            content: none;
+        }
         &::after {
             content: "→";
+
+            position: static;
+            height: fit-content;
+            width: fit-content;
+
+            background: none;
+            background-color: transparent;
+
+            margin-top: -0.1em;
+
             display: inline-flex;
             padding-left: clamp(4px, 0.2em, 10px);
+
             font-weight: inherit;
-            font-family: var(--font-title);
+            font-family: var(--font-fun);
+            font-size: inherit;
+            line-height: inherit;
+
+            translate: 0 0;
+            transition: translate 300ms ease-in-out;
         }
 
         &:hover {
+            color: var(--color-secondary);
+
             &::after {
-                animation-name: wiggle-x;
-                animation-duration: 1000ms;
-                animation-iteration-count: infinite;
-                animation-timing-function: ease-in-out;
+                translate: 0.5em 0;
             }
         }
     }
-}
-a:not(.arrow):not(:has(img,svg)) {
-    position: relative;
 
-    &::after {
-        content: "";
-        position: absolute;
-        top: 100%;
-        left: 0;
-        
-        height: 2px;
-        width: 0%;
-        background-color: var(--color-primary);
+	main {
+		margin: auto;
+		padding: var(--padding-edge);
 
-        transition: width 200ms ease-in;
-    }
+        width: 100%;
+		max-width: 1200px;
+	}
 
-    &:hover {
-        &::after {
-            width: 100%;
+	article, section {
+		display: flex;
+		flex-direction: column;
+		gap: 30px;
+
+		padding-bottom: var(--section-padding);
+
+        opacity: 0;
+
+		animation-name: animate-section-in;
+		animation-duration: 1000ms;
+		animation-delay: var(--initial-animation-delay, 800ms);
+		animation-timing-function: ease-out;
+		animation-fill-mode: forwards;
+		animation-iteration-count: 1;
+
+        p {
+            max-width: 70em;
+            text-wrap: balance;
+        }
+	}
+    
+    @keyframes wiggle-x {
+        from {
+            translate: 0% 0;
+        }
+        50% {
+            translate: clamp(2px, 0.5em, 10px) 0;
+        }
+        to {
+            translate: 0% 0;
         }
     }
-}
 
-@keyframes wiggle-x {
-    from {
-        translate: 0% 0;
+    @keyframes animate-section-in {
+		from {
+			opacity: 0;
+		}
+		to {
+			opacity: 1;
+		}
+	}
+
+    @keyframes fade-in {
+		from {
+			opacity: 0;
+		}
+		to {
+			opacity: 1;
+		}
+	}
+
+    @keyframes fly-in {
+		from {
+			opacity: 0;
+            translate: var(--fly-in-value, 0 2em);
+		}
+		to {
+			opacity: 1;
+            translate: 0 0;
+		}
+	}
+
+    @keyframes animate-link {
+        from {
+            translate: 0;
+            color: var(--color-text);
+        }
+        to {
+            translate: var(--link-base-translation, 0 -0.1em);
+            color: var(--color-secondary);
+            font-weight: 500;
+        }
     }
-    50% {
-        translate: clamp(2px, 0.5em, 10px) 0;
+
+    @keyframes animate-link-underline {
+        from {
+            width: 0;
+        }
+        to {
+            width: calc(50% + 1px);
+        }
     }
-    to {
-        translate: 0% 0;
+
+    @keyframes move-bg {
+        from {
+            background-position: right 0% top 50%;
+        }
+        to {
+            background-position: right 100% top 50%;
+        }
     }
 }

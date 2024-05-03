@@ -1,63 +1,81 @@
 ---
-import { Image } from 'astro:assets';
+import A from '@components/base/A.astro';
 import Layout from '../layouts/Layout.astro';
-
-import Headshot from '@assets/images/headshot2.jpg';
 ---
+
+<script>
+	const definitionSection = document.querySelector('.definition');
+	const observer = new IntersectionObserver((e: IntersectionObserverEntry[]) => {
+		console.log(e)
+		const definitionEntry = e[0];
+		if (!definitionEntry.isIntersecting) {
+			definitionEntry.target.classList.add('short-delay');
+		} else {
+			definitionSection?.classList.remove('hide');
+			observer.unobserve(definitionEntry.target);
+			observer.disconnect();
+		}
+	}, {
+		threshold: 0.1,
+	})
+	
+	if (definitionSection) {
+		observer.observe(definitionSection);
+	}
+</script>
 
 <Layout title="Welcome to DesignWard.">
 	<main>
-		<!-- Hero section -->
-		<section class="hero">
+		<!-- hero section -->
+		<section class="headline">
 			<h1 class="hero">
-				<span class="nowrap">Welcome to </span>
-				<span class="nowrap">[<span class="logo-text" style="color: var(--color-accent-primary)">DesignWard</span>]</span>
+				<span class="nowrap">Hi, welcome to </span>
+				<span class="nowrap logo-container">[<span class="logo-text">DesignWard</span>]</span>
 			</h1>
-			<p>
-				Hi I’m Chris - a Chicago-based Designer and Engineer. DesignWard is my portfolio page and (hopefully, eventually) a thriving Digital Garden. Have a look around!
+		</section>
+		<section class="hero">
+			<p class="style-h3">
+				I’m Chris, a Chicago-based 
+				<A href="/garden/whats-a-design-technologist#ondesign">Designer</A> and 
+				<A href="/garden/whats-a-design-technologist#onengineering">Frontend Engineer.</A> 
+				Here you’ll find a portfolio of past projects 
+				and a set of <A client:only href="">WIP thoughts</A> on creative technology.
 			</p>
-		</section>
-		<!-- Featured work section -->
-		<section>
-			<div class="intro">
-				<h2>Featured work</h2>
-				<p style="max-width: 780px">If you’re here for my work, you can think of it loosely separated into the below categories. While not comprehensive, these will give you a framework to understand my journey towards Creative Technology.</p>
+			<p class="style-h4">
+				I’m currently employed as a <A href="">Design Technologist</A> at Square 
+				where I use my <A href="">design background</A> to 
+				help bridge the gap between digital experience and technical implementation.
+			</p>
+			<div class="links">
+				<a href="/portfolio" class="arrow">To the porfolio</a>
+				<a href="/garden" class="arrow">To the thought garden</a>
+				<a href="/about" class="arrow">Learn more about me (Chris)</a>
 			</div>
-			<div class="carousel-container">
+		</section>
 
-			</div>
-		</section>
-		<!-- Digital Garden section -->
-		<section class="digital-garden">
-			<div class="content">
-				<h2>Wander the Digital Garden</h2>
-				<p>More than just a literal amalgamation of “Design” and my last name - “Woodward” - DesignWard represents an aspiration. “Ward”, as a suffix, suggests directionality in relation to the root element it is attached to. In this way “Design” + “Ward” represents an aspiration towards design in everything that I do. While a large portion of my job is engineering, I am still a designer at heart and aspire to bring that humanity, craft, and delight into everything that I produce.</p>
-			</div>
-		</section>
-		<!-- About me section -->
-		<section class="about">
-			<div class="content">
-				<div class="image">
-					<Image 
-						widths={[300, 500]} 
-						sizes={`(max-width: 360px) 300px, 500px`}
-						src={Headshot} 
-						alt="Chris Woodward" 
-					/>
-				</div>
-				<div class="text-content">
-					<h2>About me</h2>
-					<p>
-						<span>
-							Hello again, I’m Chris. I’m currently living in Chicago and working as a Design Technologist at Square. I create web-based experiences, productivity tools, and the occasional custom marketing email. While engineering is my main responsibility, I am also often asked to take on design tasks - both big and small. 
-						</span>
-						<span>
-							My background is in Architectural Design where I spend three years working professionally at RINKA+ in Milwaukee. While there, I spent long hours grinding on design work and learning to manage design teams and design processes. 
-						</span>
-						<span>
-							Between my experience at Square, RINKA+, and as a lead designer and frontend-engineer at EvolveLAB, I’ve learned to take on any design and engineering tasks asked of me.</p>
-						</span>
-				</div>
+		<!-- definition section -->
+		<section class="definition hide">
+			<hgroup>	
+				<h2 class="style-h4">DesignWard</h2>
+				<p class="definition">de<span>·</span>​sign<span>·</span>​ward [di<span>-</span>ˈzīn<span>-</span>wərd]</p>
+			</hgroup>
+			<div class="text">
+				<p>
+					More than just a literal amalgamation of “Design” and “Woodward”, my last name, DesignWard represents an aspiration.
+				</p>
+				<p>
+					“Ward”, as a suffix, suggests directionality in relation to the root element it is attached to.
+				</p>
+				<p>
+					In this way, the joining of “Design” and “Ward” represents an aspiration to bring design
+					 - especially the craft, delight, and attention to human experience that design entails
+					  - to everything I do <A href="">(including this site)</A>.
+				</p>
+				<p>
+					As a both an artifact of and vehicle to continue my journey through design and technology, 
+					I’ve asked DesignWard (the website) to exist as both something static - a snapshot of the projects I have worked on - 
+					and something more ephemeral - a digital garden of thoughts in varying states of completeness.  
+				</p>
 			</div>
 		</section>
 	</main>
@@ -66,169 +84,130 @@ import Headshot from '@assets/images/headshot2.jpg';
 <style lang="scss">
 	@import '../assets/styles/sass/breakpoints.scss';
 
-	:global(:root) {
-		--padding-edge: 1rem;
-		--section-padding: 160px;
+	section.headline {
+		--initial-animation-delay: 0ms;
+
+		padding-top: 40px;
+		padding-bottom: 40px;
+
 		@media screen and (min-width: $breakpoint-md) {
-			--padding-edge: 2rem;
-			--section-padding: 200px;
-		}
-	}
-	main {
-		margin: auto;
-		padding: var(--padding-edge);
-
-		width: 1200px;
-		max-width: calc(100% - 2*var(--padding-edge));
-	}
-
-	section {
-		padding-bottom: var(--section-padding);
-
-		opacity: 0;
-		animation-name: fade-in;
-		animation-duration: 500ms;
-		animation-delay: 200ms;
-		animation-timing-function: ease-in;
-		animation-fill-mode: forwards;
-		animation-iteration-count: 1;
-
-		h2 {
-			margin-bottom: 1rem;
+			padding-top: 120px;
 		}
 
-		&.hero {
-			padding: var(--section-padding) 0;
-
-			h1.hero {
-				margin-bottom: 20px;
-
-				span.logo-text {
-					display: inline-flex;
-					overflow: hidden;
-					width: fit-content;
-					max-width: 0;
-
-					animation-name: open-text;
-					animation-duration: 300ms;
-					animation-delay: 500ms;
-					animation-timing-function: ease-in;
-					animation-fill-mode: forwards;
-					animation-iteration-count: 1;
-				}
+		h1.hero {
+			span.logo-container {
+				display: inline-block;
+				min-width: 200px;
 			}
 
-			p {	
+			span.logo-text {
+				color: transparent;
+				background: linear-gradient(
+					45deg,
+					var(--color-offwhite) 0%,
+					var(--color-primary) 10%,
+					var(--color-pink-white) 50%,
+					var(--color-primary) 90%,
+					var(--color-offwhite) 100%
+				);
+				background-size: 100%;
+				-webkit-background-clip: text;
+				background-clip: text;
+
+				font-family: var(--font-fun);
+				font-size: 0.8em;
+
 				display: inline-flex;
-				max-width: 1000px;
+				overflow: hidden;
 
-				font-size: var(--step-0);
-				font-weight: 400;
-				line-height: 135%;
+				width: fit-content;
+				max-width: 0;
 
-				text-wrap: pretty;
-			}
-		}
+				margin: 0 0.2em;
 
-		&.digital-garden {
-			position: relative;
-
-			padding-bottom: 0;
-			margin-bottom: var(--section-padding);
-
-			&::after {
-				position: absolute;
-				--offset: 4px;
-				top: var(--offset);
-				right: var(--offset);
-				left: var(--offset);
-				bottom: var(--offset);
-
-				border-radius: 10px;
-
-				content: "";
-				display: flex;
-				border-image: url('../assets/images/Ground-Hatch-Border-Image-40.png')  40 40 / 1rem 1rem / 0 round space;
-			}
-			.content {
-				position: relative;
-
-				border: var(--color-primary) 4px solid;
-				border-radius: 10px;
-				padding: clamp(20px, calc(1vw * 5), 100px);
-
-				&::before, &::after {
-					content: "";
-					background-image: url('../assets/images/Plants.svg');
-					background-size: contain;
-	
-					width: clamp(80px, calc(25vw), 160px);
-					aspect-ratio: 2 / 1;
-
-					position: absolute;
-				}
-				&::before {
-					bottom: 100%;
-					right: 24px;
-				}
-				&::after {
-					top: 100%;
-					left: 24px;
-					rotate: 180deg;
-				}
-			}
-		}
-
-		&.about {
-			.content {
-				display: flex;
-				flex-direction: column;
-				gap: 30px;
-
-				.image {
-					aspect-ratio: 1 / 1;
-					width: fit-content;
-					max-width: 100%;
-
-					filter: var(--shadow-image);
-
-					img {
-						overflow: hidden;
-						border-radius: 4px;
-						height: auto;
-						width: auto;
-					}
-				}
-
-				.text-content {
-					width: 100%;
-
-					p span {
-						display: inline-flex;
-						text-wrap: pretty;
-						margin-bottom: 1rem;
-					}
-				}
-
-				@media screen and (min-width: $breakpoint-md) {
-					flex-direction: row;
-
-					.image {
-						padding-top: 0.75rem;
-						width: 100%;
-						max-width: 500px;
-					}
-				}
+				animation-name: open-text;
+				animation-duration: 300ms;
+				animation-delay: 500ms;
+				animation-timing-function: ease-out;
+				animation-fill-mode: forwards;
+				animation-iteration-count: 1;
 			}
 		}
 	}
+	section.hero {
+		--initial-animation-delay: 800ms;
 
-	@keyframes fade-in {
-		from {
-			opacity: 0;
+		padding: 0 0 var(--section-padding);
+
+		p {	
+			font-weight: 300;
+			text-wrap: pretty;
+			max-width: 1000px;
 		}
-		to {
-			opacity: 1;
+
+		.links {
+			display: flex;
+			flex-direction: column;
+			gap: 10px;
+
+			a {
+				opacity: 0;
+				--fly-in-value: 0 1em;
+				translate: var(--fly-in-value);
+
+				animation-name: fly-in;
+				animation-duration: 500ms;
+				animation-timing-function: ease-out;
+				animation-delay: calc((var(--initial-animation-delay) * 2) + calc(var(--a-delay)));
+				animation-iteration-count: 1;
+				animation-fill-mode: forwards;
+			}
+			a:first-child {
+				--a-delay: 200ms;
+			}
+			a:nth-child(2) {
+				--a-delay: 400ms;
+			}
+			a:last-child {
+				--a-delay: 600ms;
+			}
+		}
+	}
+	section.definition {
+		--initial-animation-delay: 2000ms;
+
+		max-width: 800px;
+
+		&.hide {
+			animation: none;
+			opacity: 0;
+			content-visibility: auto;
+		}
+		&.short-delay {
+			--initial-animation-delay: 200ms;
+		}
+		
+		hgroup {
+			display: flex;
+			flex-direction: column;
+			gap: 0.1em;
+
+			span {
+				color: var(--color-primary);
+			}
+
+			p {
+				font-family: var(--font-body-alt);
+			}
+		}
+		.text {
+			display: flex;
+			flex-direction: column;
+			gap: 20px;
+		}
+		p {
+			max-width: unset;
+			text-wrap: pretty;
 		}
 	}
 	@keyframes open-text {
