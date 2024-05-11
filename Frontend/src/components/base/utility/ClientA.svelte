@@ -6,6 +6,19 @@
 
     let element: HTMLAnchorElement;
     onMount(() => {
+        if (!anchorObserver) {
+            anchorObserver = new IntersectionObserver((entries) => {
+                entries.forEach((e) => {
+                    if (e.isIntersecting) {
+                        console.log(e)
+                        e.target.classList.add('animate');
+
+                        anchorObserver.unobserve(e.target);
+                    }
+                })
+            })
+        }
+        
         element.addEventListener('animationend', (e) => {
             element.classList.remove('initial', 'animate');
         }, {once: true,})
@@ -15,16 +28,7 @@
 </script>
 
 <script lang="ts" context="module">
-    const anchorObserver = new IntersectionObserver((entries) => {
-        entries.forEach((e) => {
-            if (e.isIntersecting) {
-                console.log(e)
-                e.target.classList.add('animate');
-
-                anchorObserver.unobserve(e.target);
-            }
-        })
-    })
+    let anchorObserver: IntersectionObserver;
 </script>
 
 <a bind:this={element} class="initial" href={href} title={title}>
