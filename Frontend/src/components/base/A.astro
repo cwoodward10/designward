@@ -1,8 +1,9 @@
 ---
 import ClientA from './utility/ClientA.svelte';
+
 const { href, title } = Astro.props;
 ---
 
-<ClientA client:only href={href} title={title}>
+<ClientA client:load href={href} title={title}>
     <slot></slot>
 </Client>

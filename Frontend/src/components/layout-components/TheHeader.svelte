@@ -1,10 +1,8 @@
 <script lang="ts">
-    import AnimatedLogo from "@components/brand/LogoAnimated.svelte";
     import HamburgerMenu from "@components/base/menus/hamburger/HamburgerMenu.svelte";
 
     const HEIGHT_HERO = 500;
 
-    export let currentPath: string;
     const ROUTES: {name: string, route: string}[] = [
         {
             name: 'Portfolio',

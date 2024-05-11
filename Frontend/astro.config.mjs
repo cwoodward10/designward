@@ -9,5 +9,6 @@ import sitemap from "@astrojs/sitemap";
 export default defineConfig({
   integrations: [svelte(), markdoc(), sitemap()],
   output: "server",
-  adapter: vercel()
+  adapter: vercel(),
+  site: 'https://www.designward.io'
 });

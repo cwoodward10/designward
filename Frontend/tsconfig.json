@@ -5,9 +5,9 @@
     "paths": {
       "@assets/*": ["src/assets/*"],
       "@components/*": ["src/components/*"],
-      "@modules/*": ["src/modules"],
-      "@layouts/*": ["src/layouts"],
-      "@content/*": ["src/content"]
+      "@modules/*": ["src/modules/*"],
+      "@layouts/*": ["src/layouts/*"],
+      "@content/*": ["src/content/*"]
     }
   }
 }
