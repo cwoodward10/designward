@@ -1,0 +1,54 @@
+---
+import Layout from "./Layout.astro";
+import ContentImage from "@components/content-helpers/ContentImage.astro";
+
+interface Props {
+	data: {
+        title: string,
+        lastEdited: string,
+        state: "concept" | "under construction" | "operational",
+        tags?: string[],
+        image?: string,
+    };
+}
+
+const { data } = Astro.props;
+---
+
+<Layout title={data.title}>
+    <main class="content content-layout">
+        <article class="content-intro">
+            <hgroup>
+                <h1>{data.title}</h1>
+                <p class="date">{data.lastEdited}</p>
+                <p class="state">Writing state: {data.state}</p>
+                {data.image && <ContentImage src={data.image} alt={data.image} /> }
+            </hgroup>
+        </article>
+        <slot/>
+    </main>
+</Layout>
+
+<style>
+    .content-layout {
+        --initial-animation-delay: 400ms;
+
+        width: fit-content;
+
+        article {
+            max-width: 60em;
+        }
+
+        p {
+            text-wrap: pretty;
+        }
+    }
+
+    .content-intro {
+        padding-bottom: 30px;
+
+        p {
+            font-size: var(--font--step--2);
+        }
+    }
+</style>

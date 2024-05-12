@@ -1,0 +1,41 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+import { getCollection } from 'astro:content';
+
+const slug = Astro.url.pathname;
+const allThoughts = await getCollection('thoughts');
+---
+
+<Layout title="Thought garden">
+	<main>
+        <section>
+            <h1>Thought garden</h1>
+            <p>
+                Welcome to my Thought Garden. It's pretty scarce right now. You can check out what's below or <a href="/">return home</a>.
+                Stop back in the future though. It will be more built out. It may even be thriving!
+            </p>
+        </section>
+        <section>
+            <h2>Thoughts</h2>
+            <ul>
+                {allThoughts.map(thought => (
+                    <li>
+                        <a href={`${thought.slug}`}>{thought.data.title}</a>
+                    </li>
+                ))}
+            </ul>
+        </section>
+    </main>
+</Layout> 
+
+<style>
+    main {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+    }
+    section {
+        gap: 1em;
+    }
+</style>

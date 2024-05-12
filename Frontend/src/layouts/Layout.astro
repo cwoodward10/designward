@@ -1,0 +1,37 @@
+---
+import '@assets/styles/reset.css';
+import '@assets/styles/utility.css';
+import '@assets/styles/global.css';
+
+import Head from '@components/base/infra/Head.astro';
+import TheFooter from '@components/layout-components/TheFooter.astro';
+
+import TheHeader from '@components/layout-components/TheHeader.svelte';
+
+interface Props {
+	title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+	<Head {title} />
+	<body>
+		<TheHeader client:load />
+		<slot />
+		<TheFooter />
+	</body>
+</html>
+
+<style>
+	body {
+		margin: 0;
+		background-color: var(--color-background);
+
+		main {
+			min-height: 100vh;
+		}
+	}
+</style>

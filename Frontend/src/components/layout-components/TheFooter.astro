@@ -1,0 +1,99 @@
+---
+    import Image from 'astro/components/Image.astro';
+
+    import svelteLogo from '@assets/images/logos/svelte.png'
+    import astroLogo from '@assets/images/logos/astro-mark-48.png'
+---
+
+<footer class="main-footer">
+    <div class="content">
+        <section class="logos-container">
+            <p class="x-small">About the stack:</p>
+            <div class="logos">
+                <a href="https://astro.build//" target="#">
+                    <Image height={24} src={astroLogo} alt="Astro Framework logo">
+                </a>
+                <a href="https://svelte.dev/" target="#">
+                    <Image height={24} src={svelteLogo} alt="Svelte Framework logo">
+                </a>
+            </div>
+            <a class="white x-small" href="https://github.com/cwoodward10/designward" target="#">
+                See the repo
+            </a>
+        </section>
+    
+        <section class="links-container">
+            <p class="x-small">Quick links:</p>
+            <a 
+                class="white x-small"
+                href="https://www.linkedin.com/in/chris-woodward-8789b532/" 
+                target="#"
+            >
+                LinkedIn
+            </a>
+            <a 
+                class="white x-small"
+                href="https://drive.google.com/file/d/1FMfZ0RHwd1AGZXMIAXn4cPiG5mS5fMAR/view?usp=sharing" 
+                target="#"
+            >
+                Resume
+            </a>
+        </section>
+    </div>
+</footer>
+
+<style>
+    .main-footer {
+        width: 100%;
+
+        color: var(--color-text-white);
+        background-color: var(--color-background-dark);
+
+        .content {
+            margin: auto;
+            padding: var(--padding-edge);
+
+            width: 1200px;
+            max-width: calc(100% - 2*var(--padding-edge));
+
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .logos-container, .links-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            gap: 0.25rem;
+        }
+        .logos-container {
+            a.x-small {
+                margin-top: 10px;
+            }
+        }
+        .links-container {
+            align-items: flex-end;
+        }
+
+        .logos {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        a {
+            text-decoration: underline;
+
+            &::after {
+                content: none;
+            }
+        }
+        
+        p.x-small {
+            font-size: 16px;
+        }
+        a.x-small {
+            font-size: 12px;
+        }
+    }
+</style>

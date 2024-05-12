@@ -1,0 +1,226 @@
+---
+import A from '@components/base/A.astro';
+import Layout from '@layouts/Layout.astro';
+---
+
+<script>
+	const definitionSection = document.querySelector('.definition');
+	const observer = new IntersectionObserver((e: IntersectionObserverEntry[]) => {
+		console.log(e)
+		const definitionEntry = e[0];
+		if (!definitionEntry.isIntersecting) {
+			definitionEntry.target.classList.add('short-delay');
+		} else {
+			definitionSection?.classList.remove('hide');
+			observer.unobserve(definitionEntry.target);
+			observer.disconnect();
+		}
+	}, {
+		threshold: 0.1,
+	})
+	
+	if (definitionSection) {
+		observer.observe(definitionSection);
+	}
+</script>
+
+<Layout title="Welcome to DesignWard.">
+	<main>
+		<!-- hero section -->
+		<section class="headline">
+			<h1 class="hero">
+				<span class="nowrap">Hi, welcome to </span>
+				<span class="nowrap logo-container">[<span class="logo-text">DesignWard</span>]</span>
+			</h1>
+		</section>
+		<section class="hero">
+			<p class="style-h3">
+				I’m Chris, a Chicago-based 
+				<A href="/garden/design-engineering-question-mark#am-i-a-designer">Designer</A> and 
+				<A href="/garden/design-engineering-question-mark#am-i-an-engineer">Frontend Engineer.</A> 
+				Here you’ll find a portfolio of past projects 
+				and a set of <A href="">WIP thoughts</A> on creative technology.
+			</p>
+			<p class="style-h4">
+				I’m currently employed as a <A href="">Design Technologist</A> at Square 
+				where I use my <A href="">design background</A> to 
+				help bridge the gap between digital experience and technical implementation.
+			</p>
+			<div class="links">
+				<a href="/portfolio" class="arrow">To the porfolio</a>
+				<a href="/garden" class="arrow">To the thought garden</a>
+				<a href="/about" class="arrow">Learn more about me (Chris)</a>
+			</div>
+		</section>
+
+		<!-- definition section -->
+		<section class="definition hide">
+			<hgroup>	
+				<h2 class="style-h4">DesignWard</h2>
+				<p class="definition">de<span>·</span>​sign<span>·</span>​ward [di<span>-</span>ˈzīn<span>-</span>wərd]</p>
+			</hgroup>
+			<div class="text">
+				<p>
+					More than just a literal amalgamation of “Design” and “Woodward”, my last name, DesignWard represents an aspiration.
+				</p>
+				<p>
+					“Ward”, as a suffix, suggests directionality in relation to the root element it is attached to.
+				</p>
+				<p>
+					In this way, the joining of “Design” and “Ward” represents an aspiration to bring design
+					 - especially the craft, delight, and attention to human experience that design entails
+					  - to everything I do <A href="">(including this site)</A>.
+				</p>
+				<p>
+					As a both an artifact of and vehicle to continue my journey through design and technology, 
+					I’ve asked DesignWard (the website) to exist as both something static - a snapshot of the projects I have worked on - 
+					and something more ephemeral - a digital garden of thoughts in varying states of completeness.  
+				</p>
+			</div>
+		</section>
+	</main>
+</Layout>
+
+<style lang="scss">
+	@import '@assets/styles/sass/breakpoints.scss';
+
+	section {
+		padding-bottom: var(--section-padding);
+	}
+	section.headline {
+		--initial-animation-delay: 0ms;
+
+		padding-top: 40px;
+		padding-bottom: 40px;
+
+		@media screen and (min-width: $breakpoint-md) {
+			padding-top: 120px;
+		}
+
+		h1.hero {
+			span.logo-container {
+				display: inline-block;
+				min-width: 200px;
+			}
+
+			span.logo-text {
+				color: transparent;
+				background: linear-gradient(
+					45deg,
+					var(--color-offwhite) 0%,
+					var(--color-primary) 10%,
+					var(--color-pink-white) 50%,
+					var(--color-primary) 90%,
+					var(--color-offwhite) 100%
+				);
+				background-size: 100%;
+				-webkit-background-clip: text;
+				background-clip: text;
+
+				font-family: var(--font-fun);
+				font-size: 0.8em;
+
+				display: inline-flex;
+				overflow: hidden;
+
+				width: fit-content;
+				max-width: 0;
+
+				margin: 0 0.2em;
+
+				animation-name: open-text;
+				animation-duration: 300ms;
+				animation-delay: 500ms;
+				animation-timing-function: ease-out;
+				animation-fill-mode: forwards;
+				animation-iteration-count: 1;
+			}
+		}
+	}
+	section.hero {
+		--initial-animation-delay: 800ms;
+		--link-base-translation: 0 -0.1em;
+    	--link-underline-offset: 0px;
+
+		padding: 0 0 var(--section-padding);
+
+		p {	
+			font-weight: 300;
+			text-wrap: pretty;
+			max-width: 1000px;
+		}
+
+		.links {
+			display: flex;
+			flex-direction: column;
+			gap: 10px;
+
+			a {
+				opacity: 0;
+				--fly-in-value: 0 1em;
+				translate: var(--fly-in-value);
+
+				animation-name: fly-in;
+				animation-duration: 500ms;
+				animation-timing-function: ease-out;
+				animation-delay: calc((var(--initial-animation-delay) * 2) + calc(var(--a-delay)));
+				animation-iteration-count: 1;
+				animation-fill-mode: forwards;
+			}
+			a:first-child {
+				--a-delay: 200ms;
+			}
+			a:nth-child(2) {
+				--a-delay: 400ms;
+			}
+			a:last-child {
+				--a-delay: 600ms;
+			}
+		}
+	}
+	section.definition {
+		--initial-animation-delay: 2000ms;
+
+		max-width: 800px;
+
+		&.hide {
+			animation: none;
+			opacity: 0;
+			content-visibility: auto;
+		}
+		&.short-delay {
+			--initial-animation-delay: 200ms;
+		}
+		
+		hgroup {
+			display: flex;
+			flex-direction: column;
+			gap: 0.1em;
+
+			span {
+				color: var(--color-primary);
+			}
+
+			p {
+				font-family: var(--font-body-alt);
+			}
+		}
+		.text {
+			display: flex;
+			flex-direction: column;
+			gap: 20px;
+		}
+		p {
+			max-width: unset;
+			text-wrap: pretty;
+		}
+	}
+	@keyframes open-text {
+		from {
+			max-width: 0;
+		}
+		to {
+			max-width: 7.5em;
+		}
+	}
+</style>
