@@ -210,4 +210,8 @@
             }
         }
     }
+
+    li::marker {
+        content: none;
+    }
 </style>

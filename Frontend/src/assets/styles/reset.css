@@ -135,9 +135,12 @@
     padding: 0;
     padding-inline-start: 0;
   }
+  ul {
+    padding-left: 1em;
+  }
   li {
     &::marker {
-      content: none;
+      color: var(--color-primary);
     }
   }
 }

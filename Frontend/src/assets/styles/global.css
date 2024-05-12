@@ -30,8 +30,8 @@
     --shadow-header: drop-shadow(2px 0px 8px var(--shadow-color));
     --shadow-image: drop-shadow(3px 3px 8px var(--shadow-color));
 
-    --link-base-translation: 0 -0.1em;
-    --link-underline-offset: 0px;
+    --link-base-translation: 0 0;
+    --link-underline-offset: -2px;
 
     --padding-edge: 1rem;
     --section-padding: 160px;
@@ -255,7 +255,7 @@ html {
 		max-width: 1200px;
 	}
 
-    article:has(section), section {
+    article:has(section) {
         padding-bottom: var(--section-padding);
     }
 

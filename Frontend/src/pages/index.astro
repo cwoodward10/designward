@@ -84,6 +84,9 @@ import Layout from '@layouts/Layout.astro';
 <style lang="scss">
 	@import '@assets/styles/sass/breakpoints.scss';
 
+	section {
+		padding-bottom: var(--section-padding);
+	}
 	section.headline {
 		--initial-animation-delay: 0ms;
 
@@ -136,6 +139,8 @@ import Layout from '@layouts/Layout.astro';
 	}
 	section.hero {
 		--initial-animation-delay: 800ms;
+		--link-base-translation: 0 -0.1em;
+    	--link-underline-offset: 0px;
 
 		padding: 0 0 var(--section-padding);
 
