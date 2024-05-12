@@ -42,7 +42,7 @@
 
         color: var(--color-text);
         translate: 0;
-        font-weight: 400;
+        font-weight: var(--font-weight);
     
         &::before, &::after {
             content: "";
@@ -52,7 +52,7 @@
             
             height: 2px;
             width: 0;
-            background-color: var(--color-primary);
+            background-color: var(--color-primary-muted);
         }
         &::after {
             left: unset;

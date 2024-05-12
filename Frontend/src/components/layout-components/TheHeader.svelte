@@ -1,7 +1,7 @@
 <script lang="ts">
     import HamburgerMenu from "@components/base/menus/hamburger/HamburgerMenu.svelte";
 
-    const HEIGHT_HERO = 100;
+    const HEIGHT_HERO = 20;
 
     const ROUTES: {name: string, route: string}[] = [
         {
@@ -36,7 +36,7 @@
 </script>
 
 <svelte:window bind:scrollY={scrollY} />
-<header id="top-header" class:hide={!showSticky}>
+<header id="top-header" class:shadow={scrollY > 5} class:hide={!showSticky}>
     <div id="header-content" >
         <a class="logo-container" href="/">
             [
@@ -78,9 +78,11 @@
         padding: 0.5rem var(--padding-edge);
 
         background-color: var(--color-background);
-        box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.2);
 
         transition: transform 300ms ease-in;
+    }
+    #top-header.shadow {
+        box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.2);
     }
     #top-header.hide {
         transform: translateY(-100%);
@@ -223,7 +225,7 @@
     }
 
     li.ham-route {
-        font-size: var(--step-2);
+        font-size: var(--step-4);
 
         a {
             color: white;

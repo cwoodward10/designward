@@ -50,7 +50,7 @@ html {
     --color-secondary: #FCDE73;
     --color-accent-primary: #01BAEF;
     --color-accent-blue-off: color-mix(in srgb, #01BAEF 30%, var(--color-offblack) 90%);
-    --color-primary-muted: color-mix(in srgb, var(--color-primary) 50%, var(--color-offwhite) 70%);
+    --color-primary-muted: color-mix(in srgb, var(--color-primary) 50%, var(--color-background) 70%);
     --color-error: #AE003A;
     
     --color-text: var(--color-offwhite);
@@ -112,7 +112,7 @@ html {
             monospace;
         
         font-weight: 300;
-        color:  color-mix(in srgb, var(--color-secondary) 25%, var(--color-background));
+        color:  color-mix(in srgb, var(--color-primary) 25%, var(--color-offwhite));
         background-color: color-mix(in srgb, var(--color-primary) 25%, var(--color-offblack));
         padding: 0.15em 0.3em;
         border-radius: 3px;
