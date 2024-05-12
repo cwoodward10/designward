@@ -46,12 +46,11 @@
     .main-footer {
         width: 100%;
 
-        color: var(--color-text-white);
         background-color: var(--color-background-dark);
 
         .content {
             margin: auto;
-            padding: var(--padding-edge);
+            padding: 3em var(--padding-edge) 6em;
 
             width: 1200px;
             max-width: calc(100% - 2*var(--padding-edge));
@@ -65,12 +64,7 @@
             display: flex;
             flex-direction: column;
             justify-content: flex-start;
-            gap: 0.25rem;
-        }
-        .logos-container {
-            a.x-small {
-                margin-top: 10px;
-            }
+            gap: 0.75rem;
         }
         .links-container {
             align-items: flex-end;
@@ -79,21 +73,41 @@
         .logos {
             display: flex;
             gap: 0.5rem;
-        }
 
-        a {
-            text-decoration: underline;
-
-            &::after {
-                content: none;
+            a {
+                filter: grayscale(0.9);
+                transition-property: filter, scale;
+                transition-duration: 300ms;
+                transition-timing-function: ease-out;
+            }
+            a:hover {
+                filter: grayscale(0);
+                scale: 1.1;
+                transform-origin: 50% 100%;
             }
         }
-        
-        p.x-small {
-            font-size: 16px;
+
+        p, a {
+            color: var(--color-offwhite);
         }
-        a.x-small {
-            font-size: 12px;
+        a {
+            animation: none;
+            transition: color 300ms ease-out;
+
+            &::after {
+                width: 0%;
+                right: 0;
+                left: unset;
+                transition: width 300ms ease-out;
+            }
+            &:hover {
+                color: var(--color-secondary);
+
+                &::after {
+                    width: 100%;
+                    left: 0;
+                }
+            }
         }
     }
 </style>

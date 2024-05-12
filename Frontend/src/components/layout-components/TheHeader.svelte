@@ -1,9 +1,13 @@
 <script lang="ts">
     import HamburgerMenu from "@components/base/menus/hamburger/HamburgerMenu.svelte";
 
-    const HEIGHT_HERO = 500;
+    const HEIGHT_HERO = 100;
 
     const ROUTES: {name: string, route: string}[] = [
+        {
+            name: 'Home',
+            route: '/'
+        },
         {
             name: 'Portfolio',
             route: '/portfolio/'
@@ -40,14 +44,9 @@
             ]
         </a>
         <nav class="hamburger-container">
-            <HamburgerMenu 
-                thickness={3}
-                height={20}
-                width={24}
-                color={'var(--color-primary)'}
-            >
+            <HamburgerMenu>
                 {#each ROUTES as route}
-                <li>
+                <li class="ham-route">
                     <a href={route.route}>{route.name}</a>
                 </li>
                 {/each}
@@ -78,6 +77,9 @@
         display: flex;
         padding: 0.5rem var(--padding-edge);
 
+        background-color: var(--color-background);
+        box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.2);
+
         transition: transform 300ms ease-in;
     }
     #top-header.hide {
@@ -88,9 +90,14 @@
         margin: 0 auto;
         height: fit-content;
         width: 100%;
+
         display: inline-flex;
         justify-content: space-between;
-        align-items: flex-end;
+        align-items: center;
+
+        @media screen and (min-width: $breakpoint-sm) {
+            align-self: flex-end;
+        }
     }
 
     .logo-container {
@@ -170,7 +177,7 @@
             position: relative;
             padding: 0 0.2em;
             a {
-                color: var(--color-offwhite);
+                color: var(--color-text);
 
                 display: flex;
                 transform-origin: 50% 100%;
@@ -213,5 +220,17 @@
 
     li::marker {
         content: none;
+    }
+
+    li.ham-route {
+        font-size: var(--step-2);
+
+        a {
+            color: white;
+
+            &:after {
+                background-color: var(--color-primary);
+            }
+        }
     }
 </style>

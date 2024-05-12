@@ -49,6 +49,8 @@ html {
     --color-primary: #FF4785;
     --color-secondary: #FCDE73;
     --color-accent-primary: #01BAEF;
+    --color-accent-blue-off: color-mix(in srgb, #01BAEF 30%, var(--color-offblack) 90%);
+    --color-primary-muted: color-mix(in srgb, var(--color-primary) 50%, var(--color-offwhite) 70%);
     --color-error: #AE003A;
     
     --color-text: var(--color-offwhite);
@@ -71,31 +73,33 @@ html {
         --color-secondary: #01BAEF;
         --color-accent-primary:  color-mix(in srgb, #01BAEF, var(--color-primary) 50%);;
 
-        --color-text: var(--color-offblack);
+        --color-text: color-mix(in srgb, var(--color-offblack) 90%, var(--color-offwhite) 10%);
         --color-background: var(--color-offwhite);
+        --color-background-dark: var(--color-offblack);
 
         --font-weight: 400;
     }
-    /* @media (prefers-color-scheme: light) {
+    @media (prefers-color-scheme: light) {
         &:not(.dark) {
             --color-primary: #FF4785;
             --color-secondary: #01BAEF;
             --color-accent-primary:  color-mix(in srgb, #01BAEF, var(--color-primary) 50%);;
 
-            --color-text: var(--color-offblack);
+            --color-text: color-mix(in srgb, var(--color-offblack) 90%, var(--color-offwhite) 10%);
             --color-background: var(--color-offwhite);
+            --color-background-dark: var(--color-offblack);
 
             --font-weight: 400;
         }
-    } */
-
-    font-family: var(--font-body);
-    font-weight: var(--font-weight);
-    color: var(--color-text);
+    }
 }
 
 @layer base {
-    
+    body {
+        font-family: var(--font-body);
+        font-weight: var(--font-weight);
+        color: var(--color-text);
+    }
     code {
         font-family:
             Menlo,
@@ -107,9 +111,11 @@ html {
             Courier New,
             monospace;
         
+        font-weight: 300;
+        color:  color-mix(in srgb, var(--color-secondary) 25%, var(--color-background));
         background-color: color-mix(in srgb, var(--color-primary) 25%, var(--color-offblack));
-        padding: 0.1em 0.3em;
-        border-radius: 2px;
+        padding: 0.15em 0.3em;
+        border-radius: 3px;
     }
     a {
         font-family: var(--font-body);
@@ -140,12 +146,17 @@ html {
         background-clip: text;
 
         transition-property: color;
-        transition-duration: 500ms;
-        transition-timing-function: ease-in-out;
+        transition-duration: 300ms;
+        transition-timing-function: ease-out;
     
         &:hover {
             color: transparent;
             animation: move-bg 4s linear infinite;
+
+            &:after {
+                background-color: var(--color-primary);
+                translate: 0 0.05em;
+            }
         }
 
         &:after {
@@ -157,7 +168,12 @@ html {
 
             height: 2px;
             width: 100%;
-            background-color: var(--color-primary);
+
+            background-color: var(--color-primary-muted);
+
+            transition-property: background-color, translate;
+            transition-duration: 300ms;
+            transtion-timing-fuction: ease-out;
         }
     }
     
@@ -197,9 +213,6 @@ html {
     }
     p.x-small a.x-small {
         font-size: var(--step--2);
-    }
-    a.white, a.visited {
-        color: var(--color-text-white);
     }
     
     a.arrow {
