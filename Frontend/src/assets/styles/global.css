@@ -40,7 +40,7 @@
         --section-padding: 200px;
     }
     
-    --initial-animation-delay: 300ms;
+    --initial-animation-delay: 200ms;
 }
 html {
     --color-offwhite: #FFFFFC;
@@ -255,18 +255,20 @@ html {
 		max-width: 1200px;
 	}
 
-	article, section {
+    article:has(section), section {
+        padding-bottom: var(--section-padding);
+    }
+
+	article:not(:has(section)), section {
 		display: flex;
 		flex-direction: column;
 		gap: 30px;
-
-		padding-bottom: var(--section-padding);
 
         opacity: 0;
 
 		animation-name: animate-section-in;
 		animation-duration: 1000ms;
-		animation-delay: var(--initial-animation-delay, 800ms);
+		animation-delay: var(--initial-animation-delay, 200ms);
 		animation-timing-function: ease-out;
 		animation-fill-mode: forwards;
 		animation-iteration-count: 1;
@@ -276,6 +278,16 @@ html {
             text-wrap: balance;
         }
 	}
+    aside {
+        opacity: 0;
+
+		animation-name: animate-section-in;
+		animation-duration: 1000ms;
+		animation-delay: var(--initial-animation-delay, 200ms);
+		animation-timing-function: ease-out;
+		animation-fill-mode: forwards;
+		animation-iteration-count: 1;
+    }
     
     @keyframes wiggle-x {
         from {

@@ -20,7 +20,7 @@ const allThoughts = await getCollection('thoughts');
             <ul>
                 {allThoughts.map(thought => (
                     <li>
-                        <a href={`.${slug}/${thought.slug}`}>{thought.data.title}</a>
+                        <a href={`${thought.slug}`}>{thought.data.title}</a>
                     </li>
                 ))}
             </ul>

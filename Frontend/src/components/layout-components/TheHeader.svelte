@@ -66,6 +66,10 @@
 <style lang="scss">
     @import "../../assets/styles/sass/breakpoints.scss";
 
+    :global(:root) {
+        --header-height: 48px;
+    }
+
     #top-header {
         position: sticky;
         top: 0;

@@ -80,6 +80,14 @@
             display: flex;
             gap: 0.5rem;
         }
+
+        a {
+            text-decoration: underline;
+
+            &::after {
+                content: none;
+            }
+        }
         
         p.x-small {
             font-size: 16px;
