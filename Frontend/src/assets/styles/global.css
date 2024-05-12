@@ -76,7 +76,7 @@ html {
 
         --font-weight: 400;
     }
-    @media (prefers-color-scheme: light) {
+    /* @media (prefers-color-scheme: light) {
         &:not(.dark) {
             --color-primary: #FF4785;
             --color-secondary: #01BAEF;
@@ -87,7 +87,7 @@ html {
 
             --font-weight: 400;
         }
-    }
+    } */
 
     font-family: var(--font-body);
     font-weight: var(--font-weight);
