@@ -153,13 +153,13 @@ html {
             color: transparent;
             animation: move-bg 4s linear infinite;
 
-            &:after {
+            &::after {
                 background-color: var(--color-primary);
                 translate: 0 0.05em;
             }
         }
 
-        &:after {
+        &::after {
             content: "";
 
             position: absolute;
@@ -173,7 +173,35 @@ html {
 
             transition-property: background-color, translate;
             transition-duration: 300ms;
-            transtion-timing-fuction: ease-out;
+            transition-timing-fuction: ease-out;
+        }
+    }
+    html.reduce-motion a:not(:has(img,svg)) {
+        background: transparent;
+        -webkit-background-clip: none;
+        background-clip: none;
+
+        &:hover {
+            color: var(--color-primary);
+
+            &::after {
+                translate: 0 0;
+            }
+        }
+    }
+    @media (prefers-reduced-motion) {
+        a:not(:has(img,svg)) {
+            background: transparent;
+            -webkit-background-clip: none;
+            background-clip: none;
+
+            &:hover {
+                color: var(--color-primary);
+
+                &::after {
+                    translate: 0 0;
+                }
+            }
         }
     }
     
@@ -255,10 +283,20 @@ html {
             color: var(--color-secondary);
 
             &::after {
+                background: transparent;
                 translate: 0.5em 0;
             }
         }
     }
+    .html.reduce-motion a.arrow:hover::after {
+        translate: 0 0;
+    }
+    @media (prefers-reduced-motion) {
+        a.arrow:hover::after {
+            translate: 0 0;
+        }
+    }
+    
 
 	main {
 		margin: auto;
@@ -342,27 +380,6 @@ html {
             translate: 0 0;
 		}
 	}
-
-    @keyframes animate-link {
-        from {
-            translate: 0;
-            color: var(--color-text);
-        }
-        to {
-            translate: var(--link-base-translation, 0 -0.1em);
-            color: var(--color-secondary);
-            font-weight: 500;
-        }
-    }
-
-    @keyframes animate-link-underline {
-        from {
-            width: 0;
-        }
-        to {
-            width: calc(50% + 1px);
-        }
-    }
 
     @keyframes move-bg {
         from {

@@ -35,7 +35,7 @@
     <slot/>
 </a>
 
-<style>
+<style lang="scss">
     a.initial {
         --link-animation-duration: 300ms;
         --link-underline-animation-duration: 300ms;
@@ -74,6 +74,64 @@
             animation-iteration-count: 1;
             animation-fill-mode: forwards;
             animation-delay: calc(var(--initial-animation-delay, 0) + 250ms);
+        }
+    }
+
+    @keyframes animate-link {
+        from {
+            translate: 0;
+            color: var(--color-text);
+        }
+        to {
+            translate: var(--link-base-translation, 0 0em);
+            color: var(--color-secondary);
+            font-weight: 500;
+        }
+    }
+
+    @keyframes animate-link-underline {
+        from {
+            width: 0;
+        }
+        to {
+            width: calc(50% + 1px);
+        }
+    }
+
+    :global(html.reduce-motion) {
+        a {
+            --link-base-translation: 0 0;
+
+            &.initial {
+                font-weight: 500;
+            }
+
+            &::before {
+                content: none;
+            }
+            &::after {
+                animation: none;
+                opacity: 1;
+                width: 100% !important;
+            }
+        }
+    }
+    @media (prefers-reduced-motion) {
+        a {
+            --link-base-translation: 0 0;
+
+            &.initial {
+                font-weight: 500;
+            }
+
+            &::before {
+                content: none;
+            }
+            &::after {
+                animation: none;
+                opacity: 1;
+                width: 100% !important;
+            }
         }
     }
 </style>

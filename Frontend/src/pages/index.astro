@@ -90,11 +90,11 @@ import Layout from '@layouts/Layout.astro';
 	section.headline {
 		--initial-animation-delay: 0ms;
 
-		padding-top: 40px;
+		padding-top: 10px;
 		padding-bottom: 40px;
 
-		@media screen and (min-width: $breakpoint-md) {
-			padding-top: 120px;
+		@media screen and (min-width: $breakpoint-sm) {
+			padding-top: 100px;
 		}
 
 		h1.hero {
@@ -141,6 +141,7 @@ import Layout from '@layouts/Layout.astro';
 		--initial-animation-delay: 800ms;
 		--link-base-translation: 0 -0.05em;
     	--link-underline-offset: 0px;
+		--fly-in-value: 0 1em;
 
 		padding: 0 0 var(--section-padding);
 
@@ -156,7 +157,6 @@ import Layout from '@layouts/Layout.astro';
 
 			a {
 				opacity: 0;
-				--fly-in-value: 0 1em;
 				translate: var(--fly-in-value);
 
 				animation-name: fly-in;
@@ -220,6 +220,31 @@ import Layout from '@layouts/Layout.astro';
 		}
 		to {
 			max-width: 7.5em;
+		}
+	}
+
+	:global(html.reduce-motion) section {
+		--initial-animation-delay: 200ms !important;
+	}
+	:global(html.reduce-motion) section.hero {
+		--fly-in-value: 0;
+	}
+	:global(html.reduce-motion) section.headline h1.hero span.logo-text {
+		max-width: unset;
+		animation: none;
+	}
+	@media (prefers-reduced-motion) {
+		section {
+			--initial-animation-delay: 200ms !important;
+		}
+
+		section.hero {
+			--fly-in-value: 0;
+		}
+
+		section.headline h1.hero span.logo-text {
+			max-width: unset;
+			animation: none;
 		}
 	}
 </style>

@@ -1,4 +1,5 @@
 ---
+import A from '@components/base/A.astro';
 import Layout from '../../layouts/Layout.astro';
 
 import { getCollection } from 'astro:content';
@@ -12,7 +13,7 @@ const allThoughts = await getCollection('thoughts');
         <section>
             <h1>Thought garden</h1>
             <p>
-                Welcome to my Thought Garden. It's pretty scarce right now. You can check out what's below or <a href="/">return home</a>.
+                Welcome to my Thought Garden. It's pretty scarce right now. You can check out what's below or <A href="/">return home</A>.
                 Stop back in the future though. It will be more built out. It may even be thriving!
             </p>
         </section>

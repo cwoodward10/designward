@@ -40,6 +40,7 @@
     
     <button 
         id="hamburger" 
+        aria-label="menu"
         style="{cssVarStyles}"
         class:open={showMenu}
         use:handleClickOutsideElement
@@ -243,13 +244,47 @@
     
         @keyframes li-in {
             from {
-                translate: 0px 16px;
+                translate: 0 1em;
                 opacity: 0%;
             }
     
             to {
                 translate: 0px 0px;
                 opacity: 100%;
+            }
+        }
+
+        :global(html.reduce-motion) #menu-container {
+            width: 100%;
+            height: 100%;
+            border-bottom-left-radius: 0;
+            opacity: 0;
+
+            transition-property: opacity;
+            
+            
+        }
+        :global(html.reduce-motion) #menu-container.show-menu {
+            opacity: 1;
+        }
+        :global(html.reduce-motion) #menu-container.show-menu :global(li) {
+            animation: none;
+            opacity: 1;
+        }
+        @media (prefers-reduced-motion) {
+            #menu-container {
+                width: 100%;
+                height: 100%;
+                border-bottom-left-radius: 0;
+                opacity: 0;
+
+                transition-property: opacity;
+            }
+            #menu-container.show-menu {
+                opacity: 1;
+            }
+            #menu-container.show-menu :global(li) {
+                animation: none;
             }
         }
     </style>
