@@ -36,10 +36,10 @@
   >
       <div class="modes">
         <div class="icon">
-            <Sun size=28 />
+            <Moon size=28 />
         </div>
         <div class="icon">
-            <Moon size=28 />
+            <Sun size=28 />
         </div>
       </div>
   </button>
@@ -76,14 +76,14 @@
           }
 
           &:hover svg path {
-              color: var(--color-secondary);
+              color: var(--color-accent-primary);
           }
         }
         button .modes {
             position: absolute;
             top: 0;
             left: 50%;
-            translate: -50% calc(-50% - 2px);
+            translate: -50% -2px;
 
             height: fit-content;
             width: fit-content;
@@ -91,7 +91,7 @@
             transition: translate 300ms ease-in-out;
         }
         button.light .modes {
-            translate: -50% -2px;
+            translate: -50% calc(-50% - 2px);;
         }
         button .modes .icon {
             height: 40px;

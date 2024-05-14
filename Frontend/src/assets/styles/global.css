@@ -71,7 +71,7 @@ html {
     &.light {
         --color-primary: #FF4785;
         --color-secondary: #01BAEF;
-        --color-accent-primary:  color-mix(in srgb, #01BAEF, var(--color-primary) 50%);;
+        --color-accent-primary: color-mix(in srgb, #FCDE73 100%, var(--color-primary) 45%);
 
         --color-text: color-mix(in srgb, var(--color-offblack) 90%, var(--color-offwhite) 10%);
         --color-background: var(--color-offwhite);
