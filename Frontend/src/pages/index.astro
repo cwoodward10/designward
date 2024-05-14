@@ -6,7 +6,6 @@ import Layout from '@layouts/Layout.astro';
 <script>
 	const definitionSection = document.querySelector('.definition');
 	const observer = new IntersectionObserver((e: IntersectionObserverEntry[]) => {
-		console.log(e)
 		const definitionEntry = e[0];
 		if (!definitionEntry.isIntersecting) {
 			definitionEntry.target.classList.add('short-delay');

@@ -43,7 +43,7 @@
     --initial-animation-delay: 200ms;
 }
 html {
-    --color-offwhite: #FFFFFC;
+    --color-offwhite: #FFFAFA;
     --color-offblack: #191D24;
 
     --color-primary: #FF4785;
@@ -78,19 +78,6 @@ html {
         --color-background-dark: var(--color-offblack);
 
         --font-weight: 400;
-    }
-    @media (prefers-color-scheme: light) {
-        &:not(.dark) {
-            --color-primary: #FF4785;
-            --color-secondary: #01BAEF;
-            --color-accent-primary:  color-mix(in srgb, #01BAEF, var(--color-primary) 50%);;
-
-            --color-text: color-mix(in srgb, var(--color-offblack) 90%, var(--color-offwhite) 10%);
-            --color-background: var(--color-offwhite);
-            --color-background-dark: var(--color-offblack);
-
-            --font-weight: 400;
-        }
     }
 }
 

@@ -15,6 +15,25 @@ interface Props {
 const { title } = Astro.props;
 ---
 
+<script>
+	const NO_MOTION_KEY = 'reduce-motion';
+	const MODE_KEY = 'mode';
+
+	const motionVal = localStorage.getItem(NO_MOTION_KEY);
+	if (motionVal != null) {
+		const reduceMotion = motionVal === 'true';
+		document.querySelector('html')?.classList.toggle(NO_MOTION_KEY, reduceMotion);
+	}
+
+	const modeVal = localStorage.getItem(MODE_KEY);
+	if (modeVal != null) {
+		const lightMode = modeVal === 'light';
+		const modeClass = lightMode ? 'light' : 'dark'
+		document.querySelector('html')?.classList.toggle(modeClass, lightMode);
+	}
+
+</script>
+
 <!doctype html>
 <html lang="en">
 	<Head {title} />

@@ -93,8 +93,8 @@
 
             padding: 0.5em;
 
-            height: 32px;
-            width: 32px;
+            height: var(--ham-default-height, 32px);
+            width: var(--ham-default-width, 32px);
 
             border: transparent 2px solid;
             transition: border-color 300ms ease-out;
@@ -111,7 +111,7 @@
             left: 50%;
         }
         #one {
-            width: 13px;
+            width: 75%;
             translate: -50% calc(-50% - 6px);
             rotate: 0deg;
     
@@ -121,14 +121,14 @@
         }
         #two {
             scale: 1 1;
-            width: 20px;
+            width: 95;
             translate: -50% -50%;
             transition: scale;
             transition-duration: var(--ham-transition-duration);
             transition-delay: var(--ham-transition-delay);
         }
         #three {
-            width: 13px;
+            width: 75%;
             translate: -50% calc(-50% + 6px);
             rotate: 0deg;
             
@@ -145,16 +145,13 @@
                 height: var(--ham-thickness);
             }
             #one {
-                width: 18px;
-                translate: -50% calc(-50% - 8px);
+                translate: -50% calc(-50% - 13px);
             }
             #two {
-                width: 24px;
                 translate: -50% -50%;
             }
             #three {
-                width: 18px;
-                translate: -50% calc(-50% + 8px);
+                translate: -50% calc(-50% + 13px);
             }
         }
 
@@ -255,14 +252,10 @@
         }
 
         :global(html.reduce-motion) #menu-container {
-            width: 100%;
-            height: 100%;
             border-bottom-left-radius: 0;
             opacity: 0;
 
             transition-property: opacity;
-            
-            
         }
         :global(html.reduce-motion) #menu-container.show-menu {
             opacity: 1;

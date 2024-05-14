@@ -10,7 +10,6 @@
             anchorObserver = new IntersectionObserver((entries) => {
                 entries.forEach((e) => {
                     if (e.isIntersecting) {
-                        console.log(e)
                         e.target.classList.add('animate');
 
                         anchorObserver.unobserve(e.target);

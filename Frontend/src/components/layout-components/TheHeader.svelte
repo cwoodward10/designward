@@ -1,5 +1,7 @@
 <script lang="ts">
     import HamburgerMenu from "@components/base/menus/hamburger/HamburgerMenu.svelte";
+    import MotionButton from "./header-helpers/MotionButton.svelte";
+  import ModeButton from "./header-helpers/ModeButton.svelte";
 
     const HEIGHT_HERO = 20;
 
@@ -43,6 +45,10 @@
             <span><span class="logo-full">Designward</span><span class="logo-initials">DW</span></span>
             ]
         </a>
+        <div class="settings-container">
+            <MotionButton />
+            <ModeButton />
+        </div>
         <nav class="hamburger-container">
             <HamburgerMenu>
                 {#each ROUTES as route}
@@ -77,7 +83,8 @@
         display: flex;
         padding: 0.5rem var(--padding-edge);
 
-        background-color: var(--color-background);
+        background-color: color-mix(in srgb, var(--color-background), transparent 10%);
+        backdrop-filter: blur(4px);
 
         transition: transform 300ms ease-in;
     }
@@ -161,9 +168,21 @@
         }
     }
 
+    .settings-container {
+        margin-left: auto;
+        margin-right: 1em;
+        padding-right: 1em;
+        border-right: var(--color-text) 1px solid;
+
+        display: flex;
+        align-items: center;
+        gap: 1em;
+    }
+
     .link-menu-container {
         display: none;
         content-visibility: hidden;
+        align-items: center;
     }
     @media screen and (min-width: $breakpoint-sm) {
         .hamburger-container {
