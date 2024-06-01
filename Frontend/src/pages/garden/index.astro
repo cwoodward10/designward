@@ -1,10 +1,9 @@
 ---
 import A from '@components/base/A.astro';
-import Layout from '../../layouts/Layout.astro';
+import Layout from '@layouts/Layout.astro';
 
 import { getCollection } from 'astro:content';
 
-const slug = Astro.url.pathname;
 const allThoughts = await getCollection('thoughts');
 ---
 
@@ -13,16 +12,25 @@ const allThoughts = await getCollection('thoughts');
         <section>
             <h1>Thought garden</h1>
             <p>
-                Welcome to my Thought Garden. It's pretty scarce right now. You can check out what's below or <A href="/">return home</A>.
+                Welcome to my Thought Garden. The idea here is to cultivate a Digital Garden - a concept that I discovered in
+                <A href="https://maggieappleton.com/garden-history">this explainer piece</A> a little while back. I came to really 
+                appreciate the intentional mutability and unfinished nature of a garden. I have, in the past, struggled with the 
+                sort of finality inherent with a "Blog" and, upon reading about the digital garden, it felt right to include the ideas
+                here within Designward. We aren't finished people. We are always growing and learning. I want Designward to be that way too.
+            </p>
+            <p>
+                That said, my garden is pretty scarce right now. You can check out what's below or <A href="/">return home</A>.
                 Stop back in the future though. It will be more built out. It may even be thriving!
             </p>
         </section>
         <section>
-            <h2>Thoughts</h2>
+            <h2>Current state of the garden</h2>
             <ul>
                 {allThoughts.map(thought => (
                     <li>
-                        <a href={`${thought.slug}`}>{thought.data.title}</a>
+                        <h4>{thought.data.title}</h4>
+                        {thought.data?.tagline && <p class="tag small">{thought.data.tagline}</p>}
+                        <a class="arrow" href={`${thought.slug}`}>Read it</a>
                     </li>
                 ))}
             </ul>
@@ -35,8 +43,21 @@ const allThoughts = await getCollection('thoughts');
         display: flex;
         flex-direction: column;
         gap: 30px;
+
+        padding-bottom: 100px;
     }
     section {
         gap: 1em;
+    }
+
+    .tag {
+        max-width: 30em;
+        text-wrap: pretty;
+    }
+
+    ul {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
     }
 </style>

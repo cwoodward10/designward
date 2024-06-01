@@ -8,7 +8,7 @@ export default defineMarkdocConfig({
     },
     image: {
       ...nodes.image, // Apply Markdoc's defaults for other options
-      render: component('./src/components/content-helpers/ContentImage.astro'),
+      render: component('./src/components/content-components/ContentImage.astro'),
     },
   },
 });

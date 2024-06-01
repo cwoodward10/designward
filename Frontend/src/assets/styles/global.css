@@ -57,14 +57,10 @@ html {
     --color-background: var(--color-offblack);
     --color-background-dark: #101819;
 
-    --color-pink-white: color-mix(in srgb, var(--color-primary) 100%, white 20%);
+    --color-link: var(--color-secondary);
+    --color-link-underline: var(--color-primary);
 
-    --color-a-gradient: linear-gradient(
-        45deg,
-        var(--color-secondary) 25%,
-        var(--color-primary) 50%,
-        var(--color-secondary) 75%
-    );
+    --color-pink-white: color-mix(in srgb, var(--color-primary) 100%, white 20%);
 
     --font-weight: 300;
 
@@ -99,8 +95,8 @@ html {
             monospace;
         
         font-weight: 300;
-        color:  color-mix(in srgb, var(--color-primary) 25%, var(--color-offwhite));
-        background-color: color-mix(in srgb, var(--color-primary) 25%, var(--color-offblack));
+        color:  color-mix(in srgb, var(--color-primary) 25%, var(--color-text) 60%);
+        background-color: color-mix(in srgb, #01BAEF 10%, var(--color-background) 100%);
         padding: 0.15em 0.3em;
         border-radius: 3px;
     }
@@ -110,15 +106,25 @@ html {
         font-weight: 500;
         text-decoration: none;
     
-        color: var(--color-secondary);
+        color: var(--color-link);
 
         white-space: nowrap;
     
         &:visited {
-            color: var(--color-secondary);
+            color: var(--color-link);
         }
     }
+    a.external {
+        --color-link: color-mix(in srgb, var(--color-text) 75%, var(--color-accent-primary) 50%);
+    }
     a:not(:has(img,svg)) {
+        --color-a-gradient: linear-gradient(
+            45deg,
+            var(--color-link) 25%,
+            var(--color-link-underline) 50%,
+            var(--color-link) 75%
+        );
+
         display: inline-block;
 
         width: fit-content;
@@ -141,7 +147,7 @@ html {
             animation: move-bg 4s linear infinite;
 
             &::after {
-                background-color: var(--color-primary);
+                background-color: var(--color-link-underline);
                 translate: 0 0.05em;
             }
         }
@@ -156,7 +162,7 @@ html {
             height: 2px;
             width: 100%;
 
-            background-color: var(--color-primary-muted);
+            background-color: color-mix(in srgb, var(--color-link-underline) 50%, var(--color-background) 70%);
 
             transition-property: background-color, translate;
             transition-duration: 300ms;
@@ -169,7 +175,7 @@ html {
         background-clip: none;
 
         &:hover {
-            color: var(--color-primary);
+            color: var(--color-link-underline);
 
             &::after {
                 translate: 0 0;
@@ -183,7 +189,7 @@ html {
             background-clip: none;
 
             &:hover {
-                color: var(--color-primary);
+                color: var(--color-link-underline);
 
                 &::after {
                     translate: 0 0;
@@ -216,8 +222,13 @@ html {
     }
     h4, .style-h4 {
         font-size: var(--step-1);
-        font-weight: 400;
+        font-weight: 500;
         line-height: 135%
+    }
+    h5, .style-h5 {
+        font-size: var(--step-0);
+        font-weight: 600;
+        line-height: 140%
     }
     
     p {
@@ -226,7 +237,7 @@ html {
     p.small, a.small {
         font-size: var(--step--1);
     }
-    p.x-small a.x-small {
+    p.x-small, a.x-small {
         font-size: var(--step--2);
     }
     
@@ -312,8 +323,8 @@ html {
 		animation-iteration-count: 1;
 
         p {
-            max-width: 70em;
-            text-wrap: balance;
+            max-width: 70rem;
+            text-wrap: pretty;
         }
 	}
     aside {

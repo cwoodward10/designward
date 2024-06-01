@@ -1,0 +1,94 @@
+---
+import ProjectListItem from '@components/content-components/portfolio-components/ProjectListItem.svelte';
+import Layout from '@layouts/Layout.astro';
+
+import { getCollection } from 'astro:content';
+
+const featured = await getCollection('featured');
+const featuredProjectData = featured.map((p: any) => p.data);
+
+const allProjects = await getCollection('projects');
+const projectData = allProjects.map(p => p.data);
+
+const digitalProjects = projectData.filter(p => p.medium === 'product' || p.medium === 'web');
+const physicalProjects = projectData.filter(p => p.medium !== 'product' && p.medium !== 'web')
+---
+
+<Layout title="Portfolio">
+	<main>
+        <section class="intro-content">
+            <h1>Featured Projects</h1>
+            <p>Come back later for featured projects with extended Case Studies. For now, please see below for links to projects that I have designed, worked on, and built - built being a variable term depending on the medium.</p>
+        </section>
+        <section class="projects">
+            <div class="digital projects">
+                <hgroup>
+                    <h2>Digital Projects</h2>
+                    <p class="tagline">Websites and Computer Apps that I've designed and/or developed. While not an exhaustive list, of everything that I've worked out, these projects will give you a sense of my responsibilities and capabilities.</p>
+                </hgroup>
+                <ul>
+                    {digitalProjects.map((project) => (
+                        <ProjectListItem {project} />
+                    ))}
+                </ul>
+            </div>
+            <div class="physical projects">
+                <hgroup>
+                    <h2>Physical Projects</h2>
+                    <p class="tagline">Architecture and Urban Design projects that I have had the privilege of working on in a past life. This is not an exhaustive list of everything I worked on but instead of list of projects that I spent the most time on.</p>
+                </hgroup>
+                <ul>
+                    {physicalProjects.map((project) => (
+                        <ProjectListItem {project} />
+                    ))}
+                </ul>
+            </div>
+        </section>
+        <section class="dialog">
+            <div>
+                <p>Or, if you're looking for more of a traditional take home portfolio, this one linked below will give you a good overall sense of my work.</p>
+                <p>I put it together in application for UIUC's Alumni Baker Fellowship which I applied for but did not receive.</p>
+                <a class="arrow" href={"https://drive.google.com/file/d/1kFVXpHp7grckMkNgv4ZpryqUFR-eY9NY/view?usp=sharing"} target="_blank">View it here</a>
+            </div>
+        </section>
+    </main>
+</Layout> 
+
+<style>
+    main {
+        display: flex;
+        flex-direction: column;
+        gap: 60px;
+
+        padding-bottom: 100px;
+    }
+
+    .projects {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+
+        & ul {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+    }
+
+    section.dialog {
+        background-color: var(--color-primary);
+        border-radius: 1rem;
+        padding: 3px;
+        
+        & div {
+            background-color: var(--color-background);
+            padding: 40px;
+            border-radius: calc(1rem - 3px);
+            margin-bottom: 6px;
+
+            display: flex;
+            flex-direction: column;
+            gap: 1em;
+        }
+    }
+</style>

@@ -4,6 +4,8 @@
     export let href: string;
     export let title: string;
 
+    const isExternal = href.includes('https');
+
     let element: HTMLAnchorElement;
     onMount(() => {
         if (!anchorObserver) {
@@ -30,7 +32,14 @@
     let anchorObserver: IntersectionObserver;
 </script>
 
-<a bind:this={element} class="initial" href={href} title={title}>
+<a 
+    bind:this={element} 
+    class="initial"
+    class:external={isExternal} 
+    href={href} 
+    title={title}
+    target={isExternal ? '_blank' : '_self'}
+>
     <slot/>
 </a>
 
@@ -51,7 +60,7 @@
             
             height: 2px;
             width: 0;
-            background-color: var(--color-primary-muted);
+            background-color: color-mix(in srgb, var(--color-link-underline) 50%, var(--color-background) 70%);;
         }
         &::after {
             left: unset;
@@ -83,7 +92,7 @@
         }
         to {
             translate: var(--link-base-translation, 0 0em);
-            color: var(--color-secondary);
+            color: var(--color-link);
             font-weight: 500;
         }
     }
