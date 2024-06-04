@@ -182,7 +182,7 @@ html {
             }
         }
     }
-    @media (prefers-reduced-motion) {
+    @media (prefers-reduced-motion: reduce) {
         a:not(:has(img,svg)) {
             background: transparent;
             -webkit-background-clip: none;
@@ -289,7 +289,7 @@ html {
     .html.reduce-motion a.arrow:hover::after {
         translate: 0 0;
     }
-    @media (prefers-reduced-motion) {
+    @media (prefers-reduced-motion: reduce) {
         a.arrow:hover::after {
             translate: 0 0;
         }

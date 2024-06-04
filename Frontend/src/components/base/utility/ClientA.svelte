@@ -124,7 +124,7 @@
             }
         }
     }
-    @media (prefers-reduced-motion) {
+    @media (prefers-reduced-motion: reduce) {
         a {
             --link-base-translation: 0 0;
 
