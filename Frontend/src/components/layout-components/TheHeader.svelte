@@ -239,6 +239,11 @@
         }
     }
 
+    li {
+        list-style-type: none;
+        margin: 0;
+    }
+
     li::marker {
         content: none;
     }
