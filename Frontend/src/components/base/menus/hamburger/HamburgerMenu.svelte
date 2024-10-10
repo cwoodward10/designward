@@ -188,7 +188,7 @@
 
             border-bottom-left-radius: 100%;
 
-            background-color: color-mix(in srgb, transparent 20%, var(--color-accent-blue-off) 90%);
+            background-color: color-mix(in srgb, transparent 5%, var(--color-accent-blue-off) 90%);
             backdrop-filter: blur(10px);
 
             transition-property: height, width, border-radius;
@@ -214,7 +214,7 @@
 
         #menu-container.show-menu {
             width: 100%;
-            height: 100%;
+            height: 100vh;
             border-radius: 0px;
         }
         
