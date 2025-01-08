@@ -35,7 +35,7 @@
 </button>
 
 <style>
-    @media (prefers-reduced-motion) {
+    @media (prefers-reduced-motion: reduce) {
         button {
             display: none;
             content-visibility: hidden;

@@ -1,0 +1,5 @@
+@layer utilies {
+    .nowrap {
+        white-space: nowrap;
+    }
+}

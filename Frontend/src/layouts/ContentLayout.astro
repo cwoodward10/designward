@@ -1,0 +1,71 @@
+---
+import Layout from "./Layout.astro";
+import ContentImage from "@components/content-components/ContentImage.astro";
+
+interface Props {
+    pageTitle: string,
+}
+
+const { pageTitle } = Astro.props;
+---
+
+<Layout title={pageTitle}>
+    <main class="content content-layout">
+        <section class="content-intro">
+            <slot name="intro"/>
+        </section>
+        <slot name="content"/>
+        <section class="back-to-garden">
+            <a class="arrow" href="/garden/">Back to the garden</a>
+        </section>
+    </main>
+</Layout>
+
+<style>
+
+    .content-layout {
+        --initial-animation-delay: 400ms;
+
+        width: 800px;
+        padding-bottom: 6em;
+
+        h1, h2, h3, h4, h5 {
+            color: var(--color-secondary);
+        }
+        
+        .tagline {
+            margin-bottom: 0.8em;
+        }
+
+        .date, .state {
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+
+        .tag {
+            font-size: 0.8em;
+            font-weight: 300;
+            text-transform: lowercase;
+        }
+
+        article {
+            max-width: 60em;
+        }
+
+        p {
+            text-wrap: pretty;
+        }
+    }
+
+    .content-intro {
+        padding-bottom: 3em;
+
+        p {
+            font-size: var(--font--step--2);
+        }
+    }
+
+    .back-to-garden {
+        padding: 60px 0; 
+    }
+</style>

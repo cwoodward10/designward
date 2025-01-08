@@ -1,0 +1,225 @@
+---
+interface Props {
+  cards: {
+    name: string;
+    url: string;
+    imageUrl: string;
+  }[];
+}
+const { cards } = Astro.props;
+---
+
+<script>
+    const container = document.querySelector('.jump-container');
+    if (container) {
+        const observer = new IntersectionObserver((entries) => {
+            const container = entries[0];
+            if (container && container.isIntersecting) {
+                const jumpContainer = container.target?.querySelector('.inner-container')
+                jumpContainer?.classList.toggle('animate', true);
+                observer.disconnect();
+            }
+        }, {})
+        observer.observe(container);
+    }
+</script>
+
+<div class="jump-container">
+    <div class="inner-container">
+      {
+        cards.map((c) => (
+            <a class="card" href={c.url} target="_blank">
+                <img class="image" src={c.imageUrl! as string} alt={c.name} title={c.name} />
+                <p class="title">{c.name}</p>
+            </a>
+        ))
+      }
+    </div>
+</div>
+
+<style lang="scss">
+    @use '@assets/styles/sass/breakpoints.scss' as media;
+
+    .inner-container {
+        --animation-base-delay: 500ms;
+        --animation-duration: 800ms;
+        --offset: 150ms;
+        --delay: 120ms;
+
+        --card-size: 120px;
+        --border-width: 4px;
+        @include media.at('medium') {
+            --card-size: 260px;
+            --border-width: 6px;
+        }
+        @include media.at('large') {
+            --card-size: 340px;
+            --border-width: 8px;
+        }
+        @include media.at('extra-large') {
+            --card-size: 400px;
+        }
+
+        --offset-1: calc(-2 * var(--gap));
+        --offset-2: calc(-1 * var(--gap));
+        --offset-3: 0;
+        --offset-4: calc(1 * var(--gap));
+        --offset-5: calc(2 * var(--gap));
+
+        --gap: calc(var(--card-size) * 0.55);
+
+        width: 100%;
+        height: calc(var(--card-size) * 1.4);
+        
+        display: none;
+        justify-content: center;
+        align-items: center;
+        
+    }
+
+    .card {
+        --radius-multiplier: 0.02;
+
+        position: absolute;
+        width: var(--card-size, 200px);
+        height: calc(var(--card-size, 200px) + 2.5rem);
+        border-radius: calc(var(--card-size) * var(--radius-multiplier));
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+        rotate: var(--rotate);
+        opacity: 0;
+
+        border-bottom-width: 2.5rem;
+
+        transition: all 200ms ease-in-out;
+
+        .image {
+            border-radius: calc(var(--card-size) * var(--radius-multiplier) - var(--border-width));
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .title {
+            color: var(--color-offblack);
+            font-family: "Handlee", serif;
+            text-transform: uppercase;
+            padding-left: 0.25rem;
+            padding-top: 0.35em;
+        }
+    }
+
+    :global(html.reduce-motion) {
+        .card {
+            display: flex;
+            opacity: 1;
+            transition: none;
+        }
+    }
+    @media (prefers-reduced-motion: reduce) {
+        .card {
+            display: flex;
+            opacity: 1;
+            transition: none;
+        }
+    }
+
+    .inner-container.animate {
+        display: flex;
+    }
+
+    .inner-container.animate .card {
+        animation-name: pop-in;
+        animation-delay: var(--animation-delay, 100ms);
+        animation-duration: var(--animation-duration, 500ms);
+        animation-direction: normal;
+        animation-iteration-count: 1;
+        animation-fill-mode: forwards;
+        animation-timing-function: cubic-bezier(0.27, 0.37, 0.11, 1.22);
+    }
+    :global(html.reduce-motion) {
+        .inner-container.animate .card {
+            animation: none;
+        }
+    }
+    @media (prefers-reduced-motion: reduce) {
+        .inner-container.animate .card {
+            animation: none;
+        }
+    }
+
+    .card:nth-child(1) {
+        --animation-delay: calc(var(--animation-base-delay, 100ms) + var(--offset) * 1 + var(--delay));
+        --rotate: 10deg;
+        translate: var(--offset-1);
+    }
+
+    .card:nth-child(2) {
+        --animation-delay: calc(var(--animation-base-delay, 100ms) + var(--offset) * 2 + var(--delay));
+        --rotate: 5deg;
+        translate: var(--offset-2);
+    }
+
+    .card:nth-child(3) {
+        --animation-delay: calc(var(--animation-base-delay, 100ms) + var(--offset) * 3 + var(--delay));
+        --rotate: -3deg;
+        translate: var(--offset-3)
+    }
+
+    .card:nth-child(4) {
+        --animation-delay: calc(var(--animation-base-delay, 100ms) + var(--offset) * 4 + var(--delay));
+        --rotate: -10deg;
+        translate: var(--offset-4);
+    }
+
+    .card:nth-child(5) {
+        --animation-delay: calc(var(--animation-base-delay, 100ms) + var(--offset) * 5 + var(--delay));
+        --rotate: 2deg;
+        translate: var(--offset-5);
+    }
+
+    .card:hover, .card:focus {
+        transform: rotate(calc(-1 * var(--rotate)));
+    }
+    .inner-container:has(.card:nth-child(1):hover, .card:nth-child(1):focus) {
+        --offset-2: 0;
+        --offset-3: calc(1 * var(--gap));
+        --offset-4: calc(2 * var(--gap));
+        --offset-5: calc(3 * var(--gap));
+    }
+    .inner-container:has(.card:nth-child(2):hover, .card:nth-child(2):focus) {
+        --offset-1: calc(-3 * var(--gap));
+        --offset-3: calc(1 * var(--gap));
+        --offset-4: calc(2 * var(--gap));
+        --offset-5: calc(3 * var(--gap));
+    }
+    .inner-container:has(.card:nth-child(3):hover, .card:nth-child(3):focus) {
+        --offset-1: calc(-3 * var(--gap));
+        --offset-2: calc(-2 * var(--gap));
+        --offset-4: calc(2 * var(--gap));
+        --offset-5: calc(3 * var(--gap));
+    }
+    .inner-container:has(.card:nth-child(4):hover, .card:nth-child(4):focus) {
+        --offset-1: calc(-3 * var(--gap));
+        --offset-2: calc(-2 * var(--gap));
+        --offset-3: calc(-1 * var(--gap));
+        --offset-5: calc(3 * var(--gap));
+    }
+    .inner-container:has(.card:nth-child(5):hover, .card:nth-child(5):focus) {
+        --offset-1: calc(-3 * var(--gap));
+        --offset-2: calc(-2 * var(--gap));
+        --offset-3: calc(-1 * var(--gap));
+        --offset-4: 0;
+    }
+
+    @keyframes pop-in {
+        from {
+            scale: 0.5;
+            opacity: 0.8;
+            rotate: 0deg;
+        }
+        to {
+            scale: 1;
+            opacity: 1;
+        }
+    }
+</style>

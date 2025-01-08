@@ -1,5 +1,4 @@
 <script lang="ts">
-    import { handleClickOutsideElement } from "@modules/SvelteActions";
     import { onMount } from "svelte";
     
     export let color: string = 'var(--color-primary, black)';
@@ -43,7 +42,6 @@
         aria-label="menu"
         style="{cssVarStyles}"
         class:open={showMenu}
-        use:handleClickOutsideElement
         on:click={() => showMenu = !showMenu}
     >
         <div id="one" class="menu-bar" />
@@ -75,6 +73,15 @@
     </div>
     
     <style>
+        :global(html:has(#menu-container.show-menu) body) {
+            overflow: hidden;
+        }
+
+        :global(html:has(#menu-container.show-menu) main) {
+            pointer-events: none;
+            overflow: hidden;
+        }
+
         #hamburger {
             --ham-default-height: 30px;
             --ham-default-width: 30px;
@@ -111,7 +118,7 @@
             left: 50%;
         }
         #one {
-            width: 75%;
+            width: 60%;
             translate: -50% calc(-50% - 6px);
             rotate: 0deg;
     
@@ -128,7 +135,7 @@
             transition-delay: var(--ham-transition-delay);
         }
         #three {
-            width: 75%;
+            width:60%;
             translate: -50% calc(-50% + 6px);
             rotate: 0deg;
             
@@ -188,7 +195,7 @@
 
             border-bottom-left-radius: 100%;
 
-            background-color: color-mix(in srgb, transparent 5%, var(--color-accent-blue-off) 90%);
+            background-color: color-mix(in srgb, transparent 5%, var(--color-accent-blue-off) 85%);
             backdrop-filter: blur(10px);
 
             transition-property: height, width, border-radius;
@@ -204,6 +211,7 @@
 
             display: flex;
             flex-direction: column;
+            backdrop-filter: blur(4px);
         }
 
         #menu-container ol {

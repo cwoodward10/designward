@@ -1,5 +1,5 @@
 ---
-import Layout from "./Layout.astro";
+import ContentLayout from "./ContentLayout.astro";
 import ContentImage from "@components/content-components/ContentImage.astro";
 
 interface Props {
@@ -16,75 +16,27 @@ interface Props {
 const { data } = Astro.props;
 ---
 
-<Layout title={data.title}>
-    <main class="content content-layout">
-        <article class="content-intro">
-            <hgroup>
-                <h1>{data.title}</h1>
-                {data.tagline && <p class="tagline style-h5">{data.tagline}</p>}
-                <p class="date">
-                    <span class="tag">last edited:</span> 
-                    {data.lastEdited}
-                </p>
-                <p class="state">
-                    <span class="tag">Writing state:</span> 
-                    {data.state}
-                </p>
-                {data.image && <ContentImage src={data.image} alt={data.image} /> }
-            </hgroup>
-        </article>
-        <slot/>
-        <section class="back-to-garden">
-            <a class="arrow" href="/garden/">Back to the garden</a>
-        </section>
-    </main>
-</Layout>
+<ContentLayout pageTitle={data.title}>
+    <hgroup slot="intro">
+        <h1>{data.title}</h1>
+        {data.tagline && <p class="tagline style-h5">{data.tagline}</p>}
+        <p class="date">
+            <span class="tag">last edited:</span> 
+            {data.lastEdited}
+        </p>
+        <p class="state">
+            <span class="tag">Writing state:</span> 
+            {data.state}
+        </p>
+        {data.image && <ContentImage src={data.image} alt={data.image} /> }
+    </hgroup>
+    <div class="wrapper" slot="content">
+        <slot />
+    </div>
+</ContentLayout>
 
 <style>
-    .content-layout {
-        --initial-animation-delay: 400ms;
-
-        width: fit-content;
-
-        padding-bottom: 6em;
-
-        h1, h2, h3, h4, h5 {
-            color: var(--color-secondary);
-        }
-        
-        .tagline {
-            margin-bottom: 0.8em;
-        }
-
-        .date, .state {
-            font-weight: 500;
-            text-transform: uppercase;
-        }
-
-        .tag {
-            font-size: 0.8em;
-            font-weight: 300;
-            text-transform: lowercase;
-        }
-
-        article {
-            max-width: 60em;
-        }
-
-        p {
-            text-wrap: pretty;
-        }
-    }
-
-    .content-intro {
-        padding-bottom: 3em;
-
-        p {
-            font-size: var(--font--step--2);
-        }
-    }
-
-    .back-to-garden {
-        padding: 60px 0; 
+    .wrapper {
+        display: contents;
     }
 </style>

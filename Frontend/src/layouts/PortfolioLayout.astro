@@ -1,0 +1,31 @@
+---
+import ContentLayout from "./ContentLayout.astro";
+import ContentImage from "@components/content-components/ContentImage.astro";
+
+interface Props {
+	data: {
+        name: string,
+        tagline: string,
+        image?: ImageMetadata,
+    };
+}
+
+const { data } = Astro.props;
+---
+
+<ContentLayout pageTitle={data.name}>
+    <hgroup slot="intro">
+        <h1>{data.name}</h1>
+        <p class="tagline style-h5">{data.tagline}</p>
+        {data.image && <ContentImage src={data.image} alt={data.name} /> }
+    </hgroup>
+    <div class="wrapper" slot="content">
+        <slot />
+    </div>
+</ContentLayout>
+
+<style>
+    .wrapper {
+        display: contents;
+    }
+</style>

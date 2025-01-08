@@ -1,50 +1,95 @@
 ---
-import ProjectListItem from '@components/content-components/portfolio-components/ProjectListItem.svelte';
 import Layout from '@layouts/Layout.astro';
 
-import { getCollection } from 'astro:content';
+import JumpCards from '@components/base/JumpCards.astro';
+import ExpanderCard from '@components/base/ExpanderCard.astro';
 
-const featured = await getCollection('featured');
-const featuredProjectData = featured.map((p: any) => p.data);
+import { DigitalProjects, RinkaProjects } from "@modules/contentConstants/content";
+import A from '@components/base/A.astro';
 
-const allProjects = await getCollection('projects');
-const projectData = allProjects.map(p => p.data);
+const rinkaAsCards = RinkaProjects.map(p => {
+    return {
+        name: p.name,
+        url: p.url as string,
+        imageUrl: p.imageUrl
+    }
+})
 
-const digitalProjects = projectData.filter(p => p.medium === 'product' || p.medium === 'web');
-const physicalProjects = projectData.filter(p => p.medium !== 'product' && p.medium !== 'web')
+function createId(text: string) {
+    return text.toLocaleLowerCase().replace(' ', '-');
+}
+function createUrl(text: string) {
+    return `./square/${createId(text)}`
+}
 ---
+
+<script>
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((e) => {
+            if (e.isIntersecting) {
+                e.target?.classList.toggle('fade-in', true);
+                e.target?.classList.toggle('show', true);
+            }
+        })
+    })
+    const sections = document.querySelectorAll('section:not(.hero)');
+    sections.forEach(s => observer.observe(s));
+</script>
 
 <Layout title="Portfolio">
 	<main>
-        <section class="intro-content">
-            <h1>Featured Projects</h1>
-            <p>Come back later for featured projects with extended Case Studies. For now, please see below for links to projects that I have designed, worked on, and built - built being a variable term depending on the medium.</p>
+        <section class="hero projects show">
+            <h1>Current portfolio</h1>
+            <p class="style-h4 hero-text">
+                My day job at Square has me create interactive web experiences like our 
+                <A href="https://developer.squareup.com">Developer Homepage</A>
+                and web-apps like our
+                <A href="https://squareup.com/square-specialists/directory">Specialist Directory</A>
+                and
+                <A href="https://squareup.com/partner-offers">Partner Offers</A>
+                pages that share a frontend architecture. 
+            </p>
+            <p class="style-h4 hero-text" style="margin-top: 0.5em;">
+                I am also occassionally asked to build productivity tools such as
+                <A href="./figma-plugins">Figma plugins</A> and the like.
+            </p>
         </section>
-        <section class="projects">
-            <div class="digital projects">
+        <section style="--animation-delay: 500ms">
+            <div class="projects">
                 <hgroup>
-                    <h2>Digital Projects</h2>
-                    <p class="tagline">Websites and Computer Apps that I've designed and/or developed. While not an exhaustive list, of everything that I've worked out, these projects will give you a sense of my responsibilities and capabilities.</p>
+                    <h2>Other digital projects</h2>
+                    <p class="small tagline"><em>(Including, but not limited to, my work at Square)</em></p>
                 </hgroup>
                 <ul>
-                    {digitalProjects.map((project) => (
-                        <ProjectListItem {project} />
+                    { DigitalProjects.map(proj => (
+                        <li>
+                            <div>
+                                <a class="arrow style-h6" href={proj.url as string} target="_blank">{ proj.name }</a>
+                                <p class="">{ proj.tagline }</p>
+                            </div>
+                        </li>
                     ))}
                 </ul>
             </div>
-            <div class="physical projects">
-                <hgroup>
+        </section>
+        <section class="physical" style="--animation-delay: 500ms">
+            <div class="projects display">
+                <div>
                     <h2>Physical Projects</h2>
-                    <p class="tagline">Architecture and Urban Design projects that I have had the privilege of working on in a past life. This is not an exhaustive list of everything I worked on but instead of list of projects that I spent the most time on.</p>
-                </hgroup>
-                <ul>
-                    {physicalProjects.map((project) => (
-                        <ProjectListItem {project} />
-                    ))}
-                </ul>
+                    <p>
+                        While the medium is different from my current day job, my experience as a Design Professional at <A href="https://www.rinka.com" title="RINKA+">RINKA+</A> was 
+                        instrumental to where I am now. Here I learned what it means to be a professional in the design field. 
+                    </p>
+                </div>
+                <JumpCards cards={rinkaAsCards} />
+                <p class="jump-cards-note x-small" style="max-width: 45rem;">
+                    <strong><em>Note:</em></strong> The above is based on <A href="https://codepen.io/cwoodward10/pen/ZEdXgZN" title="Jump Cards Codepen">this Codepen</A> that I put together -
+                    using pure CSS animations - as a response to a Codepen doing the same thing but with JS animations.
+                </p>
+                <ExpanderCard cards={rinkaAsCards} />
             </div>
         </section>
-        <section class="dialog">
+        <section class="dialog" style="--animation-delay: 500ms">
             <div>
                 <p>Or, if you're looking for more of a traditional take home portfolio, this one linked below will give you a good overall sense of my work.</p>
                 <p>I put it together in application for UIUC's Alumni Baker Fellowship which I applied for but did not receive.</p>
@@ -54,25 +99,50 @@ const physicalProjects = projectData.filter(p => p.medium !== 'product' && p.med
     </main>
 </Layout> 
 
-<style>
+<style lang="scss">
+    @use '@assets/styles/sass/breakpoints.scss' as media;
+
     main {
         display: flex;
         flex-direction: column;
-        gap: 60px;
+        gap: 3rem;
 
         padding-bottom: 100px;
+    }
+
+    section:not(.show)>*:first-child {
+        opacity: 0;
+        &.display {
+            display: none;
+        }
     }
 
     .projects {
         display: flex;
         flex-direction: column;
-        gap: 30px;
+        gap: 0.5rem;
+    }
 
-        & ul {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
+    @include media.until('large') {
+        .jump-cards-note, :global(.jump-container) {
+            display: none;
+            content-visibility: hidden;
         }
+    }
+    @include media.at('large') {
+        :global(.expander-container) {
+            display: none;
+            content-visibility: hidden;
+        }
+    }
+
+    .hero-text {
+        max-width: 62rem;
+        line-height: 2em;
+    }
+
+    hgroup {
+        padding-bottom: 1rem;
     }
 
     section.dialog {
@@ -80,7 +150,7 @@ const physicalProjects = projectData.filter(p => p.medium !== 'product' && p.med
         border-radius: 1rem;
         padding: 3px;
         
-        & div {
+        div {
             background-color: var(--color-background);
             padding: 40px;
             border-radius: calc(1rem - 3px);

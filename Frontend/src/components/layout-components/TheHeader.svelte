@@ -1,7 +1,7 @@
 <script lang="ts">
     import HamburgerMenu from "@components/base/menus/hamburger/HamburgerMenu.svelte";
     import MotionButton from "./header-helpers/MotionButton.svelte";
-  import ModeButton from "./header-helpers/ModeButton.svelte";
+    import ModeButton from "./header-helpers/ModeButton.svelte";
 
     const HEIGHT_HERO = 20;
 
@@ -129,10 +129,10 @@
             font-size: 0.8em;
             font-family: var(--font-fun);
             font-weight: 600;
-            line-height: 100%;
+            line-height: 130%;
         }
         &>span {
-            translate: 0 0.08em;
+            translate: 0 0.1em;
         }
 
         .logo-full, .logo-initials {
