@@ -69,7 +69,7 @@
 </header>
 
 <style lang="scss">
-    @import "../../assets/styles/sass/breakpoints.scss";
+    @use '@assets/styles/sass/breakpoints.scss' as media;
 
     :global(:root) {
         --header-height: 48px;
@@ -104,7 +104,7 @@
         justify-content: space-between;
         align-items: center;
 
-        @media screen and (min-width: $breakpoint-sm) {
+        @include media.at('small') {
             align-self: flex-end;
         }
     }
@@ -184,7 +184,7 @@
         content-visibility: hidden;
         align-items: center;
     }
-    @media screen and (min-width: $breakpoint-sm) {
+    @include media.at('small') {
         .hamburger-container {
             display: none;
             content-visibility: hidden;

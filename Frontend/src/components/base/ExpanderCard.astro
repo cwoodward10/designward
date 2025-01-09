@@ -48,7 +48,7 @@ const { cards } = Astro.props;
 
 <div class="expander-container">
     {
-        cards.map((c, i) => (
+        cards.map((c) => (
             <button class="card">
                 <img class="image" src={c.imageUrl! as string} alt={c.name} />
                 <p class="title style-h5">{c.name}</p>

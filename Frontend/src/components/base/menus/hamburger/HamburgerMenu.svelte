@@ -215,6 +215,9 @@
         }
 
         #menu-container ol {
+            margin: 0 auto;
+            width: 1200px;
+            max-width: 100%;
             display: flex;
             flex-direction: column;
             gap: 1em;

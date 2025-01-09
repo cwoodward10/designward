@@ -4,6 +4,7 @@ import Layout from '@layouts/Layout.astro';
 
 import { getCollection } from 'astro:content';
 
+export const prerender = true
 const allThoughts = await getCollection('thoughts');
 ---
 
@@ -30,7 +31,7 @@ const allThoughts = await getCollection('thoughts');
                     <li>
                         <h4>{thought.data.title}</h4>
                         {thought.data?.tagline && <p class="tag small">{thought.data.tagline}</p>}
-                        <a class="arrow" href={`${thought.slug}`}>Read it</a>
+                        <a class="arrow" href={`${thought.id}`}>Read it</a>
                     </li>
                 ))}
             </ul>
