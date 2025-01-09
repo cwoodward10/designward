@@ -31,7 +31,7 @@ export const DigitalProjects: DigitalProject[] = [
     },
     {
         name: "Figma Plugin Template",
-        url: "https://github.com/cwoodward10/svelte-vite-figma-plugin",
+        url: "./figma-plugins",
         tagline: "A Svelte + Vite + Figma Plugin template for all to use.",
     },
 ]

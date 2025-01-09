@@ -4,17 +4,17 @@ import GardenLayout from 'src/layouts/GardenLayout.astro';
 import { getCollection, render } from 'astro:content';
 
 export async function getStaticPaths() {
-  const posts = await getCollection('thoughts');
-  return posts.map(post => ({
-    params: { id: post.id },
-    props: { post },
+  const thoughts = await getCollection('thoughts');
+  return thoughts.map(thought => ({
+    params: { id: thought.id },
+    props: { thought },
   }));
 }
 
-const { post } = Astro.props;
-const { Content } = await render(post);
+const { thought } = Astro.props;
+const { Content } = await render(thought);
 ---
 
-<GardenLayout data={post.data}>
-    <Content frontmatter={post.data} />
+<GardenLayout data={thought.data}>
+    <Content frontmatter={thought.data} />
 </GardenLayout>

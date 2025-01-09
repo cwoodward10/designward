@@ -57,7 +57,13 @@ const rinkaAsCards = RinkaProjects.map(p => {
                     { DigitalProjects.map(proj => (
                         <li>
                             <div>
-                                <a class="arrow style-h6" href={proj.url as string} target="_blank">{ proj.name }</a>
+                                <a 
+                                    class="arrow style-h6" 
+                                    href={proj.url as string} 
+                                    target={proj.url.includes('https') ? '_blank' : '_self'}
+                                >
+                                    { proj.name }
+                                </a>
                                 <p class="">{ proj.tagline }</p>
                             </div>
                         </li>
