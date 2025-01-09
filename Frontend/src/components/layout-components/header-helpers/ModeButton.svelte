@@ -91,7 +91,7 @@
             transition: translate 300ms ease-in-out;
         }
         button.light .modes {
-            translate: -50% calc(-50% - 2px);;
+            translate: -50% calc(-50% - 2px);
         }
         button .modes .icon {
             height: 40px;

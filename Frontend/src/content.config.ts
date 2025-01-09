@@ -1,11 +1,10 @@
-// 1. Import utilities from `astro:content`
 import { z, defineCollection } from 'astro:content';
+import { glob } from 'astro/loaders';
 
 const noteStates = ['concept', 'under construction', 'operational'] as const;
 
-// 2. Define a `type` and `schema` for each collection
-const thoughtCollection = defineCollection({
-  type: 'content',
+const thoughts = defineCollection({
+  loader: glob({ pattern: "**/*.mdoc", base: "./src/content/thoughts" }),
   schema: z.object({
     title: z.string(),
     tagline: z.string().optional(),
@@ -16,8 +15,8 @@ const thoughtCollection = defineCollection({
   }),
 });
 
-const portfolioProject = defineCollection({
-  type: 'content',
+const projects = defineCollection({
+  loader: glob({ pattern: "**/*.mdoc", base: "./src/content/projects" }),
   schema: ({image}) => z.object({
     name: z.string(),
     tagline: z.string(),
@@ -25,8 +24,4 @@ const portfolioProject = defineCollection({
   })
 })
 
-// 3. Export a single `collections` object to register your collection(s)
-export const collections = {
-  'thoughts': thoughtCollection,
-  'portfolio': portfolioProject
-};
+export const collections = { thoughts, projects };

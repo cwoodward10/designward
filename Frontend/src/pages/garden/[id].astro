@@ -1,0 +1,20 @@
+---
+import GardenLayout from 'src/layouts/GardenLayout.astro';
+
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('thoughts');
+  return posts.map(post => ({
+    params: { id: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+---
+
+<GardenLayout data={post.data}>
+    <Content frontmatter={post.data} />
+</GardenLayout>
