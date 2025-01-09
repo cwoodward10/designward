@@ -5,13 +5,20 @@ const noteStates = ['concept', 'under construction', 'operational'] as const;
 
 const thoughts = defineCollection({
   loader: glob({ pattern: "**/*.mdoc", base: "./src/content/thoughts" }),
-  schema: z.object({
+  schema: ({image}) => z.object({
     title: z.string(),
     tagline: z.string().optional(),
     lastEdited: z.string(),
     state: z.enum(noteStates),
     tags: z.array(z.string()).optional(),
-    image: z.string().optional(),
+    image: z.object({
+      src: image().or(z.string()),
+      alt: z.string().optional(),
+    }).optional(),
+    inlineImages: z.array(z.object({
+      src: image().or(z.string()),
+      alt: z.string()
+    })).optional()
   }),
 });
 
@@ -20,8 +27,14 @@ const projects = defineCollection({
   schema: ({image}) => z.object({
     name: z.string(),
     tagline: z.string(),
-    image: image().optional(),
-    images: z.array(image()).optional()
+    image: z.object({
+      src: image().or(z.string()),
+      alt: z.string().optional(),
+    }).optional(),
+    inlineImages: z.array(z.object({
+      src: image().or(z.string()),
+      alt: z.string()
+    })).optional()
   })
 })
 

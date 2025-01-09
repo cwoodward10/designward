@@ -55,6 +55,9 @@
     }
     
     --initial-animation-delay: 200ms;
+
+    --radius-image: 4px;
+    --shadow-image: 2px 2px 8px 0 rgba(0, 0, 0, 0.15);
 }
 html {
     --color-offwhite: #FFFAFA;

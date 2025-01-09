@@ -2,30 +2,44 @@
 import ContentLayout from "./ContentLayout.astro";
 import ContentImage from "@components/content-components/ContentImage.astro";
 
-interface Props {
-	data: {
-        name: string,
-        tagline: string,
-        image?: ImageMetadata,
-    };
-}
-
 const { data } = Astro.props;
 ---
 
 <ContentLayout pageTitle={data.name}>
-    <hgroup slot="intro">
+    <hgroup class="intro" slot="intro">
         <h1>{data.name}</h1>
-        <p class="tagline style-h5">{data.tagline}</p>
-        {data.image && <ContentImage src={data.image} alt={data.name} /> }
+        <h5 class="tagline">{data.tagline}</h5>
     </hgroup>
     <div class="wrapper" slot="content">
+        {data.image && 
+            <div class="hero">
+                <ContentImage src={data.image.src} alt={data.image.alt ?? data.name} />
+            </div>
+        }
         <slot />
     </div>
+    <a slot="back" class="arrow" href="/portfolio/">Back to my portfo</a>
 </ContentLayout>
 
-<style>
+<style lang="scss">
+    hgroup.intro {
+        .tagline {
+            margin-bottom: 0.25em;
+        }
+        .tag {
+            font-size: 0.8em;
+            font-weight: 300;
+            text-transform: lowercase;
+        }
+    }
     .wrapper {
-        display: contents;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+    }
+    .hero {
+        width: 120%;
+        max-width: calc(100vw - (2 * var(--padding-edge, 1rem)));
     }
 </style>

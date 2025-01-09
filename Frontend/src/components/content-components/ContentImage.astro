@@ -5,8 +5,17 @@ interface Props {
   alt: string;
 }
 const { src, alt } = Astro.props;
-console.log('src', src)
+
+const useHtmlImg = typeof src === 'string' || src.src.includes('.gif');
 ---
 {
-  typeof src === 'string' ? <img src={src} alt={alt} /> : <Image src={src} alt={alt} />
+   useHtmlImg ? 
+    <img class="content-image" src={typeof src === 'string' ? src : src.src } alt={alt} /> : 
+    <Image class="content-image" src={src} alt={alt} width={960} />
 }
+
+<style>
+  .content-image {
+    height: auto;
+  }
+</style>

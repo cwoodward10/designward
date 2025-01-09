@@ -14,41 +14,36 @@ const { pageTitle } = Astro.props;
             <slot name="intro"/>
         </section>
         <slot name="content"/>
-        <section class="back-to-garden">
-            <a class="arrow" href="/garden/">Back to the garden</a>
+        <section class="back-to">
+            <slot name="back"></slot>
         </section>
     </main>
 </Layout>
 
-<style>
-
+<style is:global>
     .content-layout {
         --initial-animation-delay: 400ms;
 
         width: 800px;
         padding-bottom: 6em;
 
-        h1, h2, h3, h4, h5 {
+        h1, h2, h3 {
             color: var(--color-secondary);
         }
-        
-        .tagline {
-            margin-bottom: 0.25em;
-        }
 
-        .date, .state {
-            font-weight: 500;
-            text-transform: uppercase;
-        }
-
-        .tag {
-            font-size: 0.8em;
-            font-weight: 300;
-            text-transform: lowercase;
+        p:first-child:first-letter {
+            font-family: var(--font-title);
+            font-size: 3.5rem;
+            font-weight: 600;
+            float: left;
+            margin: 0.5rem 0.35rem 0 0;
+            line-height: 0.7em;
+            color: var(--color-secondary);
         }
 
         article {
             max-width: 60em;
+            width: 100%;
         }
 
         p {
@@ -57,14 +52,33 @@ const { pageTitle } = Astro.props;
     }
 
     .content-intro {
-        padding-bottom: 3em;
+        padding-bottom: 2rem;
+    }
 
-        p {
-            font-size: var(--font--step--2);
+    img.content-image {
+        align-self: center;
+
+        border-radius: var(--radius-image);
+        overflow: hidden;
+        box-shadow: var(--shadow-image);
+        
+        width: 800%;
+
+        opacity: 0;
+
+        animation-name: animate-section-in;
+        animation-duration: 1000ms;
+        animation-delay: var(--initial-animation-delay);
+        animation-timing-function: ease-out;
+        animation-fill-mode: forwards;
+        animation-iteration-count: 1;
+
+        &:first-child {
+            margin-bottom: 2rem;
         }
     }
 
-    .back-to-garden {
+    .back-to {
         padding: 60px 0; 
     }
 </style>

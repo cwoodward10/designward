@@ -1,10 +1,21 @@
 ---
-name: Figma Plugins
-tagline: How I built a Figma Plugin template then built a project on it.
-images: ["./images/headshot2.jpg"]
+name: Figma Plugin API
+tagline: How I built a Figma Plugin template and then built a project on it.
+image:
+    src: './images/figma-hero.png'
+    alt: Figma Plugin API
+inlineImages: [
+    {
+        src: './images/figma-template.png',
+        alt: Figma + Svelte + Vite
+    },
+    {
+        src: './images/figma-plugin.gif',
+        alt: Figam Plugin at Square
+    }
+]
 ---
 
-{% image src=$frontmatter.images[0] alt="Astro Logo" /%}
 This whole journey started when, at Square, I was asked to help out on a hackweek project where the team wanted to create a 
 Figma plugin to help with localization. The idea was to tie Figma directly to both Chat-GPT and Square's internal translation service 
 through a Figma UI. As the engineer of the group, I went ahead and looked into the dev tooling for building Figma plugins. I was not 
@@ -18,12 +29,15 @@ With hackweek over, my "at work" time was redirected to my normally scheduled pr
 plugins. The hackweek did open my eyes to how easy it was to build plugins however and I never forgot that. I explored building my own plugins
 in my personal time. I never got over the less-than-ideal support for Svelte - my preferred javascript framework - however. 
 
+{% inlineImage src=$frontmatter.inlineImages[0].src alt=$frontmatter.inlineImages[0].alt /%}
+
 I finally set out to build a template for Figma Plugins built with Svelte. This is how I ended up with 
 [this template](https://github.com/cwoodward10/svelte-vite-figma-plugin). Figma had this nice [library](https://www.npmjs.com/package/@figma/create-widget) 
 for creating Widgets in FigJam that I was able to repurpose over to Svelte. I later added some extra functions to help with communications between
 the Figma section of the code and the Svelte UI section.
 
 ## In production
+{% inlineImage src=$frontmatter.inlineImages[1].src alt=$frontmatter.inlineImages[1].alt /%}
 I was actually later able to use this template for a project at Square. A production designer on my team at the time came to me to help him
 build a productivity tool that would make it easier for production designers to localize images. They were constantly asked to
 reference an internal Square page for approved translations for the fake businesses Square uses in its marketing imagery. Switching back and forth
