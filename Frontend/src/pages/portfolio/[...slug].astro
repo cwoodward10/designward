@@ -15,6 +15,7 @@ if (entry === undefined) {
 }
 
 const { Content } = await entry.render();
+console.log('fm', entry.data)
 ---
 
 <PortfolioLayout data={entry.data}>

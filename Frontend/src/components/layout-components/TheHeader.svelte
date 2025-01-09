@@ -25,10 +25,10 @@
     ]
 
     let showSticky = true;
-    let prevY = 0;
+    let prevY: number | undefined  = undefined;
     let scrollY: number;
     $: {
-        if (scrollY < HEIGHT_HERO) {
+        if (prevY === undefined || scrollY < HEIGHT_HERO) {
             showSticky = true;
         } else {
             showSticky = true && (prevY > scrollY)

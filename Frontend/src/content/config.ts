@@ -21,7 +21,8 @@ const portfolioProject = defineCollection({
   schema: ({image}) => z.object({
     name: z.string(),
     tagline: z.string(),
-    image: image().optional()
+    image: image().optional(),
+    images: z.array(image()).optional()
   })
 })
 

@@ -5,6 +5,7 @@ interface Props {
   alt: string;
 }
 const { src, alt } = Astro.props;
+console.log('src', src)
 ---
 {
   typeof src === 'string' ? <img src={src} alt={alt} /> : <Image src={src} alt={alt} />

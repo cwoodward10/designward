@@ -5,10 +5,14 @@ export default defineMarkdocConfig({
     link: {
       ...nodes.link, // Apply Markdoc's defaults for other options
       render: component('./src/components/base/A.astro'),
-    },
+    }
+  },
+  tags: {
     image: {
-      ...nodes.image, // Apply Markdoc's defaults for other options
+      attributes: {
+        ...nodes.image.attributes
+      },
       render: component('./src/components/content-components/ContentImage.astro'),
     },
-  },
+  }
 });
