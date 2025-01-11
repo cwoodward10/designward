@@ -74,6 +74,9 @@ html {
     --color-background: var(--color-offblack);
     --color-background-dark: #101819;
 
+    --color-code-text: #8BE9FD;
+    --color-code-background: #282A36;
+
     --color-link: var(--color-secondary);
     --color-link-underline: var(--color-primary);
     --color-link-external: color-mix(in srgb, var(--color-text) 25%, var(--color-accent-primary) 80%);

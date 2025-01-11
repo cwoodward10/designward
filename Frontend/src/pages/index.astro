@@ -42,7 +42,7 @@ import Layout from '@layouts/Layout.astro';
 			</p>
 			<p class="style-h4">
 				I’m currently employed as a <A href="/garden/whats-a-dt">Design Technologist</A> at Square 
-				where I use my <A href="/garden/my-design-background">design background</A> to 
+				where I use my <A href="/garden/architecture-and-the-web">design background</A> to 
 				help bridge the gap between digital experience and technical implementation.
 			</p>
 			<div class="links">
@@ -68,7 +68,7 @@ import Layout from '@layouts/Layout.astro';
 				<p>
 					In this way, the joining of “Design” and “Ward” represents an aspiration to bring design
 					 - especially the craft, delight, and attention to human experience that design entails
-					  - to everything I do <A href="/garden/on-designing-designward">(including this site)</A>.
+					  - to everything I do (including this site).
 				</p>
 				<p>
 					As a both an artifact of and vehicle to continue my journey through design and technology, 
@@ -81,7 +81,7 @@ import Layout from '@layouts/Layout.astro';
 </Layout>
 
 <style lang="scss">
-	@import '@assets/styles/sass/breakpoints.scss';
+	@use '@assets/styles/sass/breakpoints.scss' as media;
 
 	section {
 		padding-bottom: var(--section-padding);
@@ -92,7 +92,7 @@ import Layout from '@layouts/Layout.astro';
 		padding-top: 10px;
 		padding-bottom: 40px;
 
-		@media screen and (min-width: $breakpoint-sm) {
+		@include media.at('small') {
 			padding-top: 100px;
 		}
 

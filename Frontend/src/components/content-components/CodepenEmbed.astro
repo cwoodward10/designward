@@ -1,0 +1,34 @@
+---
+interface Props {
+    hash: string;
+    title: string;
+    author: string;
+    height: number | undefined;
+}
+const {
+    hash,
+    title,
+    author,
+    height = 320
+    
+} = Astro.props;
+---
+
+<script is:inline async src="https://public.codepenassets.com/embed/index.js"></script>
+
+<div
+    class="codepen" 
+    data-height={height} 
+    data-default-tab="result" 
+    data-slug-hash={hash} 
+    data-pen-title={title} 
+    data-user={author} 
+    style={`height: ${height}px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;`}
+>
+    <p>
+        See the Pen 
+        <a href={`https://codepen.io/${author}/pen/${hash}`}>{title}</a>
+        by <a href={`https://codepen.io/${author}`}>@{author}</a>
+        on <a href="https://codepen.io">CodePen</a>.
+    </p>
+</div>

@@ -1,5 +1,6 @@
 @layer components {
     .card {
+        background-color: white;
         border-radius: 0.5rem;
         border: white var(--border-width, --default-border-width) solid;
     }

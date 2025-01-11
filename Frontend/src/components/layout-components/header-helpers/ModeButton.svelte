@@ -71,11 +71,11 @@
           transition-duration: 200ms;
           transition-timing-function: ease-out;
 
-          & svg path {
+          & :global(svg path) {
             transition: color 300ms ease-in-out;
           }
 
-          &:hover svg path {
+          &:hover :global(svg path) {
               color: var(--color-accent-primary);
           }
         }

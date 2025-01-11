@@ -6,6 +6,7 @@ import ExpanderCard from '@components/base/ExpanderCard.astro';
 
 import { DigitalProjects, RinkaProjects } from "@modules/contentConstants/content";
 import A from '@components/base/A.astro';
+import AlertDialog from '@components/content-components/AlertDialog.astro';
 
 const rinkaAsCards = RinkaProjects.map(p => {
     return {
@@ -50,7 +51,7 @@ const rinkaAsCards = RinkaProjects.map(p => {
         <section style="--animation-delay: 500ms">
             <div class="projects">
                 <hgroup>
-                    <h2>Other digital projects</h2>
+                    <h2 id="other-digital-projects">Other digital projects</h2>
                     <p class="small tagline"><em>(Including, but not limited to, my work at Square)</em></p>
                 </hgroup>
                 <ul>
@@ -74,7 +75,7 @@ const rinkaAsCards = RinkaProjects.map(p => {
         <section class="physical" style="--animation-delay: 500ms">
             <div class="projects display">
                 <div>
-                    <h2>Physical Projects</h2>
+                    <h2 id="physical-projects">Physical Projects</h2>
                     <p>
                         While the medium is different from my current day job, my experience as a Design Professional at <A href="https://www.rinka.com" title="RINKA+">RINKA+</A> was 
                         instrumental to where I am now. Here I learned what it means to be a professional in the design field. 
@@ -82,19 +83,16 @@ const rinkaAsCards = RinkaProjects.map(p => {
                 </div>
                 <JumpCards cards={rinkaAsCards} />
                 <p class="jump-cards-note x-small" style="max-width: 45rem;">
-                    <strong><em>Note:</em></strong> The above is based on <A href="https://codepen.io/cwoodward10/pen/ZEdXgZN" title="Jump Cards Codepen">this Codepen</A> that I put together -
-                    using pure CSS animations - as a response to a Codepen doing the same thing but with JS animations.
+                    <strong><em>Note:</em></strong> Learn more about the above card component <A href="../garden/css-jumping-cards#how-i-did-it">here</A>.
                 </p>
                 <ExpanderCard cards={rinkaAsCards} />
             </div>
         </section>
-        <section class="dialog" style="--animation-delay: 500ms">
-            <div>
-                <p>Or, if you're looking for more of a traditional take home portfolio, this one linked below will give you a good overall sense of my work.</p>
-                <p>I put it together in application for UIUC's Alumni Baker Fellowship which I applied for but did not receive.</p>
-                <a class="arrow" href={"https://drive.google.com/file/d/1kFVXpHp7grckMkNgv4ZpryqUFR-eY9NY/view?usp=sharing"} target="_blank">View it here</a>
-            </div>
-        </section>
+        <AlertDialog style="--animation-delay: 500ms" tag='section'>
+            <p>Or, if you're looking for more of a traditional take home portfolio, this one linked below will give you a good overall sense of my work.</p>
+            <p>I put it together in application for UIUC's Alumni Baker Fellowship which I applied for but did not receive.</p>
+            <a class="arrow" href={"https://drive.google.com/file/d/1kFVXpHp7grckMkNgv4ZpryqUFR-eY9NY/view?usp=sharing"} target="_blank">View it here</a>
+        </AlertDialog>
     </main>
 </Layout> 
 
@@ -142,22 +140,5 @@ const rinkaAsCards = RinkaProjects.map(p => {
 
     hgroup {
         padding-bottom: 1rem;
-    }
-
-    section.dialog {
-        background-color: var(--color-primary);
-        border-radius: 1rem;
-        padding: 3px;
-        
-        div {
-            background-color: var(--color-background);
-            padding: 40px;
-            border-radius: calc(1rem - 3px);
-            margin-bottom: 6px;
-
-            display: flex;
-            flex-direction: column;
-            gap: 1em;
-        }
     }
 </style>

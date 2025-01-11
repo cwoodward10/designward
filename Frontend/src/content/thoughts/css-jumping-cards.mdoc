@@ -1,0 +1,159 @@
+---
+title: On CSS Jumping Cards
+tagline: Or I've learned to embrace the power of CSS
+lastEdited: '1/11/2025'
+tags: [ Engineering, Design Technologist, Design Engineering ]
+state: 'under construction'
+inlineImages: [
+    {
+        src: './images/css-love-easing.png',
+        alt: Easing function - cubic-bezier(.27,.37,.11,1.22)
+    }
+]
+---
+
+A little while ago, I came across this fun "Jumping Cards" Codepen that was inspired the AirBnB. I thought it was quaint
+and something that I could possibly borrow for my own work so I thought I'd check it out to see how it was made. 
+Turns out that it looks fairly straightforward - relying on the popular GSAPP library for the animations. I've embedded it below
+for you to play around with.
+
+{% codepen title="Jumpy Cards" hash="oNrXoaL" author="gibsonmurray" height=500 /%}
+
+Anyways, while the code is pretty straightforward, I also immediately thought that it didn't really need GSAPP to work. I've come to really appreciate the power of CSS 
+during my time and Square and so I set off to remake the pen but using pure CSS animations. After all, why use a library when you can
+get this to work without one?
+
+I got pretty close. I didn't bother to really fine-tune the motion to match the GSAPP motion exactly. The original cards "jump" in pretty
+quickly anyways and I'm not a huge fan of that. I prefer the slower, lazier load of mine. Play around with it below if you'd like.
+
+{% codepen title="Jump Cards  - CSS Only" hash="ZEdXgZN" author="cwoodward10" height=500 /%}
+
+I think the pen turned out pretty well! I even included a modified version on my portfolio page. You can see it [here](../portfolio#physical-projects) if
+you are viewing on desktop. Best of all, it really wasn't that hard or the CSS that complex!
+
+## How I did it
+
+What I've come to enjoy about modern CSS is that you can really do a lot without any javascript. Selectors such as [:has()](https://developer.mozilla.org/en-US/docs/Web/CSS/:has) and [CSS variables](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties) 
+have really introduced a lot of programability into the language. I, for instance, really relied on the latter to make this pen work.
+
+To start, I knew I need to leverage [CSS animations](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_animations/Using_CSS_animations) to get this to work. In 
+particular, an animation with ```animation-fill-mode: fowards;``` is important. You can learn more about that [here](https://developer.mozilla.org/en-US/docs/Web/CSS/animation-fill-mode) 
+but the general gist of it is that the target element will keep the properties of the ending keyframe the set animation. That can get a little hairy if you're trying to
+build transitions on similar properties. More on that later. But for now, we'll keep this basic.
+
+We can see from the GSAPP code of the initial Codepen that "scale" is the property that is being animated. We can also see that the easing function has a bit of an
+over-correction to it so that the cards over-scale and snap back into place.
+
+```javascript
+const playAnimation = () => {
+    gsap.fromTo(
+      ".card",
+      {
+        scale: 0
+      },
+      {
+        scale: 1,
+        stagger: 0.06, 
+        ease: "elastic.out(1, 0.8)",
+        delay: 0.5
+      }
+    );
+  };
+```
+
+The scale property can be animated like below:
+
+```css
+@keyframes jump-in {
+    from {
+      scale: 0.35;
+      opacity: 0.8; // for extra effect; not strictly necessary
+    }
+    to {
+      scale: 1;
+      opacity: 1;
+    }
+  }
+```
+
+If we ran this with a standard easing function though, like ```ease-out``` for instance, we wouldn't 
+get that little jumpy over-correction. We'll need a function that over-corrects [like-so](https://cubic-bezier.com/#.27,.37,.11,1.22). You can see below how the "hump" at the top
+goes "over" the top and comes back down. That is what gives up the "jump" and snap-back.
+
+{% inlineImage src=$frontmatter.inlineImages[0].src alt=$frontmatter.inlineImages[0].alt /%}
+
+If we then implement this animation on each card, we'll get code like below. Note that I'm breaking out the animation properties for readability though you can certainly in-line those.
+
+```css
+.container.animate .card {
+    opacity: 0; // ensures the card invisible jumping in
+    
+    animation-name: jump-in;
+    animation-delay: var(--animation-delay, 0);
+    animation-duration: 500ms;
+    animation-direction: normal;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+    animation-timing-function: cubic-bezier(0.27, 0.37, 0.11, 1.22);
+  }
+```
+
+The other thing to note is the ```var(--animation-delay)``` in there. We have not talked about that yet but it is key to making this whole thing work.
+
+The initial Codepen used [:nth-child](https://developer.mozilla.org/en-US/docs/Web/CSS/:nth-child) (ex: ```.card:nth-child(1)```) to select each individual card. From there
+they position each one accordingly. You end up with something like below where ```--gap``` is a top-level variable value for how far offset each card is from another:
+
+```css
+.card:nth-child(1) {
+    rotate: 10deg;
+    translate: calc(-2 * var(--gap));
+}
+
+.card:nth-child(2) {
+    rotate: 5deg;
+    translate: calc(-1 * var(--gap));
+}
+
+.card:nth-child(3) {
+    rotate: -3deg;
+}
+
+.card:nth-child(4) {
+    rotate: -10deg;
+    translate: var(--gap);
+}
+
+.card:nth-child(5) {
+    rotate: 2deg;
+    translate: calc(2 * var(--gap));
+}
+```
+
+What we can do here then is add in our ```--animation-delay``` as a way of staggering when our cards jump in. We can also add in addtional
+top-level variables for further control. We'll call one ```--delay``` which controls the base delay before our animation begins at all.
+We'll call another ```--offset``` which is the amount of time until the next card's animation begins.
+
+Here are how the first two cards are implemented. You can follow the pattern from here to get the other cards animated.
+
+```css
+.card:nth-child(1) {
+    --animation-delay: calc(var(--offset) * 1 + var(--delay));
+    ...rest
+}
+
+.card:nth-child(2) {
+    --animation-delay: calc(var(--offset) * 2 + var(--delay));
+    ...rest
+}
+```
+
+I added a little bit of javascript so that the replay button works but otherwise that's pretty much it! Here's that pen again:
+
+{% codepen title="Jump Cards  - CSS Only" hash="ZEdXgZN" author="cwoodward10" height=500 /%}
+
+## Adding some spice
+
+If you've looked at my implementation of jumping cards on my portfolio page (on desktopt that is), you'll see that I've
+added a hover state to expose each individual card better. That's actually also pure CSS. Let's get into how I added that in.
+
+{% alert %}I have not written the rest of this. Come back later for more.{% /alert %}

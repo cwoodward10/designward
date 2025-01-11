@@ -44,9 +44,9 @@
         class:open={showMenu}
         on:click={() => showMenu = !showMenu}
     >
-        <div id="one" class="menu-bar" />
-        <div id="two" class="menu-bar" />
-        <div id="three" class="menu-bar" />
+        <div id="one" class="menu-bar" ></div>
+        <div id="two" class="menu-bar" ></div>
+        <div id="three" class="menu-bar" ></div>
     </button>
     
     <!-- pop up menu -->
