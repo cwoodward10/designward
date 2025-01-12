@@ -79,7 +79,7 @@
 
             &::after {
                 background-color: var(--color-link-underline);
-                translate: 0 0.05em;
+                translate: 0 0.08em;
             }
         }
 
@@ -87,7 +87,7 @@
             content: "";
 
             position: absolute;
-            top: calc(100% + var(--link-underline-offset, 0px));
+            top: calc(97% + var(--link-underline-offset, 0px));
             left: 0;
 
             height: 2px;

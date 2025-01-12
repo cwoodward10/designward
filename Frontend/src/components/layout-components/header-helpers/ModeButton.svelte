@@ -92,6 +92,10 @@
         }
         button.light .modes {
             translate: -50% calc(-50% - 2px);
+
+            &:hover :global(svg path) {
+              color: var(--color-secondary);
+          }
         }
         button .modes .icon {
             height: 40px;

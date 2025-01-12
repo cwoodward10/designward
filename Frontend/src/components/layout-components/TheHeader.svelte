@@ -199,6 +199,7 @@
             padding: 0 0.2em;
             a {
                 color: var(--color-text);
+                background: none  !important;
 
                 display: flex;
                 transform-origin: 50% 100%;

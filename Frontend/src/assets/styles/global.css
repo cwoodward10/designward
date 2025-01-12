@@ -79,7 +79,7 @@ html {
 
     --color-link: var(--color-secondary);
     --color-link-underline: var(--color-primary);
-    --color-link-external: color-mix(in srgb, var(--color-text) 25%, var(--color-accent-primary) 80%);
+    --color-link-external: var(--color-accent-primary);
 
     --color-pink-white: color-mix(in srgb, var(--color-primary) 100%, white 20%);
 
@@ -87,8 +87,8 @@ html {
 
     &.light {
         --color-primary: #FF4785;
-        --color-secondary: #01BAEF;
-        --color-accent-primary: #00ff91;
+        --color-secondary: #F6AE28;
+        --color-accent-primary: #01BAEF;
 
         --color-text: color-mix(in srgb, var(--color-offblack) 90%, var(--color-offwhite) 10%);
         --color-background: var(--color-offwhite);
