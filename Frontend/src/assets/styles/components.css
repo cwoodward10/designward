@@ -4,4 +4,19 @@
         border-radius: 0.5rem;
         border: white var(--border-width, --default-border-width) solid;
     }
+    
+    .pill {
+        font-size: var(--step--2);
+        line-height: 1;
+        font-weight: 500;
+        font-family: var(--font-title);
+
+        color: var(--color-offblack);
+        background-color: var(--color-secondary);
+        border-radius: 999px;
+
+        width: fit-content;
+        padding: 0.4em 0.8em;
+        text-transform: uppercase;
+    }
 }

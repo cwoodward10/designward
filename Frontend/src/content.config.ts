@@ -1,14 +1,18 @@
-import { z, defineCollection } from 'astro:content';
+import { z, defineCollection, reference } from 'astro:content';
 import { glob } from 'astro/loaders';
 
 export const NoteState = ['concept', 'under construction', 'operational'] as const;
+export const ThoughtType = ['long-form', 'short-form'] as const;
 
 const thoughts = defineCollection({
   loader: glob({ pattern: "**/*.mdoc", base: "./src/content/thoughts" }),
   schema: ({image}) => z.object({
     title: z.string(),
     tagline: z.string().optional(),
+    created: z.string(),
     lastEdited: z.string(),
+    type: z.enum(ThoughtType),
+    subType: z.string().optional(),
     state: z.enum(NoteState),
     tags: z.array(z.string()).optional(),
     image: z.object({
@@ -18,7 +22,8 @@ const thoughts = defineCollection({
     inlineImages: z.array(z.object({
       src: image().or(z.string()),
       alt: z.string()
-    })).optional()
+    })).optional(),
+    relatedPosts: z.array(reference('thoughts')).optional(),
   }),
 });
 

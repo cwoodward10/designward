@@ -10,6 +10,12 @@ const { data } = Astro.props;
 
 <ContentLayout pageTitle={data.title}>
     <hgroup class="intro" slot="intro">
+        {data.type === 'long-form' && 
+            <p class="pill">{data.subType}</p>
+        }
+        {data.type === 'short-form' && 
+        <p class="pill">note</p>
+    }
         <h1>{data.title}</h1>
         {data.tagline && <h5 class="tagline">{data.tagline}</h5>}
         <p class="date">
@@ -44,6 +50,9 @@ const { data } = Astro.props;
 
 <style>
     hgroup.intro {
+        .pill {
+            margin-bottom: 0.5em;
+        }
         .tagline {
             margin-bottom: 0.25em;
         }
