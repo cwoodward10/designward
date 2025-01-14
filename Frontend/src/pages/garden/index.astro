@@ -1,5 +1,6 @@
 ---
 import A from '@components/base/A.astro';
+import PageTitle from '@components/base/PageTitle.astro';
 import Layout from '@layouts/Layout.astro';
 
 import { getCollection } from 'astro:content';
@@ -11,7 +12,7 @@ const allThoughts = await getCollection('thoughts');
 <Layout title="Thought garden">
 	<main>
         <section>
-            <h1>Thought garden</h1>
+            <h1><PageTitle maxWidth={9}>Thought garden</PageTitle></h1>
             <p>
                 Welcome to my Thought Garden. The idea here is to cultivate a Digital Garden - a concept that I discovered in
                 <A href="https://maggieappleton.com/garden-history">this explainer piece</A> a little while back. I came to really 

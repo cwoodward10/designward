@@ -1,5 +1,6 @@
 ---
 import A from '@components/base/A.astro';
+import PageTitle from '@components/base/PageTitle.astro';
 import Layout from '@layouts/Layout.astro';
 ---
 
@@ -29,7 +30,7 @@ import Layout from '@layouts/Layout.astro';
 		<section class="headline">
 			<h1 class="hero">
 				<span class="nowrap">Hi, welcome to </span>
-				<span class="nowrap logo-container">[<span class="logo-text">DesignWard</span>]</span>
+				<PageTitle>DesignWard</PageTitle>
 			</h1>
 		</section>
 		<section class="hero">
@@ -94,46 +95,6 @@ import Layout from '@layouts/Layout.astro';
 
 		@include media.at('small') {
 			padding-top: 100px;
-		}
-
-		h1.hero {
-			span.logo-container {
-				display: inline-block;
-				min-width: 200px;
-			}
-
-			span.logo-text {
-				color: transparent;
-				background: linear-gradient(
-					45deg,
-					var(--color-offwhite) 0%,
-					var(--color-primary) 10%,
-					var(--color-pink-white) 50%,
-					var(--color-primary) 90%,
-					var(--color-offwhite) 100%
-				);
-				background-size: 100%;
-				-webkit-background-clip: text;
-				background-clip: text;
-
-				font-family: var(--font-fun);
-				font-size: 0.8em;
-
-				display: inline-flex;
-				overflow: hidden;
-
-				width: fit-content;
-				max-width: 0;
-
-				margin: 0 0.2em;
-
-				animation-name: open-text;
-				animation-duration: 300ms;
-				animation-delay: 500ms;
-				animation-timing-function: ease-out;
-				animation-fill-mode: forwards;
-				animation-iteration-count: 1;
-			}
 		}
 	}
 	section.hero {
@@ -211,14 +172,6 @@ import Layout from '@layouts/Layout.astro';
 		p {
 			max-width: unset;
 			text-wrap: pretty;
-		}
-	}
-	@keyframes open-text {
-		from {
-			max-width: 0;
-		}
-		to {
-			max-width: 7.5em;
 		}
 	}
 

@@ -4,6 +4,7 @@ import { Image } from "astro:assets";
 
 import headshot from '@assets/images/headshot2.jpg';
 import A from '@components/base/A.astro';
+import PageTitle from '@components/base/PageTitle.astro';
 ---
 
 <Layout title="I'm Chris">
@@ -13,7 +14,7 @@ import A from '@components/base/A.astro';
                 <Image src={headshot} alt="Chris Woodward" width=400 />
             </aside>
             <section class="text-content">
-                <h1>About Me</h1>
+                <h1><PageTitle maxWidth={6}>About Me</PageTitle></h1>
                 <p>
                     Hi I'm Chris. Welcome to Designward - a site that I'm maintaining as a portfolio 
                     and repository for whatever I feel like writing about.

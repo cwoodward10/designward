@@ -1,0 +1,78 @@
+---
+interface Props {
+    maxWidth?: number;
+    unit?: "px" | "em" | "rem";
+}
+
+const { maxWidth = 7.5, unit = "em" } = Astro.props;
+---
+
+<span class="nowrap logo-container" style={`--max-width: ${maxWidth}${unit}`}>[<span class="logo-text"><slot/></span>]</span>
+
+<style>
+    span.logo-container {
+        --start-width: 0;
+
+        display: inline-block;
+        min-width: 200px;
+    }
+
+    span.logo-text {
+        color: transparent;
+        background: linear-gradient(
+            45deg,
+            var(--color-offwhite) 0%,
+            var(--color-primary) 10%,
+            var(--color-pink-white) 50%,
+            var(--color-primary) 90%,
+            var(--color-offwhite) 100%
+        );
+        background-size: 100%;
+        -webkit-background-clip: text;
+        background-clip: text;
+
+        font-family: var(--font-fun);
+        font-size: 0.8em;
+
+        display: inline-flex;
+        overflow: hidden;
+
+        width: fit-content;
+        max-width: var(--start-width);
+
+        margin: 0 0.2em;
+
+        animation-name: open-text;
+        animation-duration: 300ms;
+        animation-delay: 500ms;
+        animation-timing-function: ease-out;
+        animation-fill-mode: forwards;
+        animation-iteration-count: 1;
+    }
+
+    @keyframes open-text {
+		from {
+			max-width: var(--start-width, 0);
+		}
+		to {
+			max-width: var(--max-width, 7.5em);
+		}
+	}
+
+    @media (prefers-reduced-motion: reduce) {
+        span.logo-container {
+            --start-width: var(--max-width, 100%);
+
+            .logo-text {
+                animation: none;
+            }
+        }
+    }
+    :global(html.reduce-motion) span.logo-container {
+        --start-width: var(--max-width, 100%);
+
+        .logo-text {
+            animation: none;
+        }
+    }
+</style>

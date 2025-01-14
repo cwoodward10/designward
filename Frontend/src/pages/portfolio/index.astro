@@ -1,12 +1,17 @@
 ---
+import { Image } from 'astro:assets';
+
 import Layout from '@layouts/Layout.astro';
 
 import JumpCards from '@components/base/JumpCards.astro';
 import ExpanderCard from '@components/base/ExpanderCard.astro';
+import PageTitle from '@components/base/PageTitle.astro';
+import AlertDialog from '@components/content-components/AlertDialog.astro';
+import A from '@components/base/A.astro';
+
+import eflLogo from "@assets/images/logos/efl-logo.png";
 
 import { DigitalProjects, RinkaProjects } from "@modules/contentConstants/content";
-import A from '@components/base/A.astro';
-import AlertDialog from '@components/content-components/AlertDialog.astro';
 
 const rinkaAsCards = RinkaProjects.map(p => {
     return {
@@ -33,7 +38,7 @@ const rinkaAsCards = RinkaProjects.map(p => {
 <Layout title="Portfolio">
 	<main>
         <section class="hero projects show">
-            <h1>Current portfolio</h1>
+            <h1><PageTitle maxWidth={9}>Current portfolio</PageTitle></h1>
             <p class="style-h4 hero-text">
                 My day job at Square has me create interactive web experiences like our 
                 <A href="https://developer.squareup.com">Developer Homepage</A>
@@ -59,7 +64,7 @@ const rinkaAsCards = RinkaProjects.map(p => {
                         <li>
                             <div>
                                 <a 
-                                    class="arrow style-h6" 
+                                    class={`arrow style-h6 ${proj.url.includes('https') ? 'external' : ''}`} 
                                     href={proj.url as string} 
                                     target={proj.url.includes('https') ? '_blank' : '_self'}
                                 >
@@ -88,6 +93,27 @@ const rinkaAsCards = RinkaProjects.map(p => {
                 <ExpanderCard cards={rinkaAsCards} />
             </div>
         </section>
+        <section class="podcast" style="--animation-delay: 500ms">
+            <div class="projects">
+                <h2 id="podcast">
+                    Empathic Futures Lab
+                </h2>
+                <div class="content">
+                    <Image src={eflLogo} alt="Empathic Futures Lab" width={200} />
+                    <div class="text">
+                        <p>
+                            I used to co-host a podcast with <A href="https://www.linkedin.com/in/christian-pepper-ra-17bb0974/">Christian Pepper</A> called 
+                            Empathic Futures Lab. Over the show's 34 episode run - ending, finally, in 2019 - we explored topics across the displines of design, design technology, and design fiction.
+                        </p>
+                        <p>
+                            We also put out a couple fun projects under the Empathic Futures Lab moniker including this one called <A href="https://empathicfutures.wordpress.com/portfolio/h-e-l-l-o-w-o-r-l-d/">[HELLOWORLD]</A>
+                            that explored a future AI-smart home. 
+                        </p>
+                        <a class="arrow external" href="https://empathicfutures.podbean.com/" target="_blank">Listen here</a>
+                    </div>
+                </div>
+            </div>
+        </section>
         <AlertDialog style="--animation-delay: 500ms" tag='section'>
             <p>Or, if you're looking for more of a traditional take home portfolio, this one linked below will give you a good overall sense of my work.</p>
             <p>I put it together in application for UIUC's Alumni Baker Fellowship which I applied for but did not receive.</p>
@@ -102,7 +128,7 @@ const rinkaAsCards = RinkaProjects.map(p => {
     main {
         display: flex;
         flex-direction: column;
-        gap: 3rem;
+        gap: 5rem;
 
         padding-bottom: 100px;
     }
@@ -118,6 +144,16 @@ const rinkaAsCards = RinkaProjects.map(p => {
         display: flex;
         flex-direction: column;
         gap: 0.5rem;
+
+    }
+    
+    @include media.at('medium') {
+        h2 {
+            margin-bottom: 0.5rem;
+        }
+        hgroup h2 {
+            margin-bottom: 0rem;
+        }
     }
 
     @include media.until('large') {
@@ -136,6 +172,29 @@ const rinkaAsCards = RinkaProjects.map(p => {
     .hero-text {
         max-width: 62rem;
         line-height: 2em;
+    }
+
+    .podcast .content {
+        display: flex;
+        flex-wrap: nowrap;
+        align-items: center;
+        gap: 2em;
+
+        .text {
+            display: flex;
+            flex-direction: column;
+            gap: 1em;
+        }
+
+        :global(img) {
+            box-shadow: var(--shadow-image)
+        }
+
+        @include media.until('medium') {
+            :global(img) {
+                display: none;
+            }
+        }
     }
 
     hgroup {
