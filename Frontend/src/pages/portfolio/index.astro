@@ -31,7 +31,7 @@ const rinkaAsCards = RinkaProjects.map(p => {
             }
         })
     }, {
-        rootMargin: "-20%"
+        threshold: 0.4
     })
     const sections = document.querySelectorAll('section:not(.hero)');
     sections.forEach(s => observer.observe(s));
@@ -79,7 +79,7 @@ const rinkaAsCards = RinkaProjects.map(p => {
                 </ul>
             </div>
         </section>
-        <section class="physical" style="--animation-delay: 250ms">
+        <section class="physical" style="--animation-delay: 100ms">
             <div class="projects display">
                 <div>
                     <h2 id="physical-projects">Physical Projects</h2>
@@ -95,7 +95,7 @@ const rinkaAsCards = RinkaProjects.map(p => {
                 <ExpanderCard cards={rinkaAsCards} />
             </div>
         </section>
-        <section class="podcast" style="--animation-delay: 250ms">
+        <section class="podcast" style="--animation-delay: 100ms">
             <div class="projects">
                 <h2 id="podcast">
                     Empathic Futures Lab
@@ -116,7 +116,7 @@ const rinkaAsCards = RinkaProjects.map(p => {
                 </div>
             </div>
         </section>
-        <AlertDialog class="fade-in" style="--animation-delay: 500ms" tag='section'>
+        <AlertDialog style="--animation-delay: 100" tag='section'>
             <p>Or, if you're looking for more of a traditional take home portfolio, this one linked below will give you a good overall sense of my work.</p>
             <p>I put it together in application for UIUC's Alumni Baker Fellowship which I applied for but did not receive.</p>
             <a class="arrow" href={"https://drive.google.com/file/d/1kFVXpHp7grckMkNgv4ZpryqUFR-eY9NY/view?usp=sharing"} target="_blank">View it here</a>
@@ -146,7 +146,6 @@ const rinkaAsCards = RinkaProjects.map(p => {
         display: flex;
         flex-direction: column;
         gap: 0.5rem;
-
     }
     
     @include media.at('medium') {
@@ -156,6 +155,10 @@ const rinkaAsCards = RinkaProjects.map(p => {
         hgroup h2 {
             margin-bottom: 0rem;
         }
+    }
+
+    .physical {
+        min-height: 500px;
     }
 
     @include media.until('large') {
@@ -204,7 +207,8 @@ const rinkaAsCards = RinkaProjects.map(p => {
         padding-bottom: 1rem;
     }
 
-    :global(.dialog) {
+    :global(.dialog:not(.fade-in)) {
         opacity: 0;
+        animation: none;
     }
 </style>
