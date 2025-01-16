@@ -39,7 +39,7 @@
     
     <button 
         id="hamburger" 
-        aria-label="menu"
+        aria-label={showMenu ? "close menu" : "show menu"}
         style="{cssVarStyles}"
         class:open={showMenu}
         on:click={() => showMenu = !showMenu}
@@ -53,7 +53,9 @@
     <div 
         id="menu-container"
         class:show-menu={showMenu}
-        style="{cssVarStyles}" 
+        style="{cssVarStyles}"
+        role="dialog"
+        aria-label="navigation menu"
     >
         <menu>
             <ol>
