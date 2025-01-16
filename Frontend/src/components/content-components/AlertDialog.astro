@@ -5,7 +5,7 @@ interface Props {
   tag?: 'div' | 'section';
 }
 
-const { class: className, style, tag } = Astro.props;
+const { class: className = '', style, tag } = Astro.props;
 
 const Element = tag ?? 'div';
 ---

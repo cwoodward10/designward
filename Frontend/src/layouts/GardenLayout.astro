@@ -20,7 +20,7 @@ const { data } = Astro.props;
         {data.tagline && <h5 class="tagline">{data.tagline}</h5>}
         <p class="date">
             <span class="tag">last edited:</span> 
-            <span class="style-h5">{data.lastEdited}</span>
+            <span class="style-h5">{data.lastEdited.toLocaleDateString()}</span>
         </p>
         <p class="state">
             <span class="tag">Writing state:</span> 

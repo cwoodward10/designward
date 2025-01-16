@@ -10,7 +10,7 @@ const thoughts = defineCollection({
     title: z.string(),
     tagline: z.string().optional(),
     created: z.string(),
-    lastEdited: z.string(),
+    lastEdited: z.string().transform((str) => new Date(str)),
     type: z.enum(ThoughtType),
     subType: z.string().optional(),
     state: z.enum(NoteState),

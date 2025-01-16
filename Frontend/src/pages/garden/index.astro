@@ -5,38 +5,63 @@ import Layout from '@layouts/Layout.astro';
 
 import { getCollection } from 'astro:content';
 
-export const prerender = true
-const allThoughts = await getCollection('thoughts');
+export const prerender = true;
+const allThoughts = await getCollection('thoughts')
+allThoughts.sort((a, b) => (b.data.lastEdited as any) - (a.data.lastEdited as any));
+
+const featured = allThoughts.find(t => t.data.type === 'long-form')!;
+const recentNotes = allThoughts.filter(t => t.data.type === 'short-form').slice(0, 3);
+const rest = allThoughts.filter(t => t.id !== featured.id && !recentNotes.map(n => n.id).includes(t.id))
 ---
 
 <Layout title="Thought garden">
 	<main>
-        <section>
-            <h1><PageTitle maxWidth={9}>Thought garden</PageTitle></h1>
-            <p>
-                Welcome to my Thought Garden. The idea here is to cultivate a Digital Garden - a concept that I discovered in
-                <A href="https://maggieappleton.com/garden-history">this explainer piece</A> a little while back. I came to really 
-                appreciate the intentional mutability and unfinished nature of a garden. I have, in the past, struggled with the 
-                sort of finality inherent with a "Blog" and, upon reading about the digital garden, it felt right to include the ideas
-                here within Designward. We aren't finished people. We are always growing and learning. I want Designward to be that way too.
-            </p>
-            <p>
-                That said, my garden is pretty scarce right now. You can check out what's below or <A href="/">return home</A>.
-                Stop back in the future though. It will be more built out. It may even be thriving!
-            </p>
+        <section class="hero">
+            <hgroup>
+                <h1><PageTitle maxWidth={9}>Thought garden</PageTitle></h1>
+                <h2></h2>
+                <p>
+                    Welcome to my Thought Garden. The idea here is to cultivate a Digital Garden - a concept that I discovered in
+                    <A href="https://maggieappleton.com/garden-history">this explainer piece</A> a little while back. I came to really 
+                    appreciate the intentional mutability and unfinished nature of a garden. I have, in the past, struggled with the 
+                    sort of finality inherent with a "Blog" and, upon reading about the digital garden, it felt right to include the ideas
+                    here within Designward. We aren't finished people. We are always growing and learning. I want Designward to be that way too.
+                </p>
+                <p>
+                    That said, my garden is pretty scarce right now. You can check out what's below or <A href="/">return home</A>.
+                    Stop back in the future though. It will be more built out. It may even be thriving!
+                </p>
+            </hgroup>
+            <div class="featured">
+                <h3>{featured.data.title}</h3>
+                <p>{featured.data.tagline}</p>
+            </div>
+            <div class="recent">
+                <ul>
+                    {recentNotes.map(note => (
+                        <li>
+                            <h3>{note.data.title}</h3>
+                            {note.data.tagline && <p class="tag small">{note.data.tagline}</p>}
+                            <a class="arrow" href={`${note.id}`}>Read it</a>
+                        </li>
+                    ))}
+                </ul>
+            </div>
         </section>
-        <section>
-            <h2>Current state of the garden</h2>
-            <ul>
-                {allThoughts.map(thought => (
-                    <li>
-                        <h4>{thought.data.title}</h4>
-                        {thought.data?.tagline && <p class="tag small">{thought.data.tagline}</p>}
-                        <a class="arrow" href={`${thought.id}`}>Read it</a>
-                    </li>
-                ))}
-            </ul>
-        </section>
+        {rest.length > 0 &&
+            <section>
+                <h2>Current state of the garden</h2>
+                <ul>
+                    {rest.map(thought => (
+                        <li>
+                            <h3>{thought.data.title}</h3>
+                            {thought.data?.tagline && <p class="tag small">{thought.data.tagline}</p>}
+                            <a class="arrow" href={`${thought.id}`}>Read it</a>
+                        </li>
+                    ))}
+                </ul>
+            </section>
+        }
     </main>
 </Layout> 
 
@@ -50,6 +75,10 @@ const allThoughts = await getCollection('thoughts');
     }
     section {
         gap: 1em;
+    }
+
+    h1 {
+        margin-bottom: 2rem;
     }
 
     .tag {

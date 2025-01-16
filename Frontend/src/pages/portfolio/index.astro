@@ -30,6 +30,8 @@ const rinkaAsCards = RinkaProjects.map(p => {
                 e.target?.classList.toggle('show', true);
             }
         })
+    }, {
+        rootMargin: "-20%"
     })
     const sections = document.querySelectorAll('section:not(.hero)');
     sections.forEach(s => observer.observe(s));
@@ -38,8 +40,8 @@ const rinkaAsCards = RinkaProjects.map(p => {
 <Layout title="Portfolio">
 	<main>
         <section class="hero projects show">
-            <h1><PageTitle maxWidth={9}>Current portfolio</PageTitle></h1>
-            <p class="style-h4 hero-text">
+            <h1 class="hero"><PageTitle maxWidth={9}>Current portfolio</PageTitle></h1>
+            <p class="style-h3 hero-text fade-in" style="--animation-delay: 750ms;">
                 My day job at Square has me create interactive web experiences like our 
                 <A href="https://developer.squareup.com">Developer Homepage</A>
                 and web-apps like our
@@ -48,12 +50,12 @@ const rinkaAsCards = RinkaProjects.map(p => {
                 <A href="https://squareup.com/partner-offers">Partner Offers</A>
                 pages that share a frontend architecture. 
             </p>
-            <p class="style-h4 hero-text" style="margin-top: 0.5em;">
+            <p class="style-h4 hero-text fade-in" style="margin-top: 0.5em; --animation-delay: 850ms;">
                 I am also occassionally asked to build productivity tools such as
                 <A href="./figma-plugins">Figma plugins</A> and the like.
             </p>
         </section>
-        <section style="--animation-delay: 500ms">
+        <section style="--animation-delay: 1000ms">
             <div class="projects">
                 <hgroup>
                     <h2 id="other-digital-projects">Other digital projects</h2>
@@ -77,7 +79,7 @@ const rinkaAsCards = RinkaProjects.map(p => {
                 </ul>
             </div>
         </section>
-        <section class="physical" style="--animation-delay: 500ms">
+        <section class="physical" style="--animation-delay: 250ms">
             <div class="projects display">
                 <div>
                     <h2 id="physical-projects">Physical Projects</h2>
@@ -93,7 +95,7 @@ const rinkaAsCards = RinkaProjects.map(p => {
                 <ExpanderCard cards={rinkaAsCards} />
             </div>
         </section>
-        <section class="podcast" style="--animation-delay: 500ms">
+        <section class="podcast" style="--animation-delay: 250ms">
             <div class="projects">
                 <h2 id="podcast">
                     Empathic Futures Lab
@@ -114,7 +116,7 @@ const rinkaAsCards = RinkaProjects.map(p => {
                 </div>
             </div>
         </section>
-        <AlertDialog style="--animation-delay: 500ms" tag='section'>
+        <AlertDialog class="fade-in" style="--animation-delay: 500ms" tag='section'>
             <p>Or, if you're looking for more of a traditional take home portfolio, this one linked below will give you a good overall sense of my work.</p>
             <p>I put it together in application for UIUC's Alumni Baker Fellowship which I applied for but did not receive.</p>
             <a class="arrow" href={"https://drive.google.com/file/d/1kFVXpHp7grckMkNgv4ZpryqUFR-eY9NY/view?usp=sharing"} target="_blank">View it here</a>
@@ -169,9 +171,11 @@ const rinkaAsCards = RinkaProjects.map(p => {
         }
     }
 
+    h1 {
+        margin-bottom: 1.5rem;
+    }
     .hero-text {
         max-width: 62rem;
-        line-height: 2em;
     }
 
     .podcast .content {
@@ -198,5 +202,9 @@ const rinkaAsCards = RinkaProjects.map(p => {
 
     hgroup {
         padding-bottom: 1rem;
+    }
+
+    :global(.dialog) {
+        opacity: 0;
     }
 </style>

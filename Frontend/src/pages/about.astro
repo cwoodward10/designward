@@ -9,49 +9,51 @@ import PageTitle from '@components/base/PageTitle.astro';
 
 <Layout title="I'm Chris">
 	<main>
-        <article class="about-content">
-            <aside class="headshot">
+        <section class="about-content">
+            <aside class="headshot fade-in">
                 <Image src={headshot} alt="Chris Woodward" width=400 />
             </aside>
-            <section class="text-content">
+            <article class="text-content">
                 <h1><PageTitle maxWidth={6}>About Me</PageTitle></h1>
-                <p>
-                    Hi I'm Chris. Welcome to Designward - a site that I'm maintaining as a portfolio 
-                    and repository for whatever I feel like writing about.
-                </p>
-                <p>
-                    I'm currently employed as a Design Technologist at <A href="https://www.squareup.com">Square.</A> However, 
-                    I started my career as an architectural designer at <A href="https://www.rinka.com">RINKA+</A> where 
-                    I was really able to grow as a designer and a professional. 
-                </p>
-                <p>
-                    While I really enjoyed architecture and urban design, I found that I was also quite good at 
-                    software engineering. A switch into a role as a Design Technologist at <A href="https://www.evolvelab.io">EvolveLAB</A> - 
-                    I know, its same title as I have now though it was quite a different role - soon followed. While there, I was given the 
-                    opportunity to grow my software engineering skills on a variety of projects both for clients and on EvolveLAB's own products.
-                </p>     
-                <p>
-                    It was while at EvolveLAB where I discovered how well frontend development blended by design background and engineering skills. 
-                    It becomes an area of focus and enjoyment. It wasn't so much that I didn't enjoy working in other areas of the stack - I had a lot 
-                    of fun and learned a lot while working on more backend focused projects such as plugins and desktop apps - but more that I felt 
-                    at home designing and building the UI features that users interacted with directly. With frontend work, I am able to flex my design 
-                    muscles, craft experiences that feel meaningful, and bring them to life through code in a way that I could never with backend work.
-                </p>
-                <p>
-                    And thus I'm here. I'm a designer. I'm an engineer. (I'm a <A href='/garden/design-engineering-question-mark'>design engineer???</A>) 
-                    I get to straddle both disciplines and enjoy working through the complex problems that come with them. While I don't use my architectural 
-                    education directly, I find the ability to think spatially as a huge boon for solving the sorts of user journey and responsive design questions that
-                    UI/UX design and development poses. I'd certainly be worse off without that background.
-                </p>
-                <p>
-                    Then, when I'm tired of staring at a screen, I'm also a runner, biker, tennis player, and general enjoyer of midwest adventures with 
-                    my beautiful partner. Catch me out and about in the Chicago area enjoying the outdoors (when its nice) and the restaurants (all year).  
-                </p>
-                <a href="/" class="arrow">Back to home</a>
-                <a href="https://www.linkedin.com/in/chris-woodward-8789b532/" class="arrow external">Learn more on LinkedIn</a>
-                <a href="https://github.com/cwoodward10" class="arrow external">Check out my Github</a>
-            </section>
-        </article>
+                <div class="fade-in" style="--animation-delay: 750ms;">
+                    <p>
+                        Hi I'm Chris. Welcome to Designward - a site that I'm maintaining as a portfolio 
+                        and repository for whatever I feel like writing about.
+                    </p>
+                    <p>
+                        I'm currently employed as a Design Technologist at <A href="https://www.squareup.com">Square.</A> However, 
+                        I started my career as an architectural designer at <A href="https://www.rinka.com">RINKA+</A> where 
+                        I was really able to grow as a designer and a professional. 
+                    </p>
+                    <p>
+                        While I really enjoyed architecture and urban design, I found that I was also quite good at 
+                        software engineering. A switch into a role as a Design Technologist at <A href="https://www.evolvelab.io">EvolveLAB</A> - 
+                        I know, its same title as I have now though it was quite a different role - soon followed. While there, I was given the 
+                        opportunity to grow my software engineering skills on a variety of projects both for clients and on EvolveLAB's own products.
+                    </p>     
+                    <p>
+                        It was while at EvolveLAB where I discovered how well frontend development blended by design background and engineering skills. 
+                        It becomes an area of focus and enjoyment. It wasn't so much that I didn't enjoy working in other areas of the stack - I had a lot 
+                        of fun and learned a lot while working on more backend focused projects such as plugins and desktop apps - but more that I felt 
+                        at home designing and building the UI features that users interacted with directly. With frontend work, I am able to flex my design 
+                        muscles, craft experiences that feel meaningful, and bring them to life through code in a way that I could never with backend work.
+                    </p>
+                    <p>
+                        And thus I'm here. I'm a designer. I'm an engineer. (I'm a <A href='/garden/design-engineering-question-mark'>design engineer???</A>) 
+                        I get to straddle both disciplines and enjoy working through the complex problems that come with them. While I don't use my architectural 
+                        education directly, I find the ability to think spatially as a huge boon for solving the sorts of user journey and responsive design questions that
+                        UI/UX design and development poses. I'd certainly be worse off without that background.
+                    </p>
+                    <p>
+                        Then, when I'm tired of staring at a screen, I'm also a runner, biker, tennis player, and general enjoyer of midwest adventures with 
+                        my beautiful partner. Catch me out and about in the Chicago area enjoying the outdoors (when its nice) and the restaurants (all year).  
+                    </p>
+                    <a href="/" class="arrow">Back to home</a>
+                    <a href="https://www.linkedin.com/in/chris-woodward-8789b532/" class="arrow external">Learn more on LinkedIn</a>
+                    <a href="https://github.com/cwoodward10" class="arrow external">Check out my Github</a>
+                </div>
+            </article>
+        </section>
     </main>
 </Layout> 
 
@@ -65,23 +67,24 @@ import PageTitle from '@components/base/PageTitle.astro';
         flex-direction: column;
         gap: 30px;
 
+        max-width: 1200px;
+
         @media screen and (min-width: $breakpoint-sm) {
             flex-direction: row;
 
             aside.headshot {
+                --animation-delay: 1250ms;
                 position: sticky;
                 top: var(--header-height);
                 align-self: flex-start;
                 flex-shrink: 0;
             }
 
-            section {
+            article {
                 width: 100%;
+                padding-bottom: 0;
             }
         }
-    }
-    section {
-        padding-bottom: 0;
     }
 
     :global(a) {

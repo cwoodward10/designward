@@ -42,13 +42,21 @@ const { title } = Astro.props;
 	</body>
 </html>
 
-<style>
+<style lang="scss">
+	@use '@assets/styles/sass/breakpoints.scss' as media;
+
 	body {
 		margin: 0;
 		background-color: var(--color-background);
 
-		main {
-			min-height: 100vh;
+		:global(main section:first-of-type) {
+			--initial-animation-delay: 0ms;
+
+			padding-top: 10px;
+
+			@include media.at('small') {
+				padding-top: 100px;
+			}
 		}
 	}
 </style>

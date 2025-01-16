@@ -7,8 +7,13 @@
     main {
 		margin: auto;
 
+        min-height: 100vh;
         width: fit-content;
 		max-width: calc(100vw - (2 * var(--padding-edge, 1rem)));
+
+        section {
+            max-width: 1000px;
+        }
 	}
 
     *:not(pre)>code, pre:not(.astro-code) {
@@ -203,7 +208,7 @@
     h1, .style-h1 {
         font-size: var(--step-4);
         font-weight: 500;
-        line-height: 140%
+        line-height: 140%;
     }
     h2, .style-h2 {
         font-size: var(--step-3);
