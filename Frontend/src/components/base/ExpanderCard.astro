@@ -28,16 +28,8 @@ const { cards } = Astro.props;
         }
 
         const isActive = card.classList.contains('active');
-        
-        const active = document.querySelectorAll('.active');
-        active.forEach(a => {
-            a.classList.toggle('active', false);
-        })
-
-        if (!isActive) {
-            card.classList.toggle('active', true);
-        }
-
+        card.classList.toggle('active', !isActive);
+        card.setAttribute('aria-expanded', `${!isActive}`);
     }
 
     const cards = document.querySelectorAll('.card');
@@ -123,15 +115,15 @@ const { cards } = Astro.props;
         a {
             z-index: 2;
             position: absolute;
-            display: inline-block;
+            display: inline-flex;
+            gap: 0.25em;
             width: fit-content;
 
-            padding: 0.25rem 0.75rem;
+            padding: 0.25rem 1rem;
             color: var(--color-offwhite);
             background-color: color-mix(in srgb, var(--color-offblack) 35%, transparent 90%);
             border-radius: 0.25rem;
             border: var(--color-offwhite) 1px solid;
-            backdrop-filter: blur(2px);
             
             top: 50%;
             left: 50%; 
