@@ -280,4 +280,8 @@
 		animation-fill-mode: forwards;
 		animation-iteration-count: 1;
     }
+
+    hr {
+        border-top-color: var(--color-secondary);
+    }
 }

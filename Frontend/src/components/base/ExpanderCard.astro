@@ -44,7 +44,13 @@ const { cards } = Astro.props;
             <button class="card">
                 <img class="image" src={c.imageUrl! as string} alt={c.name} />
                 <p class="title style-h5">{c.name}</p>
-                <a class="arrow style-h5" href={c.url} target="_blank">View project</a>
+                <a 
+                    class={`arrow style-h5 ${c.url.includes('https') ? 'external' : ''}`} 
+                    href={c.url} 
+                    target={c.url.includes('https') ? '_blank' : '_self'}
+                >
+                    View project
+                </a>
             </button>
         ))
     }
