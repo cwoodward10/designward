@@ -1,71 +1,90 @@
 ---
+import Layout from '@layouts/Layout.astro';
+
 import A from '@components/base/A.astro';
 import PageTitle from '@components/base/PageTitle.astro';
-import Layout from '@layouts/Layout.astro';
+import LongFormListItem from '@components/content-components/portfolio-components/LongFormListItem.astro';
 
 import { getCollection } from 'astro:content';
 
-export const prerender = true;
 const allThoughts = await getCollection('thoughts')
 allThoughts.sort((a, b) => (b.data.lastEdited as any) - (a.data.lastEdited as any));
 
 const featured = allThoughts.find(t => t.data.type === 'long-form')!;
 const recentNotes = allThoughts.filter(t => t.data.type === 'short-form').slice(0, 3);
-const rest = allThoughts.filter(t => t.id !== featured.id && !recentNotes.map(n => n.id).includes(t.id))
 ---
+<script>
+    const restOfThoughts = document.querySelectorAll('.all-thoughts ul li');
+    const hasVisible = [...restOfThoughts].some(t => t.checkVisibility());
+    if (!hasVisible) {
+        document.querySelector('hr')?.setAttribute('style', 'display: none;');
+    }
+</script>
 
 <Layout title="Thought garden">
 	<main>
-        <section class="hero">
+        <section class="title">
             <hgroup>
                 <h1><PageTitle maxWidth={9}>Thought garden</PageTitle></h1>
-                <h2></h2>
-                <p>
-                    Welcome to my Thought Garden. The idea here is to cultivate a Digital Garden - a concept that I discovered in
-                    <A href="https://maggieappleton.com/garden-history">this explainer piece</A> a little while back. I came to really 
-                    appreciate the intentional mutability and unfinished nature of a garden. I have, in the past, struggled with the 
-                    sort of finality inherent with a "Blog" and, upon reading about the digital garden, it felt right to include the ideas
-                    here within Designward. We aren't finished people. We are always growing and learning. I want Designward to be that way too.
-                </p>
-                <p>
-                    That said, my garden is pretty scarce right now. You can check out what's below or <A href="/">return home</A>.
-                    Stop back in the future though. It will be more built out. It may even be thriving!
-                </p>
+                <h2 class="style-h3">An evolving collection of, well, thoughts. In various mediums.</h2>
             </hgroup>
+            <p style="display: none;">
+                Welcome to my Thought Garden. The idea here is to cultivate a Digital Garden - a concept that I discovered in
+                <A href="https://maggieappleton.com/garden-history">this explainer piece</A> a little while back. I came to really 
+                appreciate the intentional mutability and unfinished nature of a garden. I have, in the past, struggled with the 
+                sort of finality inherent with a "Blog" and, upon reading about the digital garden, it felt right to include the ideas
+                here within Designward. We aren't finished people. We are always growing and learning. I want Designward to be that way too.
+                <br/>
+                That said, my garden is pretty scarce right now. You can check out what's below or <A href="/">return home</A>.
+                Stop back in the future though. It will be more built out. It may even be thriving!
+            </p>
+        </section>
+        <section class="hero">
             <div class="featured">
-                <h3>{featured.data.title}</h3>
-                <p>{featured.data.tagline}</p>
+                <h3 class="style-h5 pill">Featured</h3>
+                <LongFormListItem thought={featured} />
             </div>
             <div class="recent">
+                <h3 class="style-h5 pill">Recent Notes</h3>
                 <ul>
                     {recentNotes.map(note => (
                         <li>
-                            <h3>{note.data.title}</h3>
+                            <a class="arrow" href={`${note.id}`}>{note.data.title}</a>
                             {note.data.tagline && <p class="tag small">{note.data.tagline}</p>}
-                            <a class="arrow" href={`${note.id}`}>Read it</a>
                         </li>
                     ))}
                 </ul>
             </div>
         </section>
-        {rest.length > 0 &&
-            <section>
-                <h2>Current state of the garden</h2>
-                <ul>
-                    {rest.map(thought => (
-                        <li>
-                            <h3>{thought.data.title}</h3>
-                            {thought.data?.tagline && <p class="tag small">{thought.data.tagline}</p>}
-                            <a class="arrow" href={`${thought.id}`}>Read it</a>
-                        </li>
-                    ))}
-                </ul>
-            </section>
-        }
+        <section class="all-thoughts">
+            <hr />
+            <ul>
+                {allThoughts.map(thought => {
+                    switch(thought.data.type) {
+                        case 'short-form':
+                            return (
+                                <li class={thought.data.type}>
+                                    <h3>{thought.data.title}</h3>
+                                    {thought.data?.tagline && <p class="tag small">{thought.data.tagline}</p>}
+                                    <a class="arrow" href={`${thought.id}`}>Read it</a>
+                                </li>
+                            )
+                        case 'long-form':
+                            return (
+                                <li class={thought.data.type}>
+                                    <LongFormListItem {thought} />
+                                </li>
+                            )
+                    }
+                })}
+            </ul>
+        </section>
     </main>
 </Layout> 
 
-<style>
+<style lang="scss">
+    @use '@assets/styles/sass/breakpoints.scss' as media;
+
     main {
         display: flex;
         flex-direction: column;
@@ -77,18 +96,91 @@ const rest = allThoughts.filter(t => t.id !== featured.id && !recentNotes.map(n 
         gap: 1em;
     }
 
-    h1 {
-        margin-bottom: 2rem;
+    hgroup {
+        h1 {
+            margin-bottom: 0.25rem;
+        }
+        h2 {
+            text-wrap: initial;
+        }
+        margin-bottom: 1rem;
     }
 
-    .tag {
-        max-width: 30em;
-        text-wrap: pretty;
-    }
+    .hero {
+        display: none;
 
-    ul {
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
+        @include media.at('medium') {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            gap: 2rem;
+        }
+
+        .featured {
+            width: fit-content;
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .recent {
+            width: fit-content;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+
+            padding-left: 2rem;
+            border-left: var(--color-text) 1px solid;
+
+            ul {
+                flex-grow: 2;
+                gap: 2rem;
+                padding-left: 0;
+            }
+            li::marker {
+                content: none;
+            }
+        }
+    }
+    @include media.until('medium') {
+        hr {
+            display: none;
+        }
+    }
+    .all-thoughts {
+        ul {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            padding-left: 0;
+
+            li::marker {
+                content: none;
+            }
+
+            @media screen and (min-width: 450px) {
+                grid-template-columns: 1fr 1fr;
+            }
+            @media screen and (min-width: 1000px) {
+                grid-template-columns: 1fr 1fr 1fr;
+            }
+
+            li.long-form {
+                grid-row-start: span 2;
+            }
+        }
+
+        // @include media.at('medium') {
+        //     li.long-form:first-of-type,
+        //     li.short-form:nth-child(-n + 4) {
+        //         display: none;
+        //         content-visibility: hidden;
+        //     }
+        // }
+
+        &:has(ul:empty) hr {
+            display: none;
+        }
     }
 </style>

@@ -1,0 +1,65 @@
+---
+import { Image } from 'astro:assets';
+import type { InferEntrySchema } from 'astro:content';
+import type { RenderedContent } from 'node_modules/astro/dist/content/data-store';
+
+interface Props {
+    thought: {
+        id: string;
+        body?: string;
+        collection: "thoughts";
+        data: InferEntrySchema<"thoughts">;
+        rendered?: RenderedContent;
+        filePath?: string;
+    }
+}
+
+const {
+    thought
+} = Astro.props;
+---
+
+<a class="thought-item" href={thought.id}>
+    <div class="image-container">
+        <Image src={thought.data.image!.src as ImageMetadata} alt={thought.data.title} />
+    </div>
+    <h3>{thought.data.title}</h3>
+    <p class="small">{thought.data.tagline}</p>
+</a>
+
+<style>
+.thought-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    
+    padding: 1rem;
+    max-width: 400px;
+    width: 100%;
+
+    overflow: hidden;
+    
+    border-radius: var(--radius-image);
+    background-color: var(--color-surface);
+    box-shadow: var(--shadow-image);
+
+    color: var(--color-text);
+    
+    .image-container {
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        overflow: hidden;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        border-radius: var(--radius-image);
+        box-shadow: var(--shadow-image);
+    }
+    :global(img) {
+        width: 100%;
+        height: auto;
+    }
+}
+</style>
