@@ -3,29 +3,43 @@ import ContentLayout from "./ContentLayout.astro";
 import ContentImage from "@components/content-components/ContentImage.astro";
 import AlertDialog from "@components/content-components/AlertDialog.astro";
 
+import { getEntries } from 'astro:content';
+
 import { NoteState } from "../content.config.ts";
 
 const { data } = Astro.props;
+
+const relatedPosts = data.relatedPosts && await getEntries(data.relatedPosts);
 ---
 
 <ContentLayout pageTitle={data.title}>
     <hgroup class="intro" slot="intro">
-        {data.type === 'long-form' && 
-            <p class="pill">{data.subType}</p>
-        }
-        {data.type === 'short-form' && 
-        <p class="pill">note</p>
-    }
+        <div class="top-line">
+            {data.type === 'long-form' && 
+                <p class="pill">{data.subType}</p>
+            }
+            {data.type === 'short-form' && 
+                <p class="pill">note</p>
+            }
+            <p class="small">{data.state}</p>
+        </div>
         <h1>{data.title}</h1>
-        {data.tagline && <h5 class="tagline">{data.tagline}</h5>}
-        <p class="date">
-            <span class="tag">last edited:</span> 
-            <span class="style-h5">{data.lastEdited.toLocaleDateString()}</span>
-        </p>
-        <p class="state">
-            <span class="tag">Writing state:</span> 
-            <span class="style-h5">{data.state}</span>
-        </p>
+        {data.tagline && <p class="tagline style-h4">{data.tagline}</p>}
+        <div class="date-line">
+            <p class="date">
+                <span class="tag x-small">broke ground:</span> 
+                <span class="small">{data.created.toLocaleDateString()}</span>
+            </p>
+            <p class="date">
+                { data.state === NoteState[2] && 
+                    <span class="tag x-small">latest renovation:</span>
+                } 
+                { data.state !== NoteState[2] && 
+                    <span class="tag x-small">latest progress:</span>
+                } 
+                <span class="small">{data.lastEdited.toLocaleDateString()}</span>
+            </p>
+        </div>
     </hgroup>
     <div class="wrapper" slot="content">
         {data.image && data.showTitleImage !== false &&
@@ -44,22 +58,49 @@ const { data } = Astro.props;
             </AlertDialog>
         }
         <slot />
+        {relatedPosts && relatedPosts.length > 0 &&
+            <hr/>
+            <section class="related-posts">
+                <h2 class="style-h4">Related posts:</h2>
+                <ul>
+                    { relatedPosts.map(rp => (
+                        <li>
+                            <a class="arrow" href={rp.id}>{rp.data.title}</a>
+                        </li>
+                    ))}
+                </ul>
+            </section>
+        }
     </div>
     <a slot="back" class="arrow" href="/garden/">Back to the garden</a>
 </ContentLayout>
 
 <style>
     hgroup.intro {
-        .pill {
-            margin-bottom: 0.5em;
+        .top-line {
+            margin-bottom: 0.5rem;
+            display: flex;
+            gap: 0.5rem;
+
+            p:not(.pill) {
+                font-family: var(--font-title);
+                text-transform: capitalize;
+                font-weight: 500;
+            }
         }
         .tagline {
             margin-bottom: 0.25em;
         }
-        .tag {
-            font-size: 0.8em;
-            font-weight: 300;
-            text-transform: lowercase;
+        
+        .date-line {
+            display: flex;
+            gap: 1rem;
+
+            .tag {
+                font-family: var(--font-title);
+                text-transform: uppercase;
+                font-weight: 500;
+            }
         }
     }
     .wrapper {
@@ -75,5 +116,19 @@ const { data } = Astro.props;
         font-family: var(--font-title);
         font-weight: 500;
         color: var(--color-secondary);
+    }
+    
+    hr {
+        margin-top: 60px;
+        width: 100%;
+    }
+    .related-posts {
+        gap: 1rem;
+        width: 100%;
+        margin-top: 40px;
+
+        h2 {
+            color: var(--color-text);
+        }
     }
 </style>

@@ -85,8 +85,8 @@
         }
 
         #hamburger {
-            --ham-default-height: 30px;
-            --ham-default-width: 30px;
+            --ham-default-height: 40px;
+            --ham-default-width: 40px;
     
             width: var(--ham-width);
             height: var(--ham-height);
@@ -121,7 +121,7 @@
         }
         #one {
             width: 60%;
-            translate: -50% calc(-50% - 6px);
+            translate: -50% calc(-50% - 13px);
             rotate: 0deg;
     
             transition: translate, rotate;
@@ -138,7 +138,7 @@
         }
         #three {
             width:60%;
-            translate: -50% calc(-50% + 6px);
+            translate: -50% calc(-50% + 13px);
             rotate: 0deg;
             
             transition: translate, rotate;
@@ -146,21 +146,8 @@
             transition-delay: var(--ham-transition-delay);
         }
         @media screen and (min-width: 380px) {
-            #hamburger {
-                --ham-default-height: 40px;
-                --ham-default-width: 40px;
-            }
             .menu-bar {
                 height: var(--ham-thickness);
-            }
-            #one {
-                translate: -50% calc(-50% - 13px);
-            }
-            #two {
-                translate: -50% -50%;
-            }
-            #three {
-                translate: -50% calc(-50% + 13px);
             }
         }
 

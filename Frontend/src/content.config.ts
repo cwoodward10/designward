@@ -9,7 +9,7 @@ const thoughts = defineCollection({
   schema: ({image}) => z.object({
     title: z.string(),
     tagline: z.string().optional(),
-    created: z.string(),
+    created: z.string().transform((str) => new Date(str)),
     lastEdited: z.string().transform((str) => new Date(str)),
     type: z.enum(ThoughtType),
     subType: z.string().optional(),

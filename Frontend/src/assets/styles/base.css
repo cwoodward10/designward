@@ -234,10 +234,10 @@
         font-size: var(--step-0);
         font-weight: var(--font-weight);
     }
-    p.small, a.small {
+    p.small, a.small, span.small {
         font-size: var(--step--1);
     }
-    p.x-small, a.x-small {
+    p.x-small, a.x-small, span.x-small {
         font-size: var(--step--2);
     }
     

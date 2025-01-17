@@ -6,7 +6,6 @@ import Layout from '@layouts/Layout.astro';
 
 import { getCollection } from 'astro:content';
 
-export const prerender = true;
 const allThoughts = await getCollection('thoughts');
 ---
 
@@ -14,7 +13,10 @@ const allThoughts = await getCollection('thoughts');
 	<main>
         <section class="hero">
             <hgroup>
-                <h1><PageTitle maxWidth={9}>Thought garden</PageTitle></h1>
+                <h1 class="hero">
+                    <PageTitle maxWidth={9}>Thought garden</PageTitle>
+                    <span class="fallback">Thought garden</span>
+                </h1>
                 <p class="style-h4">An evolving collection of, well, thoughts. In various formats and mediums.</p>
             </hgroup>
             <p>
@@ -37,7 +39,7 @@ const allThoughts = await getCollection('thoughts');
                             </div>
                             <div class="text">
                                 <h3>{thought.data.title}</h3>
-                                {thought.data?.tagline && <p class="tag small">{thought.data.tagline}</p>}
+                                {thought.data.tagline && <p class="tag small">{thought.data.tagline}</p>}
                                 <a class="arrow" href={`${thought.id}`}>Read it</a>
                             </div>
                         </li>
@@ -55,6 +57,7 @@ const allThoughts = await getCollection('thoughts');
         display: flex;
         flex-direction: column;
         gap: 30px;
+        width: 1000px;
 
         padding-bottom: 100px;
     }
@@ -64,6 +67,25 @@ const allThoughts = await getCollection('thoughts');
 
     h1 {
         margin-bottom: 0.5rem;
+        
+        .fallback {
+            display: none;
+            content-visibility: hidden;
+            line-height: 1;
+        }
+        
+        @media screen and (max-width: 400px) {
+            line-height: 1;
+
+            :global(.page-title) {
+                display: none;
+                content-visibility: hidden;
+            }
+            .fallback {
+                display: inline-block;
+                content-visibility: auto;
+            }
+        }
     }
 
     .tag {

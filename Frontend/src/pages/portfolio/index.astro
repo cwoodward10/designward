@@ -28,10 +28,12 @@ const rinkaAsCards = RinkaProjects.map(p => {
             if (e.isIntersecting) {
                 e.target?.classList.toggle('fade-in', true);
                 e.target?.classList.toggle('show', true);
+            } else {
+                e.target?.setAttribute('style', '--animation-delay: 100ms;')
             }
         })
     }, {
-        threshold: 0.4
+        threshold: 0.1
     })
     const sections = document.querySelectorAll('section:not(.hero)');
     sections.forEach(s => observer.observe(s));
@@ -40,8 +42,11 @@ const rinkaAsCards = RinkaProjects.map(p => {
 <Layout title="Portfolio">
 	<main>
         <section class="hero projects show">
-            <h1 class="hero"><PageTitle maxWidth={9}>Current portfolio</PageTitle></h1>
-            <p class="style-h3 hero-text fade-in" style="--animation-delay: 750ms;">
+            <h1 class="hero">
+                <PageTitle maxWidth={9}>Current portfolio</PageTitle>
+                <span class="fallback">Current Portfolio</span>
+            </h1>
+            <p class="style-h3 hero-text fade-in" style="--animation-delay: 700ms;">
                 My day job at Square has me create interactive web experiences like our 
                 <A href="https://developer.squareup.com">Developer Homepage</A>
                 and web-apps like our
@@ -50,12 +55,12 @@ const rinkaAsCards = RinkaProjects.map(p => {
                 <A href="https://squareup.com/partner-offers">Partner Offers</A>
                 pages that share a frontend architecture. 
             </p>
-            <p class="style-h4 hero-text fade-in" style="margin-top: 0.5em; --animation-delay: 850ms;">
+            <p class="style-h4 hero-text fade-in" style="margin-top: 0.5em; --animation-delay: 800ms;">
                 I am also occassionally asked to build productivity tools such as
                 <A href="./figma-plugins">Figma plugins</A> and the like.
             </p>
         </section>
-        <section style="--animation-delay: 1000ms">
+        <section style="--animation-delay: 900ms">
             <div class="projects">
                 <hgroup>
                     <h2 id="other-digital-projects">Other digital projects</h2>
@@ -79,7 +84,7 @@ const rinkaAsCards = RinkaProjects.map(p => {
                 </ul>
             </div>
         </section>
-        <section class="physical" style="--animation-delay: 100ms">
+        <section class="physical" style="--animation-delay: 1200ms">
             <div class="projects display">
                 <div>
                     <h2 id="physical-projects">Physical Projects</h2>
@@ -133,6 +138,27 @@ const rinkaAsCards = RinkaProjects.map(p => {
         gap: 5rem;
 
         padding-bottom: 100px;
+    }
+
+    h1 {
+        .fallback {
+            display: none;
+            content-visibility: hidden;
+            line-height: 1;
+        }
+        
+        @media screen and (max-width: 400px) {
+            line-height: 1;
+
+            :global(.page-title) {
+                display: none;
+                content-visibility: hidden;
+            }
+            .fallback {
+                display: inline-block;
+                content-visibility: auto;
+            }
+        }
     }
 
     section:not(.show)>*:first-child {

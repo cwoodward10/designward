@@ -7,17 +7,17 @@ interface Props {
 const { maxWidth = 7.5, unit = "em" } = Astro.props;
 ---
 
-<span class="nowrap logo-container" style={`--max-width: ${maxWidth}${unit}`}>[<span class="logo-text"><slot/></span>]</span>
+<span class="nowrap page-title" style={`--max-width: ${maxWidth}${unit}`}>[<span class="title-text"><slot/></span>]</span>
 
 <style>
-    span.logo-container {
+    span.page-title {
         --start-width: 0;
 
         display: inline-block;
         min-width: 200px;
     }
 
-    span.logo-text {
+    span.title-text {
         color: transparent;
         background: linear-gradient(
             45deg,
@@ -60,7 +60,7 @@ const { maxWidth = 7.5, unit = "em" } = Astro.props;
 	}
 
     @media (prefers-reduced-motion: reduce) {
-        span.logo-container {
+        span.page-title {
             --start-width: var(--max-width, 100%);
 
             .logo-text {
@@ -68,7 +68,7 @@ const { maxWidth = 7.5, unit = "em" } = Astro.props;
             }
         }
     }
-    :global(html.reduce-motion) span.logo-container {
+    :global(html.reduce-motion) span.page-title {
         --start-width: var(--max-width, 100%);
 
         .logo-text {
