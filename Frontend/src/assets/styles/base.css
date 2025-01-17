@@ -16,17 +16,7 @@
         }
 	}
 
-    *:not(pre)>code, pre:not(.astro-code) {
-        font-family:
-            Menlo,
-            Monaco,
-            Lucida Console,
-            Liberation Mono,
-            DejaVu Sans Mono,
-            Bitstream Vera Sans Mono,
-            Courier New,
-            monospace;
-        
+    *:not(pre)>code, pre:not(.astro-code) {        
         font-weight: 300;
         color:  var(--color-code-text);
         background-color: var(--color-code-background);
@@ -35,6 +25,9 @@
     }
     pre {
         padding: 0.5em 1em;
+    }
+    code, pre {
+        font-family: var(--font-comic);
     }
     a {
         font-family: var(--font-body);
@@ -267,7 +260,11 @@
 
         p {
             max-width: 60rem;
-            text-wrap: pretty;
+            text-wrap: auto;
+            
+            @supports (text-wrap: pretty) {
+                text-wrap: pretty;
+            }
         }
 	}
     aside {

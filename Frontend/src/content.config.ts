@@ -15,6 +15,7 @@ const thoughts = defineCollection({
     subType: z.string().optional(),
     state: z.enum(NoteState),
     tags: z.array(z.string()).optional(),
+    showTitleImage: z.boolean().optional(),
     image: z.object({
       src: image().or(z.string()),
       alt: z.string().optional(),

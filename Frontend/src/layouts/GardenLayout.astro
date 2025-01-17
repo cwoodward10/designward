@@ -28,7 +28,7 @@ const { data } = Astro.props;
         </p>
     </hgroup>
     <div class="wrapper" slot="content">
-        {data.image && 
+        {data.image && data.showTitleImage &&
             <div class="hero">
                 <ContentImage src={data.image.src} alt={data.image.alt ?? data.title} />
             </div>

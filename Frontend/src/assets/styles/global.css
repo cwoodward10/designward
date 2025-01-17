@@ -11,9 +11,17 @@
     font-style: normal;
     font-display: swap;
 }
+@font-face {
+    font-family: 'Comic Shanns';
+    src: url('/fonts/comic shanns.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
 :root {
     --font-title: "Sofia Sans", sans-serif;
     --font-fun: "Gorton-Perfected VF", Arial, sans-serif;
+    --font-comic: "Comic Shanns", Menlo, "Lucida Console", monospace;
     --font-body: "Montserrat", sans-serif;
     --font-body-alt: "Montserrat Alternates", sans-serif;
 
@@ -73,6 +81,8 @@ html {
     --color-text: var(--color-offwhite);
     --color-background: var(--color-offblack);
     --color-background-dark: #101819;
+    
+    --color-surface: rgba(255, 255, 255, 0.1);
 
     --color-code-text: #8BE9FD;
     --color-code-background: #282A36;
