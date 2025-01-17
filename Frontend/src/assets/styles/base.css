@@ -193,6 +193,12 @@
     
     h1, h2, h3, h4, h5, h6 {
         font-family: var(--font-title);
+
+        text-wrap: auto;
+            
+        @supports (text-wrap: pretty) {
+            text-wrap: pretty;
+        }
     }
     h1.hero, .style-h1.hero {
         font-size: var(--step-5);

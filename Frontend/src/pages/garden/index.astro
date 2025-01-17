@@ -1,17 +1,13 @@
 ---
 import A from '@components/base/A.astro';
 import PageTitle from '@components/base/PageTitle.astro';
+import ContentImage from '@components/content-components/ContentImage.astro';
 import Layout from '@layouts/Layout.astro';
 
 import { getCollection } from 'astro:content';
 
 export const prerender = true;
-const allThoughts = await getCollection('thoughts')
-allThoughts.sort((a, b) => (b.data.lastEdited as any) - (a.data.lastEdited as any));
-
-const featured = allThoughts.find(t => t.data.type === 'long-form')!;
-const recentNotes = allThoughts.filter(t => t.data.type === 'short-form').slice(0, 3);
-const rest = allThoughts.filter(t => t.id !== featured.id && !recentNotes.map(n => n.id).includes(t.id))
+const allThoughts = await getCollection('thoughts');
 ---
 
 <Layout title="Thought garden">
@@ -19,44 +15,31 @@ const rest = allThoughts.filter(t => t.id !== featured.id && !recentNotes.map(n 
         <section class="hero">
             <hgroup>
                 <h1><PageTitle maxWidth={9}>Thought garden</PageTitle></h1>
-                <h2></h2>
-                <p>
-                    Welcome to my Thought Garden. The idea here is to cultivate a Digital Garden - a concept that I discovered in
-                    <A href="https://maggieappleton.com/garden-history">this explainer piece</A> a little while back. I came to really 
-                    appreciate the intentional mutability and unfinished nature of a garden. I have, in the past, struggled with the 
-                    sort of finality inherent with a "Blog" and, upon reading about the digital garden, it felt right to include the ideas
-                    here within Designward. We aren't finished people. We are always growing and learning. I want Designward to be that way too.
-                </p>
-                <p>
-                    That said, my garden is pretty scarce right now. You can check out what's below or <A href="/">return home</A>.
-                    Stop back in the future though. It will be more built out. It may even be thriving!
-                </p>
+                <p class="style-h4">An evolving collection of, well, thoughts. In various formats and mediums.</p>
             </hgroup>
-            <div class="featured">
-                <h3>{featured.data.title}</h3>
-                <p>{featured.data.tagline}</p>
-            </div>
-            <div class="recent">
-                <ul>
-                    {recentNotes.map(note => (
-                        <li>
-                            <h3>{note.data.title}</h3>
-                            {note.data.tagline && <p class="tag small">{note.data.tagline}</p>}
-                            <a class="arrow" href={`${note.id}`}>Read it</a>
-                        </li>
-                    ))}
-                </ul>
-            </div>
+            <p>
+                Welcome to my Thought Garden. The idea here is to cultivate a Digital Garden - a concept that I discovered in
+                <A href="https://maggieappleton.com/garden-history">this explainer piece</A> a little while back. The mutability and imperfection
+                inherent within the "Garden" idea is really appealing as the idea is that I can post and update as I go. There isn't really enough content
+                in here yet for me to implement anything <em>too</em> cool with the design but hopefully that changes as I write more.
+            </p>
         </section>
-        {rest.length > 0 &&
+        {allThoughts.length > 0 &&
             <section>
-                <h2>Current state of the garden</h2>
                 <ul>
-                    {rest.map(thought => (
+                    {allThoughts.map(thought => (
                         <li>
-                            <h3>{thought.data.title}</h3>
-                            {thought.data?.tagline && <p class="tag small">{thought.data.tagline}</p>}
-                            <a class="arrow" href={`${thought.id}`}>Read it</a>
+                            <div class="image">
+                                <ContentImage 
+                                    src={thought.data.image?.src!} 
+                                    alt={thought.data.image?.alt ?? thought.data.title}
+                                />
+                            </div>
+                            <div class="text">
+                                <h3>{thought.data.title}</h3>
+                                {thought.data?.tagline && <p class="tag small">{thought.data.tagline}</p>}
+                                <a class="arrow" href={`${thought.id}`}>Read it</a>
+                            </div>
                         </li>
                     ))}
                 </ul>
@@ -65,7 +48,9 @@ const rest = allThoughts.filter(t => t.id !== featured.id && !recentNotes.map(n 
     </main>
 </Layout> 
 
-<style>
+<style lang="scss">
+    @use '@assets/styles/sass/breakpoints.scss' as media;
+
     main {
         display: flex;
         flex-direction: column;
@@ -78,7 +63,7 @@ const rest = allThoughts.filter(t => t.id !== featured.id && !recentNotes.map(n 
     }
 
     h1 {
-        margin-bottom: 2rem;
+        margin-bottom: 0.5rem;
     }
 
     .tag {
@@ -89,6 +74,33 @@ const rest = allThoughts.filter(t => t.id !== featured.id && !recentNotes.map(n 
     ul {
         display: flex;
         flex-direction: column;
-        gap: 20px;
+        gap: 2rem;
+
+        li {
+            .image {
+                display: none;
+                content-visibility: hidden;
+            }    
+        }
+
+        @include media.at('medium') {
+            padding-left: 0;
+
+            li {
+                display: flex;
+                gap: 2rem;
+
+                .image {
+                    display: block;
+                    content-visibility: auto;
+                    max-width: 240px;
+                    overflow: hidden;
+                }
+                
+                &::marker {
+                    content: none;
+                }
+            }
+        }
     }
 </style>
