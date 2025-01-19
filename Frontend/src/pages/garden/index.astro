@@ -105,8 +105,13 @@ allThoughts.sort((a: any, b: any) => b.data.lastEdited - a.data.lastEdited);
         display: flex;
         flex-direction: column;
         gap: 2rem;
+        padding-left: 0;
 
         li {
+            display: flex;
+            gap: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: color-mix(in srgb, var(--color-text) 50%, transparent 80%) 1px solid;
             .image {
                 display: none;
                 content-visibility: hidden;
@@ -116,35 +121,31 @@ allThoughts.sort((a: any, b: any) => b.data.lastEdited - a.data.lastEdited);
                 flex-direction: column;
                 gap: 0.25rem;
             }
-        }
 
-        @include media.at('medium') {
-            padding-left: 0;
-
-            li {
-                display: flex;
-                gap: 2rem;
-
+                            
+            &::marker {
+                content: none;
+            }
+            
+            @include media.at('medium') {
+                border-bottom: none;
                 .image {
                     display: flex;
                     justify-content: center;
                     align-items: center;
-
+    
                     content-visibility: auto;
                     max-width: 240px;
                     overflow: hidden;
                     aspect-ratio: 3 / 2;
-
+    
                     :global(img) {
                         height: 100%;
                         width: auto;
                     }
                 }
-                
-                &::marker {
-                    content: none;
-                }
             }
         }
+
     }
 </style>
