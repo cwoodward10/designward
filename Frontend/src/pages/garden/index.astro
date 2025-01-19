@@ -43,7 +43,7 @@ allThoughts.sort((a, b) => b.data.lastEdited - a.data.lastEdited);
                                     {
                                         thought.data.type === 'short-form' ?
                                         'note' :
-                                        thought.data.subtype ?? 'essay'
+                                        thought.data.subType || 'essay'
                                     }
                                 </p>
                                 <h3>{thought.data.title}</h3>
