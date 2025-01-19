@@ -7,6 +7,7 @@ import Layout from '@layouts/Layout.astro';
 import { getCollection } from 'astro:content';
 
 const allThoughts = await getCollection('thoughts');
+allThoughts.sort((a, b) => b.data.lastEdited - a.data.lastEdited);
 ---
 
 <Layout title="Thought garden">
@@ -38,6 +39,13 @@ const allThoughts = await getCollection('thoughts');
                                 />
                             </div>
                             <div class="text">
+                                <p class="pill">
+                                    {
+                                        thought.data.type === 'short-form' ?
+                                        'note' :
+                                        thought.data.subtype ?? 'essay'
+                                    }
+                                </p>
                                 <h3>{thought.data.title}</h3>
                                 {thought.data.tagline && <p class="tag small">{thought.data.tagline}</p>}
                                 <a class="arrow" href={`${thought.id}`}>Read it</a>
@@ -103,6 +111,11 @@ const allThoughts = await getCollection('thoughts');
                 display: none;
                 content-visibility: hidden;
             }    
+            .text {
+                display: flex;
+                flex-direction: column;
+                gap: 0.25rem;
+            }
         }
 
         @include media.at('medium') {
@@ -113,10 +126,19 @@ const allThoughts = await getCollection('thoughts');
                 gap: 2rem;
 
                 .image {
-                    display: block;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+
                     content-visibility: auto;
                     max-width: 240px;
                     overflow: hidden;
+                    aspect-ratio: 3 / 2;
+
+                    :global(img) {
+                        height: 100%;
+                        width: auto;
+                    }
                 }
                 
                 &::marker {
