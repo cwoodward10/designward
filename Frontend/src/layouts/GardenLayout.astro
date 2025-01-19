@@ -63,7 +63,7 @@ const relatedPosts = data.relatedPosts && await getEntries(data.relatedPosts);
             <section class="related-posts">
                 <h2 class="style-h4">Related posts:</h2>
                 <ul>
-                    { relatedPosts.map(rp => (
+                    { relatedPosts.map((rp: any) => (
                         <li>
                             <a class="arrow" href={rp.id}>{rp.data.title}</a>
                         </li>

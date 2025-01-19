@@ -7,7 +7,7 @@ import Layout from '@layouts/Layout.astro';
 import { getCollection } from 'astro:content';
 
 const allThoughts = await getCollection('thoughts');
-allThoughts.sort((a, b) => b.data.lastEdited - a.data.lastEdited);
+allThoughts.sort((a: any, b: any) => b.data.lastEdited - a.data.lastEdited);
 ---
 
 <Layout title="Thought garden">
