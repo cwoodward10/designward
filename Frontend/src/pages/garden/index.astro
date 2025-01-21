@@ -39,14 +39,19 @@ allThoughts.sort((a: any, b: any) => b.data.lastEdited - a.data.lastEdited);
                                 />
                             </div>
                             <div class="text">
-                                <p class="pill">
-                                    {
-                                        thought.data.type === 'short-form' ?
-                                        'note' :
-                                        thought.data.subType || 'essay'
-                                    }
-                                </p>
-                                <h3>{thought.data.title}</h3>
+                                <div class="top-line">
+                                    <p class="pill">
+                                        {
+                                            thought.data.type === 'short-form' ?
+                                            'note' :
+                                            thought.data.subType || 'essay'
+                                        }
+                                    </p>
+                                    <p class="small">{thought.data.state}</p>
+                                </div>
+                                <a class="container" href={`${thought.id}`}>
+                                    <h3>{thought.data.title}</h3>
+                                </a>
                                 {thought.data.tagline && <p class="tag small">{thought.data.tagline}</p>}
                                 <a class="arrow" href={`${thought.id}`}>Read it</a>
                             </div>
@@ -120,6 +125,18 @@ allThoughts.sort((a: any, b: any) => b.data.lastEdited - a.data.lastEdited);
                 display: flex;
                 flex-direction: column;
                 gap: 0.25rem;
+
+                .top-line {
+                    display: flex;
+                    gap: 0.5rem;
+                    align-items: baseline;
+
+                    p:not(.pill) {
+                        font-family: var(--font-title);
+                        text-transform: capitalize;
+                        font-weight: 500;
+                    }
+                }
             }
 
                             

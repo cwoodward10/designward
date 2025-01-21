@@ -127,6 +127,10 @@
         }
     }
 
+    a.container {
+        color: var(--color-text);
+    }
+
     a.arrow {
         display: inline-flex;
         align-items: center;
