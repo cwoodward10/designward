@@ -1,16 +1,10 @@
 <script lang="ts">
     import {Sun, Moon} from 'svelte-heros-v2';
-
-    import { onMount } from "svelte";
   
     const LIGHT_MODE_CLASS = 'light';
     const LIGHT_MODE_KEY = 'mode';
 
     let lightMode = false;
-    onMount(() => {
-        lightMode = checkMode();
-    })
-
     const handleClick = (e: Event) => {
         lightMode = !lightMode;
         
@@ -19,26 +13,17 @@
         
         localStorage.setItem(LIGHT_MODE_KEY, lightMode ? 'light' : 'dark');
     }
-
-    function checkMode() {
-        const htmlEl = document.querySelector(`html`);
-        if (!htmlEl) {
-            return true;
-        }
-        return htmlEl.classList.contains(LIGHT_MODE_CLASS);
-    }
   </script>
   
   <button 
-      class:light={lightMode}
       on:click={handleClick}
       aria-label="Toggle light or dark mode"
   >
       <div class="modes">
-        <div class="icon">
+        <div class="icon moon">
             <Moon size=28 />
         </div>
-        <div class="icon">
+        <div class="icon sun">
             <Sun size=28 />
         </div>
       </div>
@@ -90,7 +75,7 @@
 
             transition: translate 300ms ease-in-out;
         }
-        button.light .modes {
+        :global(html.light) button .modes {
             translate: -50% calc(-50% - 2px);
 
             &:hover :global(svg path) {

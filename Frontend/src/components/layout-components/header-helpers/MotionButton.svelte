@@ -1,11 +1,12 @@
 <script lang="ts">
-  import { onMount } from "svelte";
-
+    import {onMount} from 'svelte';
     const NO_MOTION_CLASS = 'reduce-motion';
 
     let reduceMotion = false;
+
+    let transitionsOn = false;
     onMount(() => {
-        reduceMotion = checkMotion();
+        transitionsOn = true;
     })
 
     const handleClick = (e: Event) => {
@@ -16,19 +17,11 @@
         
         localStorage.setItem(NO_MOTION_CLASS, `${reduceMotion}`);
     }
-
-    function checkMotion() {
-        const htmlEl = document.querySelector(`html`);
-        if (!htmlEl) {
-            return true;
-        }
-        return htmlEl.classList.contains(NO_MOTION_CLASS);
-    }
 </script>
 
 <button 
-    class:none={reduceMotion}
     on:click={handleClick}
+    class:transition={transitionsOn}
     aria-label="Toggle reduced motion"
 >
     Move
@@ -61,9 +54,11 @@
 
         cursor: pointer;
 
-        transition-property: color;
-        transition-duration: 200ms;
-        transition-timing-function: ease-out;
+        &.transition {
+            transition-property: color;
+            transition-duration: 200ms;
+            transition-timing-function: ease-out;
+        }
 
         &::after {
             content: "";
@@ -90,13 +85,13 @@
         &:hover {
             color: var(--color-secondary);
         }
-
-        &.none {
-            color: var(--color-secondary);
-            
-            &::after {
-                opacity: 1;
-            }
+        
+    }
+    :global(html.reduce-motion) button {
+        color: var(--color-secondary);
+        
+        &::after {
+            opacity: 1;
         }
     }
 </style>

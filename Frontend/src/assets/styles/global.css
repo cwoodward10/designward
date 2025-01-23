@@ -27,6 +27,7 @@
 
     font-size: 16px;
     line-height: 130%;
+
     /* font steps per Utopia.fyi */
     --step--2: clamp(0.7813rem, 0.7747rem + 0.0326vi, 0.8rem);
     --step--1: clamp(0.9375rem, 0.9158rem + 0.1087vi, 1rem);
@@ -40,9 +41,11 @@
     --transition-duration-standard: 250ms;
     --transition-easing-standard: ease-in;
 
-    --shadow-color: color-mix(in srgb, var(--color-primary) 30%, white 15%);
+    --shadow-color: color-mix(in srgb, var(--color-offblack) 35%, transparent 70%);
     --shadow-header: drop-shadow(2px 0px 8px var(--shadow-color));
-    --shadow-image: drop-shadow(3px 3px 8px var(--shadow-color));
+    --shadow-image: 1px 2px 6px var(--shadow-color);
+
+    --radius-image: 4px;
 
     --link-base-translation: 0 0;
     --link-underline-offset: -2px;
@@ -63,9 +66,6 @@
     }
     
     --initial-animation-delay: 200ms;
-
-    --radius-image: 4px;
-    --shadow-image: 2px 2px 8px 0 rgba(0, 0, 0, 0.15);
 }
 html {
     --color-offwhite: #FFFAFA;

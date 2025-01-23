@@ -151,14 +151,18 @@ allThoughts.sort((a: any, b: any) => b.data.lastEdited - a.data.lastEdited);
                     justify-content: center;
                     align-items: center;
     
-                    content-visibility: auto;
+                    content-visibility: visible;
                     max-width: 240px;
-                    overflow: hidden;
                     aspect-ratio: 3 / 2;
+                    overflow: hidden;
+
+                    filter: drop-shadow(var(--shadow-image));
     
                     :global(img) {
                         height: 100%;
                         width: auto;
+                        max-width: none;
+                        filter: none;
                     }
                 }
             }

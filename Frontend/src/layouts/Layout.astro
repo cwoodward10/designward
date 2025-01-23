@@ -17,19 +17,24 @@ const { title } = Astro.props;
 	const NO_MOTION_KEY = 'reduce-motion';
 	const MODE_KEY = 'mode';
 
-	const motionVal = localStorage.getItem(NO_MOTION_KEY);
+	let motionVal = localStorage.getItem(NO_MOTION_KEY);
+	if (motionVal == null) {
+		motionVal = window.matchMedia("(prefers-reduced-motion)").matches ? 'true' : 'false';
+	}
 	if (motionVal != null) {
 		const reduceMotion = motionVal === 'true';
 		document.querySelector('html')?.classList.toggle(NO_MOTION_KEY, reduceMotion);
 	}
 
-	const modeVal = localStorage.getItem(MODE_KEY);
+	let modeVal = localStorage.getItem(MODE_KEY);
+	if (modeVal == null) {
+		modeVal = window.matchMedia("(prefers-color-scheme: dark)").matches ? 'dark' : 'light';
+	}
 	if (modeVal != null) {
 		const lightMode = modeVal === 'light';
 		const modeClass = lightMode ? 'light' : 'dark'
 		document.querySelector('html')?.classList.toggle(modeClass, lightMode);
 	}
-
 </script>
 
 <!doctype html>
