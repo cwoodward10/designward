@@ -1,49 +1,23 @@
 ---
 interface Props {
-  cards: {
-    name: string;
-    url: string;
-    imageUrl: string;
-  }[];
+    name?: string;
+    cards: {
+        name: string;
+        url: string;
+        imageUrl: string;
+    }[];
 }
-const { cards } = Astro.props;
+const { name, cards } = Astro.props;
 ---
-
-<script>
-    const handleClick = (e: Event) => {
-        if (!e.target) {
-            return;
-        }
-        
-        let card: HTMLElement;
-        if ((e.target as HTMLElement).classList.contains('card')) {
-            card = e.target as HTMLElement;
-        } else {
-            const closest = (e.target as HTMLElement).closest('.card') as HTMLElement | null;
-            if (!closest) {
-                return;
-            }
-            
-            card = closest;
-        }
-
-        const isActive = card.classList.contains('active');
-        card.classList.toggle('active', !isActive);
-        card.setAttribute('aria-expanded', `${!isActive}`);
-    }
-
-    const cards = document.querySelectorAll('.card');
-    cards.forEach(c => {
-        c.addEventListener('click', handleClick);
-    })
-</script>
 
 <div class="expander-container">
     {
         cards.map((c) => (
-            <button class="card">
-                <img class="image" src={c.imageUrl! as string} alt={c.name} />
-                <p class="title style-h5">{c.name}</p>
+            <details class="card" name={name}>
+                <summary>
+                    <p class="title style-h5">{c.name}</p>
+                    <img src={c.imageUrl! as string} alt={c.name} />
+                </summary>
                 <a 
                     class={`arrow style-h5 ${c.url.includes('https') ? 'external' : ''}`} 
                     href={c.url} 
@@ -51,7 +25,7 @@ const { cards } = Astro.props;
                 >
                     View project
                 </a>
-            </button>
+            </details>
         ))
     }
 </div>
@@ -74,45 +48,41 @@ const { cards } = Astro.props;
         display: flex;
         overflow: hidden;
 
-        width: 100%;
-        height: 100%;
-        max-height: var(--base-height);
+        height: var(--base-height);
         
-        transition: max-height 500ms ease-in-out;
+        transition: height 500ms ease-in-out;
         transition-delay: 0ms;
         
         filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.25));
 
-        &::after {
-            content: "";
+        img {
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
+            top: 50%;
+            left: 50%;
+            translate: -50% -50%;
+            min-width: 100%;
+            width: auto;
+            min-height: 100%;
+            height: auto;
             
-            background-color: color-mix(in srgb, var(--color-offblack) 30%, transparent 10%);
-        }
-
-        .image {
-            position: relative;
-            width: 100%;
             object-fit: cover;
             opacity: 0.35;
 
             transition: opacity 500ms ease-in-out;
         }
 
+        summary::marker {
+            content: none;
+        }
+
         .title {
             z-index: 2;
-            position: absolute;
             display: inline-block;
             width: fit-content;
 
-            color: var(--color-offwhite);
-            
+            position: absolute;
             top: 50%;
-            left: 50%; 
+            left: 50%;
             translate: -50% -50%;
 
             transition: opacity 500ms ease-in-out;
@@ -127,7 +97,7 @@ const { cards } = Astro.props;
 
             padding: 0.25rem 1rem;
             color: var(--color-offwhite);
-            background-color: color-mix(in srgb, var(--color-offblack) 35%, transparent 90%);
+            background-color: color-mix(in srgb, var(--color-offblack) 45%, transparent 70%);
             border-radius: 0.25rem;
             border: var(--color-offwhite) 1px solid;
             
@@ -140,10 +110,10 @@ const { cards } = Astro.props;
             transition: opacity 500ms linear;
         }
 
-        &.active {
-            max-height: 600px;
+        &[open] {
+            height: 600px;
 
-            .image {
+            img {
                 opacity: 1;;
             }
 
