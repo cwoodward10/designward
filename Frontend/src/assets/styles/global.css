@@ -97,8 +97,8 @@ html {
 
     &.light {
         --color-primary: #FF4785;
-        --color-secondary: #F6AE28;
-        --color-accent-primary: #01BAEF;
+        --color-secondary: #D78F09;
+        --color-accent-primary: #019FCB;
 
         --color-text: color-mix(in srgb, var(--color-offblack) 90%, var(--color-offwhite) 10%);
         --color-background: var(--color-offwhite);

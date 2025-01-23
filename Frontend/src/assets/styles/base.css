@@ -20,7 +20,7 @@
         font-weight: 300;
         color:  var(--color-code-text);
         background-color: var(--color-code-background);
-        padding: 0.2em 0.35em;
+        padding: 0 0.35em;
         border-radius: 3px;
     }
     pre {
