@@ -45,6 +45,10 @@ const { title } = Astro.props;
 <style lang="scss">
 	@use '@assets/styles/sass/breakpoints.scss' as media;
 
+	@view-transition {
+		navigation: auto;
+	}
+
 	body {
 		margin: 0;
 		background-color: var(--color-background);
