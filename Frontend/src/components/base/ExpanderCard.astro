@@ -85,6 +85,8 @@ const { name, cards } = Astro.props;
             left: 50%;
             translate: -50% -50%;
 
+            color: var(--color-offblack);
+
             transition: opacity 500ms ease-in-out;
         }
 
@@ -105,9 +107,12 @@ const { name, cards } = Astro.props;
             left: 50%; 
             translate: -50% -50%;
 
-            opacity: 0.0;
+            opacity: 0;
             pointer-events: none;
-            transition: opacity 500ms linear;
+            transition-property: opacity, display;
+            transition-duration: 500ms;
+            transition-timing-function: linear;
+            transition-behavior: allow-discrete;
         }
 
         &[open] {
