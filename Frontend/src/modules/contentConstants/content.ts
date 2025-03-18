@@ -10,6 +10,11 @@ export type DigitalProject = Project & {
 }
 export const DigitalProjects: DigitalProject[] = [
     {
+        name: "Square Point of Sale",
+        url: "https://squareup.com/us/en/point-of-sale",
+        tagline: "Prototyped and built the interactive scroll experience in close collaboration with the design lead."
+    },
+    {
         name: "Reference Health Testimonial",
         url: "https://www.squareup.com/partnerships/referencehealth",
         tagline: "The initial use of a custom built template page to discuss the success of Reference Health's partnership with Square."
