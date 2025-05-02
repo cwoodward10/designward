@@ -48,12 +48,12 @@ const relatedPosts = data.relatedPosts && await getEntries(data.relatedPosts);
             </div>
         }
         {data.state === NoteState[0] &&
-            <AlertDialog style="margin-bottom: 2em" tag="div">
+            <AlertDialog style="margin-bottom: var(--spacing);" tag="div">
                 <p><em class="alert-title">Note:</em> This thought is just a concept and thus not fleshed out much at all...</p>
             </AlertDialog>
         }
         {data.state === NoteState[1] &&
-            <AlertDialog style="margin-bottom: 2em" tag="div">
+            <AlertDialog style="margin-bottom: var(--spacing);" tag="div">
                 <p><em class="alert-title">Note:</em> This thought is under construction. It may or may not have been thoroughly proof-read.</p>
             </AlertDialog>
         }
@@ -107,6 +107,11 @@ const relatedPosts = data.relatedPosts && await getEntries(data.relatedPosts);
         display: flex;
         flex-direction: column;
         align-items: center;
+    }
+    .wrapper :global(article) {
+        p {
+            opacity: 0.85;
+        }
     }
     .hero {
         width: 100%;

@@ -40,12 +40,14 @@ const { pageTitle } = Astro.props;
     }
 
     .content-intro {
-        padding-bottom: 2rem;
+        padding-bottom: var(--spacing);
     }
 
     .content article {
-        p {
-            text-wrap: pretty;
+        @supports (text-wrap: pretty) {
+            p {
+                text-wrap: pretty;
+            }
         }
         p:first-of-type:first-letter {
             font-family: var(--font-title);
@@ -73,7 +75,7 @@ const { pageTitle } = Astro.props;
         animation-iteration-count: 1;
 
         &:first-child {
-            margin-bottom: 2rem;
+            margin-bottom: var(--spacing);
         }
     }
 

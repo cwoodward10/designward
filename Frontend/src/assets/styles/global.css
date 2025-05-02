@@ -50,6 +50,8 @@
     --link-base-translation: 0 0;
     --link-underline-offset: -2px;
 
+    --spacing: 3rem;
+
     --padding-edge: 1.5rem;
     --section-padding: 160px;
     @media screen and (min-width: 1024px) {
@@ -93,7 +95,7 @@ html {
 
     --color-pink-white: color-mix(in srgb, var(--color-primary) 100%, white 20%);
 
-    --font-weight: 300;
+    --font-weight: 400;
 
     &.light {
         --color-primary: #FF4785;

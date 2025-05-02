@@ -69,14 +69,19 @@ allThoughts.sort((a: any, b: any) => b.data.lastEdited - a.data.lastEdited);
     main {
         display: flex;
         flex-direction: column;
-        gap: 30px;
+        gap: var(--spacing);
         width: 1000px;
 
         padding-bottom: 100px;
     }
     section {
-        gap: 1em;
+        gap: calc(var(--spacing) / 2);
+        
+        &.hero {
+            margin-bottom: 2rem;
+        }
     }
+
 
     h1 {
         margin-bottom: 0.5rem;
