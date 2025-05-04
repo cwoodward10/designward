@@ -10,6 +10,9 @@ import { NoteState } from "../content.config.ts";
 const { data } = Astro.props;
 
 const relatedPosts = data.relatedPosts && await getEntries(data.relatedPosts);
+
+const dateCreated = data.created.toLocaleDateString();
+const dateEdited = data.lastEdited.toLocaleDateString();
 ---
 
 <ContentLayout pageTitle={data.title}>
@@ -28,17 +31,19 @@ const relatedPosts = data.relatedPosts && await getEntries(data.relatedPosts);
         <div class="date-line">
             <p class="date">
                 <span class="tag x-small">broke ground:</span> 
-                <span class="small">{data.created.toLocaleDateString()}</span>
+                <span class="small">{dateCreated}</span>
             </p>
-            <p class="date">
-                { data.state === NoteState[2] && 
-                    <span class="tag x-small">latest renovation:</span>
-                } 
-                { data.state !== NoteState[2] && 
-                    <span class="tag x-small">latest progress:</span>
-                } 
-                <span class="small">{data.lastEdited.toLocaleDateString()}</span>
-            </p>
+            { dateCreated !== dateEdited && 
+                <p class="date">
+                    { data.state === NoteState[2] && 
+                        <span class="tag x-small">latest renovation:</span>
+                    } 
+                    { data.state !== NoteState[2] && 
+                        <span class="tag x-small">latest progress:</span>
+                    } 
+                    <span class="small">{dateEdited}</span>
+                </p>
+            }
         </div>
     </hgroup>
     <div class="wrapper" slot="content">
