@@ -41,6 +41,38 @@
     --transition-duration-standard: 250ms;
     --transition-easing-standard: ease-in;
 
+    --initial-animation-delay: 200ms;
+
+    color-scheme: dark;
+    
+    --color-offwhite: #FFFAFA;
+    --color-offblack: #191D24;
+    --color-textblack: color-mix(in srgb, var(--color-offblack) 90%, var(--color-offwhite) 10%);
+    
+    --color-primary: #FF4785;
+    --color-secondary: light-dark(#D78F09, #FCDE73);
+    --color-accent-primary: light-dark(#019FCB, #01BAEF);
+    --color-accent-blue-off: color-mix(in srgb, #01BAEF 30%, var(--color-offblack) 90%);
+    --color-primary-muted: color-mix(in srgb, var(--color-primary) 50%, var(--color-background) 70%);
+    --color-error: #AE003A;
+    
+    --color-text: light-dark(var(--color-textblack), var(--color-offwhite));
+    --color-background: light-dark(var(--color-offwhite), var(--color-offblack));
+    --color-background-dark: light-dark(var(--color-offblack), #101819);
+    
+    --color-surface: rgba(255, 255, 255, 0.1);
+    
+    --color-code-text: #8BE9FD;
+    --color-code-background: #282A36;
+    
+    --color-link: var(--color-secondary);
+    --color-link-underline: var(--color-primary);
+    --color-link-external: var(--color-accent-primary);
+    
+    --color-pink-white: color-mix(in srgb, var(--color-primary) 100%, white 20%);
+    
+    --font-weight: 400;
+
     --shadow-color: color-mix(in srgb, var(--color-offblack) 35%, transparent 70%);
     --shadow-header: drop-shadow(2px 0px 8px var(--shadow-color));
     --shadow-image: 1px 2px 6px var(--shadow-color);
@@ -66,48 +98,8 @@
     @media screen and (min-width: 1024px) {
         --border-width: 3px;
     }
-    
-    --initial-animation-delay: 200ms;
 }
-html {
-    --color-offwhite: #FFFAFA;
-    --color-offblack: #191D24;
-
-    --color-primary: #FF4785;
-    --color-secondary: #FCDE73;
-    --color-accent-primary: #01BAEF;
-    --color-accent-blue-off: color-mix(in srgb, #01BAEF 30%, var(--color-offblack) 90%);
-    --color-primary-muted: color-mix(in srgb, var(--color-primary) 50%, var(--color-background) 70%);
-    --color-error: #AE003A;
-    
-    --color-text: var(--color-offwhite);
-    --color-background: var(--color-offblack);
-    --color-background-dark: #101819;
-    
-    --color-surface: rgba(255, 255, 255, 0.1);
-
-    --color-code-text: #8BE9FD;
-    --color-code-background: #282A36;
-
-    --color-link: var(--color-secondary);
-    --color-link-underline: var(--color-primary);
-    --color-link-external: var(--color-accent-primary);
-
-    --color-pink-white: color-mix(in srgb, var(--color-primary) 100%, white 20%);
-
-    --font-weight: 400;
-
-    &.light {
-        --color-primary: #FF4785;
-        --color-secondary: #D78F09;
-        --color-accent-primary: #019FCB;
-
-        --color-text: color-mix(in srgb, var(--color-offblack) 90%, var(--color-offwhite) 10%);
-        --color-background: var(--color-offwhite);
-        --color-background-dark: var(--color-offblack);
-
-        --font-weight: 400;
-    }
+:root.light {
+    color-scheme: light;
 }
-
 @layer reset, animations, base, components, utilities;

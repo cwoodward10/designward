@@ -4,14 +4,14 @@
     const LIGHT_MODE_CLASS = 'light';
     const LIGHT_MODE_KEY = 'mode';
 
-    let lightMode = false;
     const handleClick = (e: Event) => {
-        lightMode = !lightMode;
-        
         const htmlEl = document.querySelector('html');
-        htmlEl?.classList.toggle(LIGHT_MODE_CLASS, lightMode);
-        
-        localStorage.setItem(LIGHT_MODE_KEY, lightMode ? 'light' : 'dark');
+
+        const lightMode = htmlEl?.classList.contains(LIGHT_MODE_CLASS);
+
+        // swap to opposite of inclusion
+        htmlEl?.classList.toggle(LIGHT_MODE_CLASS, !lightMode);
+        localStorage.setItem(LIGHT_MODE_KEY, lightMode ? 'dark' : 'light');
     }
   </script>
   
