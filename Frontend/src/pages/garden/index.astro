@@ -31,7 +31,7 @@ allThoughts.sort((a: any, b: any) => b.data.lastEdited - a.data.lastEdited);
             <section>
                 <ul>
                     {allThoughts.map(thought => (
-                        <li>
+                        <li class="thought">
                             <div class="image">
                                 <ContentImage 
                                     src={thought.data.image?.src!} 
@@ -160,12 +160,14 @@ allThoughts.sort((a: any, b: any) => b.data.lastEdited - a.data.lastEdited);
                     max-width: 240px;
                     aspect-ratio: 3 / 2;
                     overflow: hidden;
+                    border-radius: var(--radius-image);
 
                     filter: drop-shadow(var(--shadow-image));
     
                     :global(img) {
-                        height: 100%;
-                        width: auto;
+                        border-radius: 0;
+                        min-height: 100%;
+                        min-width: auto;
                         max-width: none;
                         filter: none;
                     }
