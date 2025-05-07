@@ -50,7 +50,7 @@
     --color-textblack: color-mix(in srgb, var(--color-offblack) 90%, var(--color-offwhite) 10%);
     
     --color-primary: #FF4785;
-    --color-secondary: light-dark(#D78F09, #FCDE73);
+    --color-secondary: light-dark(#C5841B, #FCDE73);
     --color-accent-primary: light-dark(#019FCB, #01BAEF);
     --color-accent-blue-off: color-mix(in srgb, #01BAEF 30%, var(--color-offblack) 90%);
     --color-primary-muted: color-mix(in srgb, var(--color-primary) 50%, var(--color-background) 70%);
