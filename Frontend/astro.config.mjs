@@ -1,4 +1,6 @@
 import { defineConfig } from 'astro/config';
+import { visualizer } from "rollup-plugin-visualizer";
+
 import svelte from "@astrojs/svelte";
 import vercel from "@astrojs/vercel";
 import markdoc from "@astrojs/markdoc";
@@ -12,5 +14,11 @@ export default defineConfig({
   adapter: vercel({
     webAnalytics: { enabled: true }
   }),
-  prefetch: true
+  prefetch: true,
+  vite: {
+    plugins: [visualizer({
+        emitFile: true,
+        filename: "stats.html",
+    })]
+  }
 });
