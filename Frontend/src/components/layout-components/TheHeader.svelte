@@ -128,7 +128,7 @@
             display: flex;
             font-size: 0.8em;
             font-family: var(--font-fun);
-            font-weight: 600;
+            font-weight: 500;
             line-height: 130%;
         }
         &>span {
