@@ -18,7 +18,7 @@ const { data } = Astro.props;
         }
         <slot />
     </div>
-    <a slot="back" class="arrow" href="/portfolio/">Back to my portfolio</a>
+    <a slot="back" class="arrow" href="/portfolio/" data-astro-prefetch>Back to my portfolio</a>
 </ContentLayout>
 
 <style lang="scss">

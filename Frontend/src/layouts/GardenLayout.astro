@@ -70,14 +70,14 @@ const dateEdited = data.lastEdited.toLocaleDateString();
                 <ul>
                     { relatedPosts.map((rp: any) => (
                         <li>
-                            <a class="arrow" href={rp.id}>{rp.data.title}</a>
+                            <a class="arrow" href={rp.id} data-astro-prefetch>{rp.data.title}</a>
                         </li>
                     ))}
                 </ul>
             </div>
         }
     </Fragment>
-    <a slot="back" class="arrow" href="/garden/">Back to the garden</a>
+    <a slot="back" class="arrow" href="/garden/" data-astro-prefetch>Back to the garden</a>
 </ContentLayout>
 
 <style>
