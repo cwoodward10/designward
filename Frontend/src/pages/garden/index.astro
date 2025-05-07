@@ -49,11 +49,11 @@ allThoughts.sort((a: any, b: any) => b.data.lastEdited - a.data.lastEdited);
                                     </p>
                                     <p class="small">{thought.data.state}</p>
                                 </div>
-                                <a class="container" href={`${thought.id}`}>
+                                <a class="container" href={`${thought.id}`} data-astro-prefetch>
                                     <h3>{thought.data.title}</h3>
                                 </a>
                                 {thought.data.tagline && <p class="tag small">{thought.data.tagline}</p>}
-                                <a class="arrow" href={`${thought.id}`}>Read it</a>
+                                <a class="arrow" href={`${thought.id}`} data-astro-prefetch>Read it</a>
                             </div>
                         </li>
                     ))}

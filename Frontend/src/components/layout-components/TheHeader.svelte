@@ -53,7 +53,7 @@
             <HamburgerMenu>
                 {#each ROUTES as route}
                 <li class="ham-route">
-                    <a href={route.route}>{route.name}</a>
+                    <a href={route.route} data-astro-prefetch="viewport">{route.name}</a>
                 </li>
                 {/each}
             </HamburgerMenu>
@@ -61,7 +61,7 @@
         <nav class="link-menu-container">
             {#each ROUTES as route}
             <li class="nav-route">
-                <a href={route.route}>{route.name}</a>
+                <a href={route.route} data-astro-prefetch>{route.name}</a>
             </li>
             {/each}
         </nav>

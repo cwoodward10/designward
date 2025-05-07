@@ -12,5 +12,5 @@ export default defineConfig({
   adapter: vercel({
     webAnalytics: { enabled: true }
   }),
-  site: 'https://www.designward.io'
+  prefetch: true
 });
