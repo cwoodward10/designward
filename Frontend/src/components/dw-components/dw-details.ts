@@ -75,7 +75,6 @@ class AnimateDetails {
     }
 
     private _cacheHeights() {
-        console.log('caching heights');
         if (!this.content) {
             throw new Error('DwDetails requires content to animate on.');
         }
@@ -190,9 +189,12 @@ class AnimateDetails {
     }
 }
 
+const PROP_ANIMATE = 'dw-animate';
+const PROP_DURATION = 'dw-animation-duration';
+const PROP_EASING = 'dw-animation-easing';
 export class DwDetails extends DwHtmlWebComponent {
     static ComponentName  = 'dw-details';
-    static observedAttributes = ["animate", "animation-duration", "animation-easing"];
+    static observedAttributes = [PROP_ANIMATE, PROP_DURATION, PROP_EASING];
 
     details: HTMLDetailsElement | null;
 
@@ -211,17 +213,17 @@ export class DwDetails extends DwHtmlWebComponent {
             throw new Error('DwDetails requires a Details element containing a Summary element.')
         }
 
-        if (this.getAttributeValue('animate')) {
+        if (this.getAttributeValue(PROP_ANIMATE)) {
             this._mountAnimation();
         }
     }
 
     private _mountAnimation() {
         if (this.details && !this.useAnimation) {
-            const d = this.getAttribute('animation-duration');
+            const d = this.getAttribute(PROP_DURATION);
             const o = {
                 duration:  d == null || Number.isNaN(d) ? 500 : Number.parseInt(d),
-                easing: this.getAttribute('animation-easing') ?? 'ease-out',
+                easing: this.getAttribute(PROP_EASING) ?? 'ease-out',
                 internals: this._internals
             }
             this.useAnimation = new AnimateDetails(this.details, o);
@@ -234,7 +236,7 @@ export class DwDetails extends DwHtmlWebComponent {
         }
 
         switch (name) {
-            case 'animate':
+            case PROP_ANIMATE:
                 if (newValue === 'true') {
                     this._mountAnimation();
                 } else {
@@ -243,11 +245,11 @@ export class DwDetails extends DwHtmlWebComponent {
                 }
                 return;
             
-            case 'animation-duration': 
+            case PROP_DURATION: 
                 this.useAnimation?.setDuration(newValue);
                 return;
 
-            case 'animation-easing': 
+            case PROP_EASING: 
                 this.useAnimation?.setEasing(newValue);
                 return;
         }
