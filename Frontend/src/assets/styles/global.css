@@ -77,6 +77,8 @@
     --shadow-header: drop-shadow(2px 0px 8px var(--shadow-color));
     --shadow-image: 1px 2px 6px var(--shadow-color);
 
+    --radius-standard: 1rem;
+    --radius-half: 0.5rem;
     --radius-image: 4px;
 
     --link-base-translation: 0 0;

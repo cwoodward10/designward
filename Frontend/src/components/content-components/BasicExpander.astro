@@ -1,0 +1,16 @@
+---
+import Expander from "@components/base/Expander.astro";
+
+interface Props {
+    title: string,
+}
+
+const { title } = Astro.props;
+---
+
+<Expander animate={true} animationDuration={500} animationEasing={'ease-out'}>
+    <p slot="summary">{title}</p>
+    <div slot="content">
+        <slot></slot>
+    </div>
+</Expander>
