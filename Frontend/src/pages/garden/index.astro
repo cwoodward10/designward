@@ -18,9 +18,11 @@ allThoughts.sort((a: any, b: any) => b.data.lastEdited - a.data.lastEdited);
                     <PageTitle maxWidth={9}>Thought garden</PageTitle>
                     <span class="fallback">Thought garden</span>
                 </h1>
-                <p class="style-h4">An evolving collection of, well, thoughts. In various formats and mediums.</p>
+                <p class="fade-in style-h4" style="--animation-delay: 700ms;">
+                    An evolving collection of, well, thoughts. In various formats and mediums.
+                </p>
             </hgroup>
-            <p>
+            <p class="fade-in" style="--animation-delay: 800ms;">
                 Welcome to my Thought Garden. The idea here is to cultivate a Digital Garden - a concept that I discovered in
                 <A href="https://maggieappleton.com/garden-history">this explainer piece</A> a little while back. The mutability and imperfection
                 inherent within the "Garden" idea is really appealing as the idea is that I can post and update as I go. There isn't really enough content
@@ -28,7 +30,7 @@ allThoughts.sort((a: any, b: any) => b.data.lastEdited - a.data.lastEdited);
             </p>
         </section>
         {allThoughts.length > 0 &&
-            <section>
+            <section class="fade-in" style="--animation-delay: 900ms;">
                 <ul>
                     {allThoughts.map(thought => (
                         <li class="thought">
