@@ -1,0 +1,103 @@
+---
+interface Props {
+  animate: boolean;
+  animationDuration: number;
+  animationEasing: string
+}
+
+const { 
+    animate = true, 
+    animationDuration = 400, 
+    animationEasing = 'ease-out'
+} = Astro.props;
+---
+
+<script>
+    import { DwDetails } from "@components/dw-components/dw-details";
+    DwDetails.Mount();
+</script>
+
+<dw-details
+    dw-animate={animate}
+    dw-animation-duration={animationDuration}
+    dw-animation-easing={animationEasing}
+    style={`--duration: ${animationDuration}ms; --easing: ${animationEasing};`}
+>
+    <details>
+        <summary>
+            <div class='marker'></div>
+            <slot name='summary'></slot>
+        </summary>
+        <div class="content">
+            <slot name="content"></slot>
+        </div>
+    </details>
+</dw-details>
+
+<style lang="scss">
+    details {
+        border-radius: var(--radius-half);
+        border: var(--color-secondary) 2px solid;
+        padding: 1rem;
+        
+        summary {
+            &::marker {
+                display: none;
+                content: none;
+            }
+            
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        
+            .marker {
+                display: block;
+                position: relative;
+        
+                height: 1rem;
+                width: auto;
+                aspect-ratio: 1;
+
+                transition: rotate var(--duration) var(--easing);
+        
+                &::after, &::before {
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    translate: -50% -50%;
+                    
+                    content: "";
+                    display: block;
+                    width: 2px;
+                    
+                    background-color: var(--color-secondary);
+                }
+                &::before {
+                    opacity: 0;
+                    height: 0%;
+                    transition-property: height, opacity;
+                    transition-duration: calc(var(--duration) / 4), var(--duration);
+                    transition-timing-function: var(--easing);
+                }
+                &::after {
+                    height: 100%;
+                    rotate: 90deg;
+                }
+            }
+        }
+    }
+    dw-details:state(closing), details:not([open]) {
+        summary .marker {
+            rotate: 90deg;
+
+            &::before {
+                opacity: 1;
+                height: 100%;
+            }
+        }
+    }
+
+    .content {
+        padding-block: 1rem;
+    }
+</style>

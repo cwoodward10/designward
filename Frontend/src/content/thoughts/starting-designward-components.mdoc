@@ -1,0 +1,124 @@
+---
+title: Starting DesignWard components
+tagline: Exploring HTML web components as a basis for a component system
+created: '5/12/2025'
+lastEdited: '5/12/2025'
+type: long-form
+subType: essay
+tags: [ Engineering, Design Technologist, Design Engineering ]
+state: 'under construction'
+showTitleImage: false
+image: {
+  src: './images/jumping-cards.png',
+  alt: Jumping cards
+}
+---
+ 
+*This is the first post in a series I'm putting together exploring a component system for DesignWard (and beyond?).*
+
+With all the time that I have before starting my next job, I've had some time to sit back and reflect a bit on my craft and what I'm interested in unbeholden to a current employer. One idea that I've come back to a couple times is to build my own component system for use across relevant personal projects.
+
+This would not be the first time that I've explored portable components between projects. I, in the past, have tried to build as much modularity into my code as possible with the idea that I could reuse it. But, inevitably, I decide that I want to rebuild things (mostly) from scratch each time I start something new. After all, its fun to build things up and I learn something new each time.
+
+Now though, I feel like my thinking has changed a bit. I'm not sure that, with what I've learned over the past few years, I'll feel the need to rewrite from scratch quite as much (famous last words perhaps) and instead maintain and build off of a more stable architecture. In particular, there have been a couple concepts driving this change:
+
+1.  **Web standards:** The more I've learned about what is built into HTML5 and browser APIs, the more interested I've become in diving even deeper. It's been a great rabbit hole. I want to leverage these standards to build more robust, framework independent components.
+2.  **Accessibility:** In architecture, accessibility is required by law. It seems more like a *nice to have* on the web, unfortunately. I don't want that to be my m.o though. I'd like to build components that work for everyone. 
+
+I don't think anything relating to the above will change, at least not quickly, so why not build components around those concepts? There is an inherent longevity to an architecture built on standards and accessibility that is not present in choosing "favorite" framework and building for that. 
+
+## So... what's the system?
+
+Those two concepts aren't really enough to build a full component system around though so I pushed them further to outline a more robust set of requirements for a DesignWard component system:
+
+1.  **Portability over framework lock-in:** I mainly use Svelte these days if I need a framework and Astro to deliver static sites. This will surely change in the future though. I'd like to be able to re-use this code relatively easily as my framework preferences change over time.
+2.  **Minimally opinionated:** My personal projects tend to have different look and feel needs. I want flexibility to be able re-use where possible without being locked into one aesthetic or structure.
+3.  **HTML and CSS first:** I want these components to be robust, reliable, and quick to load. Since browsers read HTML and CSS first and then add JS later, I want JS to really just augment rather than create as much as possible. This will help with accessibility too.
+4.  **Leverage standard browser APIs:** Since I'm avoiding framework lock-in, I want to rely on web standards as much as possible.
+
+So then the question becomes what architecture to use in order to fulfill these requirements. After poking around a bit, I landed on a solution that I think is particularly interesting: *HTML* web components. The "HTML" portion of "HTML web components" refers to mainly using HTML markup in the "light" DOM with a web component wrapper to enhance that HTML with Javascript. This is opposed to a mainly shadow DOM implementation that tends to be more JS heavy won't render until your script runs. I'm a tad late to the party here - a lot of the [writing](https://adactio.com/journal/20618) [about](https://blog.jim-nielsen.com/2023/html-web-components/) [them](https://meyerweb.com/eric/thoughts/2023/11/01/blinded-by-the-light-dom/) that I've found is from 2023 or 2024 - but I'm very happy to have finally found this solution as it generally fulfills my above requirements. 
+
+## A basic overview
+
+I'll get into more robust case studies in future posts. I have a series of them planned out as I dig into this component architecture. But here's the general gist of things. 
+
+An HTML web component, is a conceptual extension of a custom web component. Where a web component can live, in the most basic sense, as shown below:
+
+```html
+<my-custom-button></my-custom-button>
+```
+
+This architecture would rely on the shadow DOM, mostly, for its implementation. Say we want to implement a ripple animation on click for example:
+
+```javascript
+class MyCustomButton extends HTMLElement {        
+  constructor() {
+    super();
+    this.attachShadow({mode: 'open'});
+    this.shadowRoot.innerHTML = '<button>Click me!</button>';
+
+    const button = this.querySelector(:scope button);
+    button.addEventListener('click', this.createRipple;
+  }
+
+  createRipple() { ...some logic }
+}
+```
+
+Where the class constructor creates the button element, attaches the listener, and etc... Maybe there's a slot in there for content but Javascript in the class constructor would actually populate the component. There's no non-JS initiated markup as the constructor builds the HTML in the shadow DOM.
+
+An *HTML* web component would instead rely on HTML markup for its general structure and only rely on JS for added enhancement of that HTML. As shown below, you would buid a button element into the web component:
+
+```html
+<my-custom-button>
+	<button>Click me!</button>
+</my-custom-button>
+```
+
+And the class would instead rely on a slot:
+
+```javascript
+class MyCustomButton extends HTMLElement {        
+  constructor() {
+    super();
+    this.attachShadow({mode: 'open'});
+    this.shadowRoot.innerHTML = 'slot></slot>';
+
+    const button = this.querySelector(:scope button);
+    button.addEventListener('click', this.createRipple;
+  }
+  
+  createRipple(){...}
+}
+```
+
+In this case, there is additional boilerplate and a little less modularity as you'd need to build the button into the web component each time. *But* the benefit would be that your component renders immediately and without javascript. If you wanted to avoid boilerplate, you could instead handle that additional markup in your chosen framework. Take Svelte for example:
+
+```svelte
+<script>
+  import { onMount } from 'svelte';
+  import MyCustomButton from './somewhere';
+
+  const { someTextProp } = $props();
+
+  onMount(() => {
+    window.customElements.define('my-custom-button', MyCustomButton);
+  })
+</script>
+
+<my-custom-button>
+  <button>
+    {someTextProp}
+  </button>
+</my-custom-button>
+
+<style>
+  button {
+    // whatever styles too
+  }
+</style>
+```
+
+The ripple effect within the custom element would not need to be rewritten here as the web component's logic would handle that. All you would need to do is add the HTML markup and styles that make the most sense within the context of your application. 
+
+So with all that said, let's get into some real examples in my follow-up case studies.

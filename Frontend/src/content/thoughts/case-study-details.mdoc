@@ -1,0 +1,569 @@
+---
+title: "Case Study: <Details>"
+tagline: Creating a creating an expander component based on <details>
+created: '5/12/2025'
+lastEdited: '5/12/2025'
+type: long-form
+subType: case study
+tags: [ Engineering, Design Technologist, Design Engineering ]
+state: 'under construction'
+showTitleImage: false
+image: {
+  src: './images/jumping-cards.png',
+  alt: Jumping cards
+}
+---
+
+*This is the second post in a series I'm putting together exploring a component system for DesignWard (and beyond?). You can find the intro post [here](./starting-designward-components)*
+
+One of the componets that I find myself writing most regularly is some sort of expander/drawer/accordion type component. Because of that, and the fact that it has both a default HTML standard and potential for Javascript enhancement with its open/close animations, this component seemed like a great initial case study for my HTML web component library. 
+
+To start off, let's show an example of the component that I'm referring to:
+
+{% expander title="click me!" %}
+    Hello world! I am revealed!
+{% /expander %}
+
+The example is, as you can see, already styled and complete. But how did we get here?
+
+## The <details> element
+
+In following my component system requirements, I wanted to use standard HTML5 architecture and behavior as much as possible. In this case, the `<details></details>` element takes care of that. In the most basic sense, an architecture such as this:
+
+```html
+<details>
+    <summary>Click this to reveal.</summary>
+    This is what is revealed.
+</details>
+```
+
+Will build out a very basic expander show and hide content. It is Javascript free and comes with an initial styling as provided by your browser. It is also natively accessible. It does not, however, have any sort of expansion and contraction animation; the content just appears.
+
+The animation portion of this is, I think, the most fun and often desired part of the component; it is what I find myself writing most often. Wouldn't it be great if I had that part built in and portable to (most) any context that I need it? I think so! So let's build this component.
+
+*note:* eventually [we might not need this](https://developer.mozilla.org/en-US/docs/Web/CSS/interpolate-size). But until it's baseline, we'll use Javascript like so.
+
+## Enhancing <details>
+
+Since I haven't, to this point, built much with web components before, I went looking for examples that I could use to build out my component. One such example I found was here in [zackleat's details-utils package.](https://github.com/zachleat/details-utils/blob/main/details-utils.js) This, in turn, reminded me a bit of an accessible details animation implementation I had used before based on [this article.](https://css-tricks.com/how-to-animate-the-details-element-using-waapi/) Together, they provided a great starting point for me to dig into the code, build an understanding of the concepts, and try to build the component myself. 
+
+You can find the [end result here.](https://github.com/cwoodward10/designward/blob/main/Frontend/src/components/dw-components/dw-details.ts)
+
+### Component library infrastructure
+
+Because this will (hopefully) turn into a larger component library, I knew I needed to keep the larger ecosystem in mind. Off the bat, I found something fun in Zachleat's details-utils that seemed to make sense within a larger context and that was how he dealt with initiating the component.
+
+```javascript
+class DetailsUtils extends HTMLElement {
+    // ...props
+
+    constructor() {
+        super();
+        // ... other stuff
+        this._connect();
+    }
+
+    connectedCallback() {
+        this._conntect();
+    }
+
+    _connect() {
+        if (this.children.length) {
+            this._init();
+            return;
+        }
+
+        // not yet available, watch it for init
+        this._observer = new MutationObserver(this._init.bind(this));
+        this._observer.observe(this, { childList: true });
+    }
+
+    _init() {
+        // ... inititation stuff
+    }
+}
+```
+
+One thing that popped up in my research of HTML web components was that the slotted HTML wouldn't always be rendered by the time the `connectedCallback()` function (an initail lifecycle function that runs when the component is mounted in the DOM) of the parent web component ran. I'm not expert enough to articulate why this is but it does seem to be a hastle to not reliably be able to run initiation logic with the `connectedCallback` function as you are supposed to. 
+
+Therefore, when I saw this code, I thought that using a MutationObserver to rerun the initiation logic if no children were present at mount was pretty nifty. I'm not entirely sure why `_connect()` needs to run within the constructor and so I did not abstract out that part. But I did borrow this code into a base class for my component library like so:
+
+```javascript
+class DwHtmlWebComponent extents HTMLElement {
+    // ...props
+
+    constructor(innerHTML?:string) {
+        super();
+
+        this.attachShadow({mode: 'open'});
+        if (this.shadowRoot) {
+            this.shadowRoot.innerHTML = innerHtml ?? `
+                <style>...</style>
+                <slot></slot>
+            `;
+        }
+    }
+
+    connectedCallback() {
+        if (this.children.length) {
+            this.init();
+            return;
+        }
+
+        // not yet available, watch it for init
+        this._observer = new MutationObserver(this.init.bind(this));
+        this._observer.observe(this, { childList: true });
+    }
+
+    _init() {
+        // ...logic
+    }
+}
+```
+
+Note that I also left some space in the constructor for an extending componet to provide some HTML in the shadow DOM *if necessary*. This could be useful especially for any embedded styles. 
+
+I also went ahead and provided some static methods for initialization later on. The mount function uses some other logic that I had found in Zachleat's code. I abstracted it out just a tad so that it could be used across classes. 
+
+```javascript
+class DwHtmlWebComponent extents HTMLElement {
+	// provide this for all DwHtmlWebComponents
+	static ComponentName: string;
+	// so that then you can call this function
+    static Mount() {
+        if(typeof window !== "undefined" && ("customElements" in window)) {
+            window.customElements.define(this.ComponentName, this);
+        }
+    }
+}
+```
+
+This way, in this site's Astro (or some other project's Svelte or etc...) components, I can use any web components built off this system fairly easily:
+
+```html
+---
+// ... astro logic
+---
+
+<script>
+	import { ExtendedDwHtmlWebComponent } from './somewhere';
+	ExtendedDwHtmlWebComponent.Mount(); // or run onMount in Svelte
+</script>
+
+<extended-dw-html-web-component>
+	<!-- slotted html content -->
+</extended-dw-html-web-component>
+```
+
+### The animation 
+
+The animation is the main thing that we're here for so let's start there. 
+
+In going over some of the example code, I really liked that details-util split off functionality into other classes. Most pertinently, the animations where handled in an animation class. This cleaned up the inner workings of the main web component class and encapsulated the relevant functionality elsewhere. It's an architecture that I've decided to pursue in my component. 
+
+The other architectural requirement at the moment is reactivity: I'd like to be able to toggle the animation on and off so that it can work with the motion toggle in DesignWard's header. We'll start here. 
+
+#### Reactivity
+
+In order to get reactivity in web components, a set of [observed attributes](https://developer.mozilla.org/en-US/docs/Web/API/Web_components/Using_custom_elements#responding_to_attribute_changes) can be defined. These attributes will trigger an `attributeChangedCallback()` function call when changed (this will also trigger when the component is loaded). Thus, in order to get reactivity into my component, I've implemented these functions. 
+
+```javascript
+const PROP_ANIMATE = 'dw-animate';
+const PROP_DURATION = 'dw-animation-duration';
+const PROP_EASING = 'dw-animation-easing';
+
+export class DwDetails extends DwHtmlWebComponent {
+    static ComponentName  = 'dw-details';
+    static observedAttributes = [PROP_ANIMATE, PROP_DURATION, PROP_EASING];
+
+    private attributeChangedCallback(name, oldValue, newValue) {
+        // note that I've opted not to run this on load though you certainly can
+        if (!this.initialized) {
+            return;
+        }
+
+        switch (name) {
+            case PROP_ANIMATE:
+                if (newValue === 'true') {
+                    // mount animation
+                } else {
+                    // unmount animation
+                }
+                return;
+            
+            case PROP_DURATION: 
+                // update animation duration
+                return;
+
+            case PROP_EASING: 
+                // update animation easing (timing function)
+                return;
+        }
+    }
+}
+```
+
+I have a switch case choosing the correct logic based on which property is changed. Then updating as needed. What this also gives us is an outline of the public methods needed on our animation function. 
+
+#### Animating
+
+For my animation class - we'll call it `AnimationController` - I took aspects of details-util and at CSS tricks article but then changed things as I saw fit. There were a few things that I found that I did not like. 
+
+First things first, we'll need to build out the constructor with everything that we'll need in order to animate our details element. That means storing our details HTML element and then deriving a summary and content from it. If those do not exist - and we'll need to ensure that there is *one* summary and *one* content element that directly follows that summary.
+
+That means something like this:
+```html
+<details>
+    <summary>Title</summary>
+    <div class='content'>
+        <p>This is some revealable content.</p>
+    </div>
+</details>
+```
+
+With that information known, our constructor looks, loosely, like this. I've, like details-util, added some error messages if the HTML is not correct. (I have some other code that I'll get to later as well.) I've also shown the "set" functions that were referred to earlier.
+
+```javascript
+class AnimationController {
+    constructor(detailsElement, options) {
+        this._details = details;
+        this._options = options; // sets duration and easing
+
+        // derive these from our provided details element
+        this._summary = this._details.querySelector('summary');
+        this._content = this._summary.nextElementSibling as HTMLElement;
+    }
+
+    setDuration(value) {
+        if (value == null || Number.isNaN(value)) {
+            return;
+        }
+        this._options.duration = Number.parseInt(value);
+    }
+
+    setEasing(value) {
+        if (!value) {
+            return;
+        }
+        this._options.easing = value;
+    }
+}
+```
+
+Okay, so we have everything we need in order to animate now. So we'll want to actually animate. For that, we'll add an event listener for a click event and then use [WAAPI](https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API) (Web animation API) to actually perform the animations. The downsides to WAAPI is that our animation duration and timing functions are set in JS rather than CSS. That makes it harder to keep in touch with an CSS standards we have set. We could use build tools to tokenize our variables and then build them into our app as constants for JS and vars for CSS but... that's a lot for a personal project like DesignWard so I'll just deal with it for now. I took cues from that aforementioned CSS tricks article here. Then added my own flair (and some ideas from details-util) as needed.
+
+```javascript
+class AnimationController {
+    constructor() {
+        // ... other logic
+
+        this._summary.addEventListener('click', this._onclick);
+    }
+
+    // will be called by the web component when animations are not needed
+    dismount() {
+        this._summary?.removeEventListener('click', this._onclick);
+        this._resizeObserver.disconnect();
+    }
+
+    // this actually performs the animation. 
+    // called from the "open" function below
+    _performOpen() {
+        this._isOpening = true;
+
+        if (this._animation) {
+            this._animation.cancel();
+        }
+
+        this._animation = this._createAnimation(this._closedHeight, this._openHeight);
+        
+        this._animation.onfinish = () => {
+            this._details.open = true;
+            
+            this._isOpening = false;
+            this._details.style.height = '';
+            this._details.style.overflow = '';
+        }
+        this._animation.oncancel = () => { 
+            this._isOpening = false ;
+        };
+    }
+
+    _open() {
+        // set some basic stuff to ensure this works correctly
+        this._details.style.height = `${this._details.offsetHeight}px`;
+        this._details.open = true;
+
+        // then we request an animation frame to actually perform the action
+        // since we need to wait for the above HTML properties to register a change
+        window.requestAnimationFrame(() => this._performOpen());
+    }
+
+    // does not require a "requestAnimationFrame" function
+    // because we aren't changing any HTML properties in this one
+    _close() {
+        this._isClosing = true;
+        
+        if (this._animation) {
+            this._animation.cancel();
+        }
+        
+        this._animation = this._createAnimation(this._openHeight, this._closedHeight);
+        
+        this._animation.onfinish = () => {
+            this._details.open = false;
+
+            this._isClosing = false;
+            this._details.style.overflow = '';
+        }
+        this._animation.oncancel = () => { 
+            this._isClosing = false;
+        };
+    }
+
+    _onclick(event) {
+        // do nothing if the click is inside of a link
+        // or if the user has prefers-reduced-motion set
+        if((event.target && (event.target).closest("a[href]")) || !this._prefersReducedMotion()) {
+            return;
+        }
+
+        event.preventDefault();
+        
+        this._details.style.overflow = 'hidden';
+
+        if (this._isClosing || !this._details.open) {
+            this._open();
+        } else if (this._isOpening || this._details.open) {
+            this._close();
+        }
+    }
+}
+```
+
+The big difference from where my code differs the CSS tricks example is how the animation actually works. Here's the code for the `createAnimation` function referenced above.
+
+```javascript
+_createAnimation(startHeight: number, endHeight: number) {
+    const f = {
+        height: [`${startHeight}px`, `${endHeight}px`],
+    }
+    const o = {
+        duration: this._options.duration,
+        easing: this._options.easing
+    }
+
+    return this._details.animate(f, o);
+}
+```
+
+It creates an animation directly from a provided start height and end height. But where does that come from? I took a cue from details-util and cached that. That caching is called in the constructor. But, because it might change, I added a resize observer to the details element that will re-cache (on debounce) whenever there is a resizing of the details element. This caching simplified the logic and allowed me to call this function without needing to redefine the start and end height of the animation at call time. 
+
+```javascript
+constructor() {
+    // ... other logic
+    this._cacheHeights = debounce(this._cacheHeights.bind(this), 100);
+    this._resizeObserver = new ResizeObserver(() => this._cacheHeights());
+    this._resizeObserver.observe(this._details);
+}
+
+_cacheHeights() {
+    if (!this._content) {
+        throw new Error('DwDetails requires content to animate on.');
+    }
+
+    if (this._details.open) {
+        this._openHeight = this._details.offsetHeight;
+        this._closedHeight = this._details.offsetHeight - this._content.offsetHeight;
+    } else {
+        this._openHeight = this._details.offsetHeight + this._content.offsetHeight;
+        this._closedHeight = this._details.offsetHeight;
+    }
+}
+```
+
+This caching function will derive the correct open and closed height regardless of its current state. Essentially, how this works - and it is slightly different CSS tricks - is that we can infer those heights based on a combination of the overall height of the details element and the height of the element's content. The only catch is that we should avoid using margins around `.content` portion of the element. Instead, opt for padding. This way the `element.offsetHeight` property can get the actual height of the element. I made this change as padding around the details element itself would previously break the CSS tricks derived heights. 
+
+Essentially how this all works is that, when someone clicks on the details, the state of that details - `<details>` 
+vs `<details open>` in HTML parlance - will need to change. But in changing that, we inherently change the height of the element as the content will be revealed or hidden accordingly. 
+
+When we "open" the details element, the height get's bigger. But we can animate between the heights by setting the height, explicitly via `style` to the unopened height before we trigger the open property. From there, we can run the animation to the expect, full height and then remove the `style`'d height. "Close" works in reverse. The height is already at it's full height so all we need to do is animate down to the expected ending height and remove the open tag from `<details open>`.  
+
+In this way, we can use the above `_createAnimation()` function for both the open and close animations just by inverting the start and end params. 
+
+#### Small details
+
+One detail that bothered me when implenting this was that, when closing, the `::marker` element wouldn't change until the animation finished closing. Ideal, you'd see the marker closed while the animation is animating. It is a bit disorienting, in my opinion, to only see the marker change when the animation is finished.
+
+The reason this is happening is because, if you look at the close function above, the `this._details.open = false;` line is not called until the `this.animation.onfinish` callback is triggered. We could turn off `details.open` earlier but then the content elements disappear before the animation is finished. That isn't desirable either. 
+
+This is where [web component](https://developer.mozilla.org/en-US/docs/Web/API/CustomStateSet) and [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS/:state) `:state()` comes to be valuable. If you look at the CSS tricks implementation that we are using, that implementation has `isOpening` and `isClosing` properties defined. My DesignWard component uses that too. We can take that a step further by also implementing state into our component. This way, at least when we implement custom icons rather than  `::marker`, we can reference that state to change the icon earlier. 
+
+First, we'll need to define the state and pass it to our `AnimationController`.
+
+```javascript
+export class DwDetails extends DwHtmlWebComponent {
+    constructor() {
+        // ... other logic
+
+        // use internals which includes internals.state
+        this._internals = this.attachInternals();
+    }
+
+    _mountAnimation() {
+        // ...other logic
+
+        const options = {
+            // ... duration & easing
+            internals: this._internals
+        }
+
+        // ...other logic
+    }
+}
+```
+
+To get to the implementation of this, let's get to the implementation of this component in it's totality. 
+
+### Using the component
+
+Now that we've built out this componet, let's get this wrapped up in a component that I can using within DesignWard. That means, since DesignWard uses Astro, we build this out within Astro. Though we can certainly implement this more or less the same way in Svelte, Vue, etc...
+
+First things first, we'll need to mount the component in a client-side script and build out the HTML markup in a way that reduces repeat code. 
+
+```html
+---
+// ... astro code goes here. we'll see this later
+---
+
+<script>
+	import { DwDetails } from './somehwere';
+	DwDetails.Mount();
+</script>
+
+<dw-details>
+    <details>
+        <summary>
+            <slot name='title'></slot>
+        </summary>
+        <div class=".content">
+            <slot name='content'></slot>
+        </div>
+    </details>
+</dw-details>
+
+<style></style>
+```
+
+We probably also want to be able to set the properties of this component. We'll use Astro props to set this. 
+
+```html
+---
+interface Props {
+  animate: boolean;
+  animationDuration: number;
+  animationEasing: string
+}
+
+const { 
+    animate = true, 
+    animationDuration = 400, 
+    animationEasing = 'ease-out'
+} = Astro.props;
+---
+
+<dw-details
+    dw-animate={animate}
+    dw-animation-duration={animationDuration}
+    dw-animation-easing={animationEasing}
+>
+	<!-- other stuff -->
+</dw-details>
+```
+
+Finally, we can build out our own custom marker that leverages state in order to animate as we want it to. To do this, we'll add a marker to our `<summary>` before the slot and then reference that in CSS. 
+
+```html
+<dw-details
+    dw-animate={animate}
+    dw-animation-duration={animationDuration}
+    dw-animation-easing={animationEasing}
+    style={`--duration: ${animationDuration}ms; --easing: ${animationEasing};`}
+>
+    <summary>
+        <div class='marker'></div>
+        <slot></slot>
+    </summary>
+    <!-- other stuff -->
+</dw-details>
+
+<style>
+    summary::marker {
+        display: none;
+        content: none;
+    }
+    summary {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        
+        .marker {
+            display: block;
+            position: relative;
+        
+            height: 1rem;
+            width: auto;
+            aspect-ratio: 1;
+        
+            transition: rotate var(--duration) var(--easing);
+        }
+        .marker::after, 
+        .marker::before {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            translate: -50% -50%;
+            
+            content: "";
+            display: block;
+            width: 2px;
+            
+            background-color: var(--color-secondary);
+        }
+        .marker::before {
+            opacity: 0;
+            height: 0%;
+            transition-property: height, opacity;
+            transition-duration: calc(var(--duration) / 4), var(--duration);
+            transition-timing-function: var(--easing);
+        }
+        .marker::after {
+            height: 100%;
+            rotate: 90deg;
+        }
+    }
+
+    dw-details:state(closing), details:not([open]) {
+        summary {
+            .marker {
+                rotate: 90deg;
+
+            .marker::before {
+                    opacity: 1;
+                    height: 100%;
+                }
+            }
+        }
+    }
+</style>
+```
+
+That last part of the CSS is the part that leverages the `:state()` selector. You can see how that sets the styles for the "closing" and "closed" states of the details element to be the same. This way, our marker will animate as it is closing rather than waiting until it is fully closed. 
+
+You'll also notice that I built the duration and easing props into the CSS as CSS vars. This way, the animation for the marker could be related to the animation of the details element itself.
+
+## Conclusion
+
+Overall I'm rather pleased with this. The Javascript functionality, which is a little more time consuming to implement is all taken care of within the component itself. All I need to really do that is import and mount the component. While, yes, there is boilerplate to be added within the HTML template and CSS, that part generally needs to be customized per design system anyways. Because of that, I don't really mind recreating it each time. That will force me to think about what I need from a particular implementation while leaving the functionality to the web component code. 
+
+The one place this may become an issue is when accessibility needs to be embedded within the HTML template. This would probably not be implemented within the web component's Javascript and this add to my boilerplate overhead. I may need to examine this in other components where, unlike `<details>`, accessibility is not built into the standard HTML element. 

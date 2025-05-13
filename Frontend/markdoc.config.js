@@ -38,6 +38,14 @@ export default defineMarkdocConfig({
     },
     alert: {
       render: component('./src/components/content-components/AlertDialog.astro'),
+    },
+    expander: {
+      attributes: {
+        title: {
+          type: String
+        }
+      },
+      render: component('./src/components/content-components/BasicExpander.astro'),
     }
   },
   extends: [
