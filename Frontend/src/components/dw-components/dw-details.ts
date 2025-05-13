@@ -4,54 +4,48 @@ import { debounce } from "./utils";
 type AnimationOptions = {
     duration: number,
     easing: string,
-    internals: ElementInternals | null
+    internals: ElementInternals
 }
 
-class AnimateDetails {
-    details: HTMLDetailsElement;
-    summary: HTMLElement | null;
-    content: HTMLElement | null;
+class AnimationController {
+    _details: HTMLDetailsElement;
+    _summary: HTMLElement | null;
+    _content: HTMLElement | null;
 
-    isClosing: boolean;
-    isOpening: boolean;
+    _isClosing: boolean;
+    _isOpening: boolean;
 
-    private _openHeight: number;
-    private _closedHeight: number;
+    _openHeight: number;
+    _closedHeight: number;
 
-    private _animation: Animation | null;
+    _animation: Animation | null;
 
-    private _options: AnimationOptions;
+    _options: AnimationOptions;
 
-    private _resizeObserver: ResizeObserver;
+    _resizeObserver: ResizeObserver;
 
     constructor(
         details: HTMLDetailsElement, 
-        options: AnimationOptions = {
-            duration: 400,
-            easing: 'ease-out',
-            internals: null
-        }
+        options: AnimationOptions
     ) {
-        this.details = details;
-
+        this._details = details;
         this._options = options;
 
-        this.summary = this.details.querySelector('summary');
-        if (!this.summary) {
+        this._summary = this._details.querySelector('summary');
+        if (!this._summary) {
             throw new Error('DwDetails requires a Details element containing a Summary element.')
         }
-
-        if (!this.summary.nextElementSibling || !(this.summary.nextElementSibling instanceof HTMLElement)) {
-            throw new Error('DwDetails requires content to animate on.')
+        if (!this._summary.nextElementSibling || !(this._summary.nextElementSibling instanceof HTMLElement)) {
+            throw new Error('DwDetails requires content to animate on. That content must be an HTML element in order to derive an offsetHeight')
         }
-        this.content = this.summary.nextElementSibling as HTMLElement;
+        this._content = this._summary.nextElementSibling as HTMLElement;
 
         this._cacheHeights = debounce(this._cacheHeights.bind(this), 100);
         this._resizeObserver = new ResizeObserver(() => this._cacheHeights());
-        this._resizeObserver.observe(this.details);
+        this._resizeObserver.observe(this._details);
 
         this._onclick = this._onclick.bind(this);
-        this.summary.addEventListener('click', this._onclick);
+        this._summary.addEventListener('click', this._onclick);
     }
 
     setDuration(value: string | null) {
@@ -70,30 +64,30 @@ class AnimateDetails {
     }
 
     dismount() {
-        this.summary?.removeEventListener('click', this._onclick);
+        this._summary?.removeEventListener('click', this._onclick);
         this._resizeObserver.disconnect();
     }
 
-    private _cacheHeights() {
-        if (!this.content) {
+    _cacheHeights() {
+        if (!this._content) {
             throw new Error('DwDetails requires content to animate on.');
         }
 
-        if (this.details.open) {
-            this._openHeight = this.details.offsetHeight;
-            this._closedHeight = this.details.offsetHeight - this.content.offsetHeight;
+        if (this._details.open) {
+            this._openHeight = this._details.offsetHeight;
+            this._closedHeight = this._details.offsetHeight - this._content.offsetHeight;
         } else {
-            this._openHeight = this.details.offsetHeight + this.content.offsetHeight;
-            this._closedHeight = this.details.offsetHeight;
+            this._openHeight = this._details.offsetHeight + this._content.offsetHeight;
+            this._closedHeight = this._details.offsetHeight;
         }
     }
 
-    private _prefersReducedMotion() {
+    _prefersReducedMotion() {
 		return "matchMedia" in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 	}
 
-    private _createAnimation(startHeight: number, endHeight: number) {
-        const p = {
+    _createAnimation(startHeight: number, endHeight: number) {
+        const f = {
             height: [`${startHeight}px`, `${endHeight}px`],
         }
         const o = {
@@ -101,15 +95,15 @@ class AnimateDetails {
             easing: this._options.easing
         }
 
-        return this.details.animate(p, o);
+        return this._details.animate(f, o);
     }
 
-    private _performOpen() {
-        if (!this.summary || !this.content) {
+    _performOpen() {
+        if (!this._summary || !this._content) {
             return;
         }
 
-        this.isOpening = true;
+        this._isOpening = true;
         this._options.internals?.states.add('opening');
 
         if (this._animation) {
@@ -119,33 +113,33 @@ class AnimateDetails {
         this._animation = this._createAnimation(this._closedHeight, this._openHeight);
         
         this._animation.onfinish = () => {
-            this.details.open = true;
+            this._details.open = true;
 
             this._options.internals?.states.delete('opening');
-            this.isOpening = false;
-            this.details.style.height = '';
-            this.details.style.overflow = '';
+            this._isOpening = false;
+            this._details.style.height = '';
+            this._details.style.overflow = '';
 
         }
         this._animation.oncancel = () => { 
-            this.isOpening = false ;
+            this._isOpening = false ;
             this._options.internals?.states.delete('opening');
         };
     }
 
-    private _open() {
-        this.details.style.height = `${this.details.offsetHeight}px`;
-        this.details.open = true;
+    _open() {
+        this._details.style.height = `${this._details.offsetHeight}px`;
+        this._details.open = true;
 
         window.requestAnimationFrame(() => this._performOpen());
     }
 
-    private _close() {
-        if (!this.summary || !this.content) {
+    _close() {
+        if (!this._summary || !this._content) {
             return;
         }
 
-        this.isClosing = true;
+        this._isClosing = true;
         this._options.internals?.states.add('closing');
 
         
@@ -156,29 +150,29 @@ class AnimateDetails {
         this._animation = this._createAnimation(this._openHeight, this._closedHeight);
         
         this._animation.onfinish = () => {
-            this.details.open = false;
+            this._details.open = false;
 
             this._options.internals?.states.delete('closing');
-            this.isClosing = false;
-            this.details.style.overflow = '';
+            this._isClosing = false;
+            this._details.style.overflow = '';
         }
         this._animation.oncancel = () => { 
-            this.isClosing = false;
+            this._isClosing = false;
             this._options.internals?.states.delete('closing');
         };
     }
 
-    private _handleSwitchState() {
-        this.details.style.overflow = 'hidden';
+    _handleSwitchState() {
+        this._details.style.overflow = 'hidden';
 
-        if (this.isClosing || !this.details.open) {
+        if (this._isClosing || !this._details.open) {
             this._open();
-        } else if (this.isOpening || this.details.open) {
+        } else if (this._isOpening || this._details.open) {
             this._close();
         }
     }
 
-    private _onclick(event: MouseEvent) {
+    _onclick(event: MouseEvent) {
         // do nothing if the click is inside of a link
 		if((event.target && (event.target as Element).closest("a[href]")) || !this._prefersReducedMotion()) {
 			return;
@@ -198,7 +192,7 @@ export class DwDetails extends DwHtmlWebComponent {
 
     details: HTMLDetailsElement | null;
 
-    useAnimation: AnimateDetails | null = null;
+    animation: AnimationController | null = null;
 
     constructor() {
         super();
@@ -218,19 +212,21 @@ export class DwDetails extends DwHtmlWebComponent {
         }
     }
 
-    private _mountAnimation() {
-        if (this.details && !this.useAnimation) {
+    _mountAnimation() {
+
+        if (this.details && !this.animation) {
             const d = this.getAttribute(PROP_DURATION);
             const o = {
                 duration:  d == null || Number.isNaN(d) ? 500 : Number.parseInt(d),
                 easing: this.getAttribute(PROP_EASING) ?? 'ease-out',
                 internals: this._internals
             }
-            this.useAnimation = new AnimateDetails(this.details, o);
+            this.animation = new AnimationController(this.details, o);
+
         }
     }
 
-    private attributeChangedCallback(name: string, oldValue: any, newValue: any) {
+    attributeChangedCallback(name: string, oldValue: any, newValue: any) {
         if (!this.initialized) {
             return;
         }
@@ -240,17 +236,17 @@ export class DwDetails extends DwHtmlWebComponent {
                 if (newValue === 'true') {
                     this._mountAnimation();
                 } else {
-                    this.useAnimation?.dismount();
-                    this.useAnimation = null;
+                    this.animation?.dismount();
+                    this.animation = null;
                 }
                 return;
             
             case PROP_DURATION: 
-                this.useAnimation?.setDuration(newValue);
+                this.animation?.setDuration(newValue);
                 return;
 
             case PROP_EASING: 
-                this.useAnimation?.setEasing(newValue);
+                this.animation?.setEasing(newValue);
                 return;
         }
     }

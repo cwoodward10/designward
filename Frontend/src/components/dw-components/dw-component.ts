@@ -19,6 +19,7 @@ export class DwWebComponent extends HTMLElement {
 
     /**
      * Checks for the presence of an attribute.
+     * Code from zachleat's detail-utils
      * @param name 
      * @returns false if attribute is not present. True if undefined or empty string. Value of attribute if otherwise.
      */
@@ -39,7 +40,7 @@ export class DwWebComponent extends HTMLElement {
  */
 export class DwHtmlWebComponent extends DwWebComponent {
     initialized: boolean;
-    private _observer: MutationObserver;
+    _observer: MutationObserver;
 
     constructor(innerHtml?: string) {
         super();
