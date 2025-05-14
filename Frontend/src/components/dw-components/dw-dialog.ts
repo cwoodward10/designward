@@ -19,7 +19,9 @@ export class DwDialog extends DwHtmlWebComponent {
             shadowRootFallback: `
                 <style>
                     ::slotted(dialog) {
+                        border-radius: 0.25rem;
                         padding: 1.5rem;
+
                         opacity: 0;
                         transition: opacity 250ms ease-out allow-discrete;
                     }
