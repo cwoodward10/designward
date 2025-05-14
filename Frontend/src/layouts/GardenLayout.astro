@@ -5,7 +5,7 @@ import AlertDialog from "@components/content-components/AlertDialog.astro";
 
 import { getEntries } from 'astro:content';
 
-import { NoteState } from "../content.config.ts";
+import { NoteState } from "../content.config";
 
 const { data } = Astro.props;
 
@@ -47,11 +47,6 @@ const dateEdited = data.lastEdited.toLocaleDateString();
         </div>
     </hgroup>
     <Fragment slot="content">
-        {data.image && data.showTitleImage !== false &&
-            <div class="hero-image">
-                <ContentImage src={data.image.src} alt={data.image.alt ?? data.title} />
-            </div>
-        }
         {data.state === NoteState[0] &&
             <AlertDialog style="margin-bottom: var(--spacing);" tag="div">
                 <p><em class="alert-title">Note:</em> This thought is just a concept and thus not fleshed out much at all...</p>
@@ -107,10 +102,6 @@ const dateEdited = data.lastEdited.toLocaleDateString();
                 font-weight: 500;
             }
         }
-    }
-    .hero-image {
-        width: 100%;
-        max-width: calc(100vw - (2 * var(--padding-edge, 1rem)));
     }
     .alert-title {
         font-family: var(--font-title);

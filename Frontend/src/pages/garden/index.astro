@@ -1,7 +1,6 @@
 ---
 import A from '@components/base/A.astro';
 import PageTitle from '@components/base/PageTitle.astro';
-import ContentImage from '@components/content-components/ContentImage.astro';
 import Layout from '@layouts/Layout.astro';
 
 import { getCollection } from 'astro:content';
@@ -30,16 +29,10 @@ allThoughts.sort((a: any, b: any) => b.data.lastEdited - a.data.lastEdited);
             </p>
         </section>
         {allThoughts.length > 0 &&
-            <section class="fade-in" style="--animation-delay: 900ms;">
+            <section id="thoughts-list" class="thoughts-list fade-in" style="--animation-delay: 900ms;">
                 <ul>
                     {allThoughts.map(thought => (
                         <li class="thought">
-                            <div class="image">
-                                <ContentImage 
-                                    src={thought.data.image?.src!} 
-                                    alt={thought.data.image?.alt ?? thought.data.title}
-                                />
-                            </div>
                             <div class="text">
                                 <div class="top-line">
                                     <p class="pill">
@@ -60,6 +53,9 @@ allThoughts.sort((a: any, b: any) => b.data.lastEdited - a.data.lastEdited);
                         </li>
                     ))}
                 </ul>
+                <a class="arrow" href="#thoughts-list">
+                    back to top
+                </a>
             </section>
         }
     </main>
@@ -114,20 +110,28 @@ allThoughts.sort((a: any, b: any) => b.data.lastEdited - a.data.lastEdited);
     }
 
     ul {
+        --spacing: 2rem;
+        @include media.at('medium') {
+            --spacing: 2.5rem;
+        }
+
         display: flex;
         flex-direction: column;
-        gap: 2rem;
+        gap: 0;
         padding-left: 0;
 
         li {
             display: flex;
             gap: 2rem;
-            padding-bottom: 2rem;
-            border-bottom: color-mix(in srgb, var(--color-text) 50%, transparent 80%) 1px solid;
-            .image {
-                display: none;
-                content-visibility: hidden;
-            }    
+            padding-bottom: var(--spacing);
+            padding-top: var(--spacing);
+
+            border-bottom: color-mix(in srgb, var(--color-text) 50%, transparent 80%) 1px solid;;
+
+            &:last-child {
+                border-bottom: var(--color-text) 1px solid;
+            }
+
             .text {
                 display: flex;
                 flex-direction: column;
@@ -145,37 +149,17 @@ allThoughts.sort((a: any, b: any) => b.data.lastEdited - a.data.lastEdited);
                     }
                 }
             }
-
                             
             &::marker {
                 content: none;
             }
-            
-            @include media.at('medium') {
-                border-bottom: none;
-                .image {
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-    
-                    content-visibility: visible;
-                    max-width: 240px;
-                    aspect-ratio: 3 / 2;
-                    overflow: hidden;
-                    border-radius: var(--radius-image);
+        }
+        @include media.at('small') {
+            border-left: var(--color-text) 1px solid;
 
-                    filter: drop-shadow(var(--shadow-image));
-    
-                    :global(img) {
-                        border-radius: 0;
-                        min-height: 100%;
-                        min-width: auto;
-                        max-width: none;
-                        filter: none;
-                    }
-                }
+            li.thought {
+                padding-left: var(--spacing);
             }
         }
-
     }
 </style>
