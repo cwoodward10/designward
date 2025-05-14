@@ -42,15 +42,15 @@ export class DwHtmlWebComponent extends DwWebComponent {
     initialized: boolean;
     _observer: MutationObserver;
 
-    constructor(innerHtml?: string) {
+    constructor(options?: {
+        shadowRootFallback?: string
+    }) {
         super();
-
-        this.attachShadow({mode: 'open'});
-        if (this.shadowRoot) {
-            this.shadowRoot.innerHTML = innerHtml ?? `
-                <style>...</style>
-                <slot></slot>
-            `;
+        if (options?.shadowRootFallback && !this._internals?.shadowRoot) {
+            let shadow = this.attachShadow({
+                mode: "open",
+            });
+            shadow.innerHTML = options.shadowRootFallback;
         }
     }
 

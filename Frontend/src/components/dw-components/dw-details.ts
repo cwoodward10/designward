@@ -213,7 +213,6 @@ export class DwDetails extends DwHtmlWebComponent {
     }
 
     _mountAnimation() {
-
         if (this.details && !this.animation) {
             const d = this.getAttribute(PROP_DURATION);
             const o = {

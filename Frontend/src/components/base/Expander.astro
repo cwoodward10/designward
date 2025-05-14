@@ -21,9 +21,8 @@ const {
     dw-animate={animate}
     dw-animation-duration={animationDuration}
     dw-animation-easing={animationEasing}
-    style={`--duration: ${animationDuration}ms; --easing: ${animationEasing};`}
->
-    <details>
+>    
+    <details style={`--duration: ${animationDuration}ms; --easing: ${animationEasing};`}>
         <summary>
             <div class='marker'></div>
             <slot name='summary'></slot>
