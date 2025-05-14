@@ -2,6 +2,7 @@
  * Extension of HTMLElement providing utility classes
  */
 export class DwWebComponent extends HTMLElement {
+    /** Component name to be called in this.Mount's windows.customElements.define call */
     static ComponentName: string;
     static Mount() {
         if(typeof window !== "undefined" && ("customElements" in window)) {

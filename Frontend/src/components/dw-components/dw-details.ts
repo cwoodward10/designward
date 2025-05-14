@@ -44,8 +44,7 @@ class AnimationController {
         this._resizeObserver = new ResizeObserver(() => this._cacheHeights());
         this._resizeObserver.observe(this._details);
 
-        this._onclick = this._onclick.bind(this);
-        this._summary.addEventListener('click', this._onclick);
+        this._summary.addEventListener('click', this._onclick.bind(this));
     }
 
     setDuration(value: string | null) {

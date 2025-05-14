@@ -299,4 +299,21 @@
     hr {
         border-top-color: var(--color-secondary);
     }
+
+    button {
+        padding: 0.5rem 1rem;
+        border: var(--color-secondary) 1px solid;
+        border-radius: var(--radius-half);
+
+        color: var(--color-secondary);
+
+        transition: 
+            color 200ms ease-out,
+            background-color 200ms ease-out;
+
+        &:hover {
+            color: var(--color-offblack);
+            background-color: var(--color-secondary);
+        }
+    }
 }
