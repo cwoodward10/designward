@@ -87,16 +87,8 @@ Therefore, when I saw this code, I thought that using a MutationObserver to reru
 class DwHtmlWebComponent extents HTMLElement {
     // ...props
 
-    constructor(innerHTML?:string) {
+    constructor() {
         super();
-
-        this.attachShadow({mode: 'open'});
-        if (this.shadowRoot) {
-            this.shadowRoot.innerHTML = innerHtml ?? `
-                <style>...</style>
-                <slot></slot>
-            `;
-        }
     }
 
     connectedCallback() {
