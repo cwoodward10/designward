@@ -1,10 +1,9 @@
 import { DwHtmlWebComponent } from "./dw-component";
 
-const DIALOG_TYPES = ['popover', 'modal'];
 export class DwDialog extends DwHtmlWebComponent {
     static ComponentName = 'dw-dialog';
 
-    _type: string;
+    _type: 'popover' | 'modal';
 
     _button: HTMLButtonElement | null;
     _dialog: HTMLDialogElement | null;
@@ -18,12 +17,17 @@ export class DwDialog extends DwHtmlWebComponent {
         super({
             shadowRootFallback: `
                 <style>
+                    :host {
+                        --duration: 250ms;
+                    }
                     ::slotted(dialog) {
                         border-radius: 0.25rem;
                         padding: 1.5rem;
 
                         opacity: 0;
-                        transition: opacity 250ms ease-out allow-discrete;
+                        transition: 
+                            opacity var(--duration) ease-out,
+                            display var(--duration) ease-out allow-discrete;
                     }
                     ::slotted(dialog[open]) {
                         opacity: 1;
@@ -68,10 +72,7 @@ export class DwDialog extends DwHtmlWebComponent {
             `
         });
 
-        const proposedType = this.getAttribute('type');
-        this._type = proposedType && DIALOG_TYPES.includes(proposedType) ? 
-            proposedType :  
-            'modal';
+        this._type = this.getAttributeValue('popover') ? 'popover' : 'modal';
     }
 
     addEventHandler(
@@ -111,8 +112,6 @@ export class DwDialog extends DwHtmlWebComponent {
         this._closeButtons.forEach(b => {
             b.addEventListener('click', this._clickClosed.bind(this));
         })
-
-        console.log(this._button, this._dialog)
     }
 
     _clickOpen() {

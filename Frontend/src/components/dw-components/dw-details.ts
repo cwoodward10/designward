@@ -182,9 +182,9 @@ class AnimationController {
     }
 }
 
-const PROP_ANIMATE = 'dw-animate';
-const PROP_DURATION = 'dw-animation-duration';
-const PROP_EASING = 'dw-animation-easing';
+const PROP_ANIMATE = 'animate';
+const PROP_DURATION = 'animation-duration';
+const PROP_EASING = 'animation-easing';
 export class DwDetails extends DwHtmlWebComponent {
     static ComponentName  = 'dw-details';
     static observedAttributes = [PROP_ANIMATE, PROP_DURATION, PROP_EASING];
