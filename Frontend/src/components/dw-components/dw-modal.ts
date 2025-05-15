@@ -1,9 +1,7 @@
 import { DwHtmlWebComponent } from "./dw-component";
 
-export class DwDialog extends DwHtmlWebComponent {
-    static ComponentName = 'dw-dialog';
-
-    _type: 'popover' | 'modal';
+export class DwModal extends DwHtmlWebComponent {
+    static ComponentName = 'dw-modal';
 
     _button: HTMLButtonElement | null;
     _dialog: HTMLDialogElement | null;
@@ -18,7 +16,8 @@ export class DwDialog extends DwHtmlWebComponent {
             shadowRootFallback: `
                 <style>
                     :host {
-                        --duration: 250ms;
+                        --duration: var(--animation-duration, 250ms);
+                        --easing: var(--animation-easing, ease-out);
                     }
                     ::slotted(dialog) {
                         border-radius: 0.25rem;
@@ -26,8 +25,9 @@ export class DwDialog extends DwHtmlWebComponent {
 
                         opacity: 0;
                         transition: 
-                            opacity var(--duration) ease-out,
-                            display var(--duration) ease-out allow-discrete;
+                            opacity var(--duration) var(--easing),
+                            display var(--duration) var(--easing) allow-discrete;
+                            overlay var(--duration) var(--easing) allow-discrete;
                     }
                     ::slotted(dialog[open]) {
                         opacity: 1;
@@ -38,8 +38,10 @@ export class DwDialog extends DwHtmlWebComponent {
                         opacity: 1;
                         translate: 0 0;
                         transition: 
-                            opacity 350ms ease-out allow-discrete,
-                            translate 350ms ease-out allow-discrete;
+                            opacity var(--duration) var(--easing),
+                            translate var(--duration) var(--easing),
+                            display var(--duration) var(--easing) allow-discrete;
+                            overlay var(--duration) var(--easing) allow-discrete;;
                     }
 
                     @starting-style {
@@ -71,8 +73,6 @@ export class DwDialog extends DwHtmlWebComponent {
                 <slot></slot>
             `
         });
-
-        this._type = this.getAttributeValue('popover') ? 'popover' : 'modal';
     }
 
     addEventHandler(
@@ -115,12 +115,7 @@ export class DwDialog extends DwHtmlWebComponent {
     }
 
     _clickOpen() {
-        if (this._type === 'modal') {
-            this._dialog?.showModal();
-        }
-        if (this._type === 'popover') {
-            this._dialog?.show();
-        }
+        this._dialog?.showModal();
 
         this._openHandler !== null && this._openHandler();
     }

@@ -10,6 +10,10 @@ const allThoughts = await getCollection('thoughts');
 allThoughts.sort((a: any, b: any) => b.data.lastEdited - a.data.lastEdited);
 ---
 
+<script>
+    import { DwModal } from "@components/dw-components/dw-modal";
+    DwModal.Mount();
+</script>
 <Layout title="Thought garden">
 	<main>
         <section class="hero">
@@ -28,6 +32,13 @@ allThoughts.sort((a: any, b: any) => b.data.lastEdited - a.data.lastEdited);
                 inherent within the "Garden" idea is really appealing as the idea is that I can post and update as I go. There isn't really enough content
                 in here yet for me to implement anything <em>too</em> cool with the design but hopefully that changes as I write more.
             </p>
+
+            <dw-modal fullscreen>
+                <button>open</button>
+                <dialog>
+                    <button class="close">close</button>
+                </dialog>
+            </dw-modal>
         </section>
         {allThoughts.length > 0 &&
             <section class="fade-in" style="--animation-delay: 900ms;">
