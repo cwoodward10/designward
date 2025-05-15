@@ -39,6 +39,8 @@
         width: 40px;
         border-radius: 100%;
 
+        padding: 0;
+
         border: var(--color-text) 2px solid;
 
         color: var(--color-text);
@@ -83,6 +85,7 @@
         }
 
         &:hover {
+            background-color: transparent;
             color: var(--color-secondary);
         }
         

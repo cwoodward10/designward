@@ -84,6 +84,14 @@
             overflow: hidden;
         }
 
+        button {
+            padding: 0;
+            background-color: none;
+            &:hover {
+                background-color: transparent;
+            }
+        }
+
         #hamburger {
             --ham-default-height: 40px;
             --ham-default-width: 40px;

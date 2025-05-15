@@ -34,6 +34,9 @@
           height: 40px;
           width: 40px;
           border-radius: 100%;
+
+          padding: 0;
+          background-color: transparent;
   
           border: var(--color-text) 2px solid;
   
@@ -62,6 +65,9 @@
 
           &:hover :global(svg path) {
               color: var(--color-accent-primary);
+          }
+          &:hover {
+            background-color: transparent;
           }
         }
         button .modes {
