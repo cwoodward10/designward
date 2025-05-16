@@ -197,8 +197,8 @@ export class DwDetails extends DwHtmlWebComponent {
         super();
     }
 
-    init() {
-        super.init();
+    _init() {
+        super._init();
 
         this.details = this.querySelector(':scope details');
 

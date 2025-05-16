@@ -3,6 +3,9 @@ import { DwHtmlWebComponent } from "./dw-component";
 export class DwModal extends DwHtmlWebComponent {
     static ComponentName = 'dw-modal';
 
+    _buttonSelector: string;
+    _dialogSelector: string;
+
     _button: HTMLButtonElement | null;
     _dialog: HTMLDialogElement | null;
     _closeButtons: NodeListOf<HTMLButtonElement> | null;
@@ -12,8 +15,8 @@ export class DwModal extends DwHtmlWebComponent {
     _cancelHandler: null | ((e: Event) => void) = null;
 
     constructor() {
-        super({
-            shadowRootFallback: `
+        super();
+        this.addShadowRootFallback(`
                 <style>
                     :host {
                         --duration: var(--animation-duration, 250ms);
@@ -71,8 +74,10 @@ export class DwModal extends DwHtmlWebComponent {
                     }
                 </style>
                 <slot></slot>
-            `
-        });
+            `)
+
+        this._buttonSelector = this.getAttribute('button-selector') || ':scope>button';
+        this._dialogSelector = this.getAttribute('dialog-selector') || ':scope>dialog';
     }
 
     addEventHandler(
@@ -92,17 +97,21 @@ export class DwModal extends DwHtmlWebComponent {
         }
     }
 
-    init() {
-        super.init();
+    _init() {
+        super._init();
 
-        this._dialog = this.querySelector<HTMLDialogElement>(':scope>dialog');
+        this._dialog = this.querySelector<HTMLDialogElement>(this._dialogSelector);
         if (!this._dialog) {
             throw new Error('dw-modal requires a dialog.')
         }
         this._dialog.addEventListener('close', this._handleClose.bind(this));
         this._dialog.addEventListener('cancel', this._handleCancel.bind(this));
+        if (!this._dialog.ariaLabel && !this._dialog.ariaLabelledByElements) {
+            console.warn('Provide an aria-label or aria-labelledby for dialog');
+            this._dialog.ariaLabel = 'Modal';
+        }
 
-        this._button = this.querySelector<HTMLButtonElement>(':scope>button');
+        this._button = this.querySelector<HTMLButtonElement>(this._buttonSelector);
         if (!this._button) {
             throw new Error('dw-modal requires a button in order to launch the modal');
         }

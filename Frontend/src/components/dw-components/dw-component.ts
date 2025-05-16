@@ -33,6 +33,30 @@ export class DwWebComponent extends HTMLElement {
 		}
 		return false;
 	}
+
+    /**
+     * Adds a shadow root if the shadow root was not declaratively provided by 
+     * an html template
+     * @param html 
+     * @param mode 
+     */
+    addShadowRootFallback(
+        html: string, 
+        mode?: 'open' | 'closed',
+        delegatesFocus?: boolean
+    ) {
+        let shadow = this._internals?.shadowRoot;
+
+        if (!shadow) {
+            shadow = this.attachShadow({
+                mode: mode || "open",
+                delegatesFocus: delegatesFocus || false
+            });
+            shadow.innerHTML = html;
+        }
+
+        return shadow;
+    }
 }
 
 /**
@@ -43,26 +67,18 @@ export class DwHtmlWebComponent extends DwWebComponent {
     initialized: boolean;
     _observer: MutationObserver;
 
-    constructor(options?: {
-        shadowRootFallback?: string
-    }) {
+    constructor() {
         super();
-        if (options?.shadowRootFallback && !this._internals?.shadowRoot) {
-            let shadow = this.attachShadow({
-                mode: "open",
-            });
-            shadow.innerHTML = options.shadowRootFallback;
-        }
     }
 
     connectedCallback() {
         if (this.children.length) {
-            this.init();
+            this._init();
             return;
         }
     
         // not yet available, watch it for init
-        this._observer = new MutationObserver(this.init.bind(this));
+        this._observer = new MutationObserver(this._init.bind(this));
         this._observer.observe(this, { childList: true });
     }
 
@@ -70,7 +86,7 @@ export class DwHtmlWebComponent extends DwWebComponent {
      * Initilizes the component once the component's children are present and ready.
      * Extend with super.init().
      */
-    init() {
+    _init() {
         if(this.initialized) {
 			return;
 		}

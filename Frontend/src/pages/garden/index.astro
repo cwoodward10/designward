@@ -11,8 +11,8 @@ allThoughts.sort((a: any, b: any) => b.data.lastEdited - a.data.lastEdited);
 ---
 
 <script>
-    import { DwModal } from "@components/dw-components/dw-modal";
-    DwModal.Mount();
+    import { DwHamburger } from "@components/dw-components/dw-hamburger";
+    DwHamburger.Mount();
 </script>
 <Layout title="Thought garden">
 	<main>
@@ -33,12 +33,10 @@ allThoughts.sort((a: any, b: any) => b.data.lastEdited - a.data.lastEdited);
                 in here yet for me to implement anything <em>too</em> cool with the design but hopefully that changes as I write more.
             </p>
 
-            <dw-modal fullscreen>
-                <button>open</button>
-                <dialog>
-                    <button class="close">close</button>
-                </dialog>
-            </dw-modal>
+            <dw-hamburger
+                style="--color: var(--color-primary);"
+            >
+            </dw-hamburger>
         </section>
         {allThoughts.length > 0 &&
             <section class="fade-in" style="--animation-delay: 900ms;">
