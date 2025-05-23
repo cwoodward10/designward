@@ -6,7 +6,7 @@ export class DwModal extends DwHtmlWebComponent {
     _buttonSelector: string;
     _dialogSelector: string;
 
-    _button: HTMLButtonElement | null;
+    _button: HTMLElement | null;
     _dialog: HTMLDialogElement | null;
     _closeButtons: NodeListOf<HTMLButtonElement> | null;
 
@@ -97,6 +97,10 @@ export class DwModal extends DwHtmlWebComponent {
         }
     }
 
+    Close() {
+        this._clickClosed();
+    }
+
     _init() {
         super._init();
 
@@ -111,12 +115,12 @@ export class DwModal extends DwHtmlWebComponent {
             this._dialog.ariaLabel = 'Modal';
         }
 
-        this._button = this.querySelector<HTMLButtonElement>(this._buttonSelector);
+        this._button = this.querySelector(this._buttonSelector);
         if (!this._button) {
             throw new Error('dw-modal requires a button in order to launch the modal');
         }
         this._button.addEventListener('click', this._clickOpen.bind(this));
-        
+
         this._closeButtons = this._dialog.querySelectorAll<HTMLButtonElement>(':is(button.close, button.cancel)');
         this._closeButtons.forEach(b => {
             b.addEventListener('click', this._clickClosed.bind(this));

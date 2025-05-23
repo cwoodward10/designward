@@ -34,8 +34,9 @@ export class DwHamburger extends DwWebComponent{
                         --a-duration-half: calc(var(--a-duration) / 2);
                         --a-delay: calc((var(--a-duration) / 2) * 1.1);
 
-                        width: fit-content;
-                        height: fit-content;
+                        display: block;
+                        width: var(--ham-width);
+                        height: var(--ham-height);
                     }
 
                     button {
@@ -138,6 +139,5 @@ export class DwHamburger extends DwWebComponent{
                 }
                 break;
         }
-        console.log(newValue, this._internals.states)
     }
 }

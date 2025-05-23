@@ -4,10 +4,12 @@
 export class DwWebComponent extends HTMLElement {
     /** Component name to be called in this.Mount's windows.customElements.define call */
     static ComponentName: string;
-    static Mount() {
+    static Mount(): boolean {
         if(typeof window !== "undefined" && ("customElements" in window)) {
             window.customElements.define(this.ComponentName, this);
+            return true;
         }
+        return false;
     }
 
     _internals: ElementInternals;
