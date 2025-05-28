@@ -18,6 +18,7 @@
     "@astrojs/vercel": "^8.1.4",
     "@vercel/analytics": "^1.3.1",
     "astro": "^5.7.11",
+    "focusable-selectors": "^0.8.4",
     "heroicons-astro": "^1.0.4",
     "sass": "^1.72.0",
     "svelte-heros-v2": "^1.3.0",

@@ -78,6 +78,10 @@ allThoughts.sort((a: any, b: any) => b.data.lastEdited - a.data.lastEdited);
 <style lang="scss">
     @use '@assets/styles/sass/breakpoints.scss' as media;
 
+    dw-mobile-nav-menu:not(:defined) {
+        opacity: 0;
+    }
+
     main {
         display: flex;
         flex-direction: column;

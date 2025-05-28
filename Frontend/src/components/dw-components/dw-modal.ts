@@ -4,6 +4,7 @@ export class DwModal extends DwHtmlWebComponent {
     static ComponentName = 'dw-modal';
 
     _buttonSelector: string;
+    _closeSelector: string;
     _dialogSelector: string;
 
     _button: HTMLElement | null;
@@ -78,6 +79,7 @@ export class DwModal extends DwHtmlWebComponent {
 
         this._buttonSelector = this.getAttribute('button-selector') || ':scope>button';
         this._dialogSelector = this.getAttribute('dialog-selector') || ':scope>dialog';
+        this._closeSelector = this.getAttribute('close-selector') || ':is(button[data-modal-close], button[data-modal-cancel])';
     }
 
     addEventHandler(
@@ -97,6 +99,10 @@ export class DwModal extends DwHtmlWebComponent {
         }
     }
 
+    Open() {
+        this._clickOpen();
+    }
+
     Close() {
         this._clickClosed();
     }
@@ -110,7 +116,7 @@ export class DwModal extends DwHtmlWebComponent {
         }
         this._dialog.addEventListener('close', this._handleClose.bind(this));
         this._dialog.addEventListener('cancel', this._handleCancel.bind(this));
-        if (!this._dialog.ariaLabel && !this._dialog.ariaLabelledByElements) {
+        if (!this._dialog.getAttribute('aria-label') && !this._dialog.getAttribute('aria-labelledby')) {
             console.warn('Provide an aria-label or aria-labelledby for dialog');
             this._dialog.ariaLabel = 'Modal';
         }
@@ -121,7 +127,7 @@ export class DwModal extends DwHtmlWebComponent {
         }
         this._button.addEventListener('click', this._clickOpen.bind(this));
 
-        this._closeButtons = this._dialog.querySelectorAll<HTMLButtonElement>(':is(button.close, button.cancel)');
+        this._closeButtons = this._dialog.querySelectorAll<HTMLButtonElement>(this._closeSelector);
         this._closeButtons.forEach(b => {
             b.addEventListener('click', this._clickClosed.bind(this));
         })
