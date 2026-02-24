@@ -129,13 +129,16 @@ allThoughts.sort((a: any, b: any) => b.data.lastEdited - a.data.lastEdited);
             display: flex;
             gap: 1rem;
             margin-bottom: 2rem;
+
             
             @include media.at('small') {
                 aspect-ratio: 0.8;
-                border: color-mix(in srgb, var(--color-text) 50%, transparent 80%) 1px solid;
                 border-radius: 0.5rem;
                 padding: var(--spacing);
                 margin-bottom: 0;
+                
+                box-shadow: 0 0 0 1px var(--color-text);
+                transition: box-shadow 100ms ease-in-out;
             }
 
 
@@ -152,6 +155,10 @@ allThoughts.sort((a: any, b: any) => b.data.lastEdited - a.data.lastEdited);
 
                     @include media.until('small') {
                         flex-direction: row;
+                    }
+
+                    .pill {
+                        transition: color, background-color 300ms ease-in-out;
                     }
 
                     p:not(.pill) {
@@ -213,12 +220,21 @@ allThoughts.sort((a: any, b: any) => b.data.lastEdited - a.data.lastEdited);
                 }
             }
 
-            &:hover p.arrow {
-                color: var(--color-secondary);
+            &:hover {
+                box-shadow: 0 0 0 2px var(--color-text);
 
-                &::after {
-                    background: transparent;
-                    translate: 0.5em 0;
+                :global(.pill) {
+                    background-color: var(--color-text);
+                    text: var(--color-background);
+                }
+
+                p.arrow {
+                    color: var(--color-secondary);
+
+                    &::after {
+                        background: transparent;
+                        translate: 0.5em 0;
+                    }
                 }
             }
         }

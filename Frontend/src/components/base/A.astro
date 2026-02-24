@@ -1,7 +1,8 @@
 ---
+import type { HTMLAttributes } from 'astro/types';
 import ClientA from './utility/ClientA.svelte';
 
-interface props extends HTMLAnchorElement {};
+interface props extends HTMLAttributes<"a"> {};
 const { ...rest }: props = Astro.props;
 ---
 
