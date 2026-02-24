@@ -15,7 +15,7 @@
             route: '/portfolio/'
         },
         {
-            name: 'Garden',
+            name: 'Writing',
             route: '/garden/'
         },
         {

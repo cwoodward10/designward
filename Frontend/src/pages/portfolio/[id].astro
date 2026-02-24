@@ -4,17 +4,17 @@ import PortfolioLayout from 'src/layouts/PortfolioLayout.astro';
 import { getCollection, render } from 'astro:content';
 
 export async function getStaticPaths() {
-  const posts = await getCollection('projects');
-  return posts.map(post => ({
-    params: { id: post.id },
-    props: { post },
+  const projects = await getCollection('projects');
+  return projects.map(project => ({
+    params: { id: project.id },
+    props: { project },
   }));
 }
 
-const { post } = Astro.props;
-const { Content } = await render(post);
+const { project } = Astro.props;
+const { Content } = await render(project);
 ---
 
-<PortfolioLayout data={post.data}>
-    <Content frontmatter={post.data} />
+<PortfolioLayout data={project.data}>
+    <Content frontmatter={project.data} />
 </PortfolioLayout>

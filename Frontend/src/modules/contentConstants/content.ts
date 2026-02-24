@@ -10,19 +10,24 @@ export type DigitalProject = Project & {
 }
 export const DigitalProjects: DigitalProject[] = [
     {
-        name: "Square Point of Sale",
-        url: "https://squareup.com/us/en/point-of-sale",
-        tagline: "Prototyped and built the interactive scroll experience in close collaboration with the design lead."
+        name: "Square Developer Homepage",
+        url: "https://developer.squareup.com",
+        tagline: "The homepage for Square Developers"
+    },
+    {
+        name: "Square Specialists",
+        url: "https://web.archive.org/web/20250322053338/https://squareup.com/us/en/square-specialists/directory",
+        tagline: "The archived version of the directory SPA that I built."
+    },
+    {
+        name: "Square Partner Offers",
+        url: "http://web.archive.org/web/20250426064844/https://squareup.com/us/en/partner-offers",
+        tagline: "The archived version of another directory I built. The sister to the one above."
     },
     {
         name: "Reference Health Testimonial",
         url: "https://www.squareup.com/partnerships/referencehealth",
         tagline: "The initial use of a custom built template page to discuss the success of Reference Health's partnership with Square."
-    },
-    {
-        name: "2 Step Verification",
-        url: "https://www.squareup.com/campaign/two-step-verification", 
-        tagline: "A custom web page to inform customers that Square takes their security seriously."
     },
     {
         name: "Helix",

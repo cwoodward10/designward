@@ -1,10 +1,11 @@
 <script lang="ts">
     import { onMount } from "svelte";
+  import type { HTMLAnchorAttributes } from "svelte/elements";
 
-    export let href: string;
-    export let title: string;
+    interface props extends HTMLAnchorAttributes {};
+    const { children, href, title, ...rest }: props = $props();
 
-    const isExternal = href.includes('https');
+    const isExternal = href?.includes('https');
 
     let element: HTMLAnchorElement;
     onMount(() => {
@@ -28,19 +29,20 @@
     })
 </script>
 
-<script lang="ts" context="module">
+<script lang="ts" module>
     let anchorObserver: IntersectionObserver;
 </script>
 
 <a 
-    bind:this={element} 
-    class="initial"
+    bind:this={element}
+    {...rest}
+    class={`initial ${rest.class}`}
     class:external={isExternal} 
     href={href} 
     title={title}
     target={isExternal ? '_blank' : '_self'}
 >
-    <slot/>
+    {@render children?.() }
 </a>
 
 <style lang="scss">
@@ -60,7 +62,7 @@
             
             height: 2px;
             width: 0;
-            background-color: color-mix(in srgb, var(--color-link-underline) 50%, var(--color-background) 70%);;
+            background-color: color-mix(in srgb, var(--color-link-underline) 50%, var(--color-background) 70%);
         }
         &::after {
             left: unset;
