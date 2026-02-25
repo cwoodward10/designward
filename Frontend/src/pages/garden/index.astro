@@ -132,13 +132,26 @@ allThoughts.sort((a: any, b: any) => b.data.lastEdited - a.data.lastEdited);
 
             
             @include media.at('small') {
+                position: relative;
                 aspect-ratio: 0.8;
                 border-radius: 0.5rem;
                 padding: var(--spacing);
                 margin-bottom: 0;
                 
-                box-shadow: 0 0 0 1px var(--color-text);
-                transition: box-shadow 100ms ease-in-out;
+                border: 2px solid var(--color-text);
+                
+                &::after {
+                    display: block;
+                    position: absolute;
+                    content: "";
+                    top: 0;
+                    right: 0;
+                    left: 0;
+                    bottom: 0;
+                    box-shadow: 0 0 12px 6px rgb(from var(--color-text) r g b / .15);
+                    opacity: 0;
+                    transition: opacity 300ms ease-in-out;
+                }
             }
 
 
@@ -221,11 +234,8 @@ allThoughts.sort((a: any, b: any) => b.data.lastEdited - a.data.lastEdited);
             }
 
             &:hover {
-                box-shadow: 0 0 0 2px var(--color-text);
-
-                :global(.pill) {
-                    background-color: var(--color-text);
-                    text: var(--color-background);
+                &::after {
+                    opacity: 1;
                 }
 
                 p.arrow {
