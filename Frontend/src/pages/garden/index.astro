@@ -33,7 +33,7 @@ allThoughts.sort((a: any, b: any) => b.data.lastEdited - a.data.lastEdited);
                 <ul>
                     {allThoughts.map(thought => (
                         <li class="thought">
-                            <a class="text container" href={`${thought.id}`} data-astro-prefetch>
+                            <a class="text container" href={`./${thought.id}`} data-astro-prefetch>
                                 <div class="top-line">
                                     <p class="pill">
                                         {
@@ -150,6 +150,7 @@ allThoughts.sort((a: any, b: any) => b.data.lastEdited - a.data.lastEdited);
                     bottom: 0;
                     box-shadow: 0 0 12px 6px rgb(from var(--color-text) r g b / .15);
                     opacity: 0;
+                    pointer-events: none;
                     transition: opacity 300ms ease-in-out;
                 }
             }
