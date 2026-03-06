@@ -1,0 +1,19 @@
+---
+title: "Finding PNPM"
+tagline: How I've come to enjoy workspaces
+created: '3/6/2026'
+lastEdited: '3/6/2026'
+type: short-form
+tags: [ engineering, node, full-stack, pnpm ]
+state: 'under construction'
+---
+
+I have (belatedly?) started to use vanilla [PNPM workspaces](https://pnpm.io/workspaces) for all of my projects recently. It's probably not expressly necessary for projects of such small, personal scale but I'm a sucker for organizational tools in my repos and thus here I am. The overhead is (a tad) higher, and I'm not using all the features, but it really does help!
+
+The big positive points to me are:
+1. It makes me think through the organization of my code at a much deeper level than I would otherwise. The few extra clicks it would take me to move things from a shared `/src/lib/` folder or whatever to a separate library entirely does slow me down in a good way imo. For example, for a personal project, I am writing a Hono-based API for a SvelteKit frontend rather than relying on SvelteKit as a full-stack app. I did have to slow down for a moment and really separate out my logic there - what controls my `.env` vars for instance - when it could have been all too easy to dump it into SvelteKit and disentangle it later if I needed to scale.
+2. Shared types! Previously, if I did have a separate frontend and backend, it was harder to share types. Now I can separate out a 3rd library for particular logic and share the types over - the frontend and backend pull from the same source of truth. I need to be careful to not use any logic that is specific to a browser and node environment but that is less an issue with types and basic functions.  I know longer need to duplicate my types in both environments.
+
+Again, this might be too much too early in some respects. For a quick, one-off Design Technology project at work, for example, where speed matters more, I might not take the time to work across PNPM workspaces like this. I would probably go faster - keep my code as disentanglable as possible, of course - but agonize a little less over the small organizational details. 
+
+But I really do enjoy it for my small scale stuff where all that matters is my own, personal, developer experience.
