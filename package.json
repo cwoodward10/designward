@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev:ui": "pnpm --filter frontend dev"
+    "dev:ui": "pnpm --filter frontend dev",
+    "build:ui": "pnpm --filter frontend build"
   },
   "keywords": [],
   "author": "",
