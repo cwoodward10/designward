@@ -2,10 +2,12 @@
 import type { HTMLAttributes } from 'astro/types';
 import ClientA from './utility/ClientA.svelte';
 
-interface props extends HTMLAttributes<"a"> {};
-const { ...rest }: props = Astro.props;
+interface props extends HTMLAttributes<"a"> {
+    href: string | null | undefined
+};
+const { href, ...rest }: props = Astro.props as props;
 ---
 
-<ClientA client:load {...rest}>
+<ClientA client:load href={href} title={rest.title} customClasses={rest.class}>
     <slot></slot>
 </Client>

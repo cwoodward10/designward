@@ -1,11 +1,25 @@
 <script lang="ts">
+  import type { Snippet } from "@astrojs/svelte/svelte-shims.d.ts";
+
     import { onMount } from "svelte";
-  import type { HTMLAnchorAttributes } from "svelte/elements";
 
-    interface props extends HTMLAnchorAttributes {};
-    const { children, href, title, ...rest }: props = $props();
+    type props = {
+        customClasses?: string | null,
+        children: Snippet,
+        href?: string | null;
+        title?: string | null
+    };
+    const { customClasses, children, href, title }: props = $props();
 
-    const isExternal = href?.includes('https');
+    const isExternal = $derived.by(() => {
+        if (!href) {
+            return false;
+        }
+        if (typeof href === 'string') {
+            return href.includes('https')
+        }
+        return (href as URL).href.includes('https');
+    })
 
     let element: HTMLAnchorElement;
     onMount(() => {
@@ -35,8 +49,7 @@
 
 <a 
     bind:this={element}
-    {...rest}
-    class={`initial ${rest.class}`}
+    class={`initial ${customClasses}`}
     class:external={isExternal} 
     href={href} 
     title={title}
